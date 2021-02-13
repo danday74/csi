@@ -16,7 +16,7 @@
 
     <div class="funny-or-serious">
       <div class="input-group mb-3">
-        <input type="checkbox" [(ngModel)]="isSian">
+        <input type="checkbox" [ngModel]="isSian" (ngModelChange)="toggleLook()">
         <span class="toggle-look" (click)="toggleLook()">Toggle look</span>
       </div>
     </div>
