@@ -1,1 +1,19 @@
-/* You can add global styles to this file, and also import other style files */
+body {
+  overflow-y: scroll;
+}
+
+html.serious {
+  body {
+    background-color: #222;
+  }
+
+  .funny-or-serious {
+    color: #FFF;
+  }
+}
+
+html.silly {
+  body {
+    background-color: #FFF;
+  }
+}

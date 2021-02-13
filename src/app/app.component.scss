@@ -1,0 +1,197 @@
+.team-selector {
+  margin-top: 100px;
+  text-align: center;
+}
+
+.btn-color {
+  margin-top: 20px;
+  margin-right: 20px;
+
+  &:last-child {
+    margin-right: 0;
+  }
+}
+
+.btn-red {
+  background-color: red;
+  color: #FFF;
+}
+
+.btn-green {
+  background-color: green;
+  color: #FFF;
+}
+
+.btn-blue {
+  background-color: blue;
+  color: #FFF;
+}
+
+.funny-or-serious {
+  position: absolute;
+  right: 20px;
+  top: 20px;
+  user-select: none;
+
+  .toggle-look {
+    position: relative;
+    top: -5px;
+    left: 7px;
+    cursor: pointer;
+  }
+}
+
+.funny {
+
+  .login-form {
+    width: 1000px;
+    margin: 100px auto 100px;
+    text-align: center;
+  }
+
+  .login-text {
+    margin-bottom: 100px;
+
+    img {
+      width: 500px;
+    }
+  }
+
+  button {
+    margin-top: 50px;
+    position: relative;
+    left: 300px;
+    font-size: 32px;
+    background-color: #F7D117;
+    border: 1px solid #000;
+    width: 200px;
+    box-shadow: 5px 5px 5px #AAA;
+  }
+
+  .failed-login-count {
+  }
+}
+
+.serious {
+
+  .login-form {
+    width: 300px;
+    margin: 100px auto 100px;
+    text-align: center;
+  }
+
+  .login-text {
+    margin-bottom: 30px;
+
+    img {
+      width: 250px;
+    }
+  }
+
+  button {
+    margin-top: 10px;
+  }
+
+  .failed-login-count {
+    margin-top: 20px;
+    color: #D42E12;
+    margin-left: -100px;
+    margin-right: -100px;
+
+    .badge {
+      background-color: #D42E12;
+      color: #000;
+      padding: 5px 10px 7px;
+      font-size: 18px;
+      margin-top: 15px;
+    }
+  }
+}
+
+.logged-in {
+  text-align: center;
+  margin-top: 100px;
+  font-size: 1.3rem;
+}
+
+.logged-in.serious {
+  color: #FFF;
+}
+
+.logout-button {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+}
+
+.unauthorised-login {
+  background-color: #D42E12;
+  color: #000;
+  width: 500px;
+  position: absolute;
+  margin: 0 auto;
+  top: 0;
+  border-bottom-left-radius: 10px;
+  border-bottom-right-radius: 10px;
+  font-weight: bold;
+  left: calc(50% - 250px);
+  text-align: center;
+  padding: 10px;
+}
+
+.team-text {
+  color: #000;
+  text-align: center;
+  font-size: 32px;
+  margin-top: 20px;
+}
+
+.serious .team-text {
+  color: #FFF;
+}
+
+.logged-in {
+
+  .enter-code {
+    margin-top: 50px;
+  }
+
+  .enter-code-input {
+    width: 200px;
+    margin: 0 auto;
+  }
+}
+
+.submit-button {
+  cursor: pointer;
+  user-select: none;
+}
+
+.clue, .forensics-clue {
+  border-radius: 10px;
+  padding: 10px 20px;
+  margin-top: 20px;
+  color: #FFF;
+  background-color: cornflowerblue;
+  display: inline-block;
+
+  &.arrest {
+    background-color: #D42E12;
+  }
+}
+
+.example {
+  color: #777;
+}
+
+.logged-in {
+
+  .enter-forensics {
+    margin-top: 50px;
+  }
+
+  .enter-forensics-input {
+    width: 600px;
+    margin: 0 auto;
+  }
+}
