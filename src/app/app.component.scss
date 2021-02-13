@@ -169,10 +169,6 @@
 
 .clue, .forensics-clue {
   margin: 20px auto;
-
-  &.arrest {
-    background-color: #D42E12;
-  }
 }
 
 .clue-inner, .forensics-clue-inner {
@@ -182,6 +178,10 @@
   background-color: cornflowerblue;
   padding-top: 10px;
   padding-bottom: 10px;
+
+  &.arrest {
+    background-color: #D42E12;
+  }
 }
 
 .example {

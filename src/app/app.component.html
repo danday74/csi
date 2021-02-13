@@ -83,8 +83,8 @@
         </div>
       </div>
 
-      <div [class.invisible]="!clue" class="clue" [class.arrest]="clue?.includes('ARREST')">
-        <div class="clue-inner">
+      <div [class.invisible]="!clue" class="clue">
+        <div class="clue-inner" [class.arrest]="clue?.includes('ARREST')">
           <span>&nbsp;&nbsp;&nbsp;{{ clue || 'empty' }}&nbsp;&nbsp;&nbsp;</span>
         </div>
       </div>
@@ -104,8 +104,8 @@
         </div>
       </ng-container>
 
-      <div [class.invisible]="!forensicsClue" class="forensics-clue" [class.arrest]="forensicsClue?.includes('ARREST')">
-        <div class="forensics-clue-inner">
+      <div [class.invisible]="!forensicsClue" class="forensics-clue">
+        <div class="forensics-clue-inner" [class.arrest]="forensicsClue?.includes('ARREST')">
           <span>&nbsp;&nbsp;&nbsp;{{ forensicsClue }}&nbsp;&nbsp;&nbsp;</span>
         </div>
       </div>
