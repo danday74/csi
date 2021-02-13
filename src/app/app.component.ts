@@ -16,7 +16,7 @@ const DEFAULT_UNAUTHORISED_TIME_ALLOWANCE = 60;
 
 export class AppComponent implements OnInit {
   team = localStorage.getItem('team') ? localStorage.getItem('team') : null;
-  isSian = localStorage.getItem('isSian') ? JSON.parse(localStorage.getItem('isSian')) : true;
+  isSian = localStorage.getItem('isSian') ? JSON.parse(localStorage.getItem('isSian')) : false;
   user = localStorage.getItem('user') ? JSON.parse(localStorage.getItem('user')) : null;
   failedLoginCount = parseInt(localStorage.getItem('failed') ? JSON.parse(localStorage.getItem('failed')) : 0, 10);
   unauthorisedTimer = DEFAULT_UNAUTHORISED_TIME_ALLOWANCE;
