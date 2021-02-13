@@ -168,16 +168,20 @@
 }
 
 .clue, .forensics-clue {
-  border-radius: 10px;
-  padding: 10px 20px;
-  margin-top: 20px;
-  color: #FFF;
-  background-color: cornflowerblue;
-  display: inline-block;
+  margin: 20px auto;
 
   &.arrest {
     background-color: #D42E12;
   }
+}
+
+.clue-inner, .forensics-clue-inner {
+  display: inline-block;
+  border-radius: 10px;
+  color: #FFF;
+  background-color: cornflowerblue;
+  padding-top: 10px;
+  padding-bottom: 10px;
 }
 
 .example {

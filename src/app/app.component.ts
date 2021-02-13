@@ -6,7 +6,7 @@ import { users } from './users';
 import { codes } from './codes';
 import { forensicsList } from './forensics';
 
-const DEFAULT_UNAUTHORISED_TIME_ALLOWANCE = 5;
+const DEFAULT_UNAUTHORISED_TIME_ALLOWANCE = 60;
 
 @Component({
   selector: 'app-root',
