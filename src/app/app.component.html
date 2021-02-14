@@ -107,14 +107,51 @@
             </div>
           </div>
         </div>
+
+        <div [class.invisible]="!forensicsClue" class="forensics-clue">
+          <div class="forensics-clue-inner" [class.arrest]="forensicsClue?.includes('ARREST')" [class.warn]="forensicsClue?.startsWith('Could not extract')">
+            <span>&nbsp;&nbsp;&nbsp;{{ forensicsClue }}&nbsp;&nbsp;&nbsp;</span>
+          </div>
+        </div>
+
       </ng-container>
 
-      <div [class.invisible]="!forensicsClue" class="forensics-clue">
-        <div class="forensics-clue-inner" [class.arrest]="forensicsClue?.includes('ARREST')" [class.warn]="forensicsClue?.startsWith('Could not extract')">
-          <span>&nbsp;&nbsp;&nbsp;{{ forensicsClue }}&nbsp;&nbsp;&nbsp;</span>
+      <ng-container *ngIf="user.career === 'analyst'">
+
+        <div class="video-stuff">
+          <div class="grid">
+            <ng-container *ngFor="let video of videos">
+              <div>
+                <div>
+                  <span class="video-name" [class.locked]="video.locked">{{ video.name }}</span>
+                  <ng-container *ngIf="video.locked">
+                    <div class="padlock"><i class="fa fa-lock" aria-hidden="true"></i></div>
+                  </ng-container>
+                </div>
+                <ng-container *ngIf="video.locked">
+                  <div class="video-overlay"></div>
+                  <!-- 560, 315 -->
+                  <div class="iframe-wrapper locked">
+                    <iframe width="420" height="236" [src]="video.url | safe" frameborder="0"
+                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                  </div>
+                </ng-container>
+                <ng-container *ngIf="!video.locked">
+                  <div class="iframe-wrapper">
+                    <iframe width="420" height="236" [src]="video.url | safe" frameborder="0"
+                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                  </div>
+                </ng-container>
+              </div>
+            </ng-container>
+          </div>
         </div>
-      </div>
+
+      </ng-container>
+
     </div>
+
+    <div class="clear-both"></div>
 
     <div class="team-code" [style.color]="team">{{ team }} Team Code is {{ teamCode }}</div>
 

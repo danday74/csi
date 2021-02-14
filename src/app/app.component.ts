@@ -5,6 +5,7 @@ import { find } from 'lodash';
 import { users } from './users';
 import { codes } from './codes';
 import { forensicsList } from './forensics';
+import { DomSanitizer } from '@angular/platform-browser';
 
 const DEFAULT_UNAUTHORISED_TIME_ALLOWANCE = 60;
 
@@ -25,6 +26,23 @@ export class AppComponent implements OnInit {
   clue: string;
   forensics: string;
   forensicsClue: string;
+  videos = [
+    {
+      name: 'Video One',
+      url: 'https://youtube.com/embed/1IAhDGYlpqY',
+      locked: false
+    },
+    {
+      name: 'Video Two',
+      url: 'https://youtube.com/embed/WyxXGdG3-Io',
+      locked: true
+    },
+    {
+      name: 'Video Three',
+      url: 'https://youtube.com/embed/ZGpn7srqtvs',
+      locked: true
+    }
+  ];
 
   loginForm = new FormGroup({
     username: new FormControl('', Validators.required),
@@ -33,7 +51,7 @@ export class AppComponent implements OnInit {
 
   private html = $('html');
 
-  constructor() {
+  constructor(private domSanitizer: DomSanitizer) {
     this.unauthorised = this.unauthorised.bind(this);
   }
 

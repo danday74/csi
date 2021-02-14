@@ -226,3 +226,49 @@
   border-bottom: 1px solid #EEE;
   font-size: 18px;
 }
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.video-overlay {
+  width: 100%;
+  background-color: #000;
+  height: 236px;
+  top: -4px;
+  position: relative;
+  z-index: 99999;
+  opacity: 0.85;
+  margin-top: -236px;
+}
+
+.padlock {
+  position: relative;
+  font-size: 10rem;
+  color: #333;
+  top: 10px;
+  left: -130px;
+  z-index: 999999;
+}
+
+.video-stuff {
+  padding: 0 200px;
+}
+
+.video-name {
+  margin-bottom: 10px;
+  display: inline-block;
+
+  &.locked {
+    color: #777;
+  }
+}
+
+.iframe-wrapper.locked {
+  margin-top: -240px;
+}
+
+.clear-both {
+  clear: both;
+}
