@@ -69,10 +69,12 @@
     </div>
 
     <div class="logged-in" [ngClass]="isSian ? 'funny' : 'serious'">
-      <div [style.color]="user.team">Agent ID = {{ user.agentId }}=</div>
-      <div [style.color]="user.team">Dept ID = {{ user.deptId.replace('-', ':') }}</div>
-      <div [style.color]="user.team">{{ user.career | titlecase }} {{ user.displayName }}</div>
-      <div [style.color]="user.team">{{ user.team | titlecase }} Team</div>
+      <div class="user-card" [style.backgroundColor]="user.team">
+        <div>Agent ID = {{ user.agentId }}=</div>
+        <div>Dept ID = {{ user.deptId.replace('-', ':') }}</div>
+        <div>{{ user.career | titlecase }} {{ user.displayName }}</div>
+        <div>{{ user.team | titlecase }} Team</div>
+      </div>
 
       <div class="enter-code">
         Enter a 4 digit code
