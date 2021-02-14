@@ -4,62 +4,134 @@ export const users = [
     displayName: 'Ma Wee Wee',
     pass: 'maria',
     team: 'red',
-    career: 'interrogator'
+    career: 'interrogator',
+    agentId: '13276-10000',
+    deptId: 'LK9-14',
+    characteristics: ['clumsy', 'huggy'],
+    weapon: 'gun',
+    pet: 'cat',
+    hobby: 'kayaking',
+    banter: ['holds a world record', 'discovered the long eared sloth'],
+    innocent: true
   },
   {
     name: 'keziah',
     displayName: 'Iva Pencil',
     pass: 'keziah',
     team: 'red',
-    career: 'forensics'
+    career: 'forensics',
+    agentId: '58342-52523',
+    deptId: 'LK9-14',
+    characteristics: ['helpful', 'overly optimistic'],
+    weapon: 'boomerang',
+    pet: 'dog',
+    hobby: 'climbing',
+    banter: ['survived a house fire', 'is the ex president of Timbuktu'],
+    innocent: true
   },
   {
     name: 'elene',
     displayName: 'All En E',
     pass: 'elene',
     team: 'red',
-    career: 'analyst'
+    career: 'analyst',
+    agentId: '269877552-269867555',
+    deptId: 'LK9-14',
+    characteristics: ['joker', 'narcoleptic'],
+    weapon: 'catapult',
+    pet: 'cat',
+    hobby: 'dirt biking',
+    banter: ['won the nobel peace prize', 'sleeps upside down'],
+    innocent: true
   },
   {
     name: 'peter',
     displayName: 'Peter Piper',
     pass: 'peter',
     team: 'green',
-    career: 'interrogator'
+    career: 'interrogator',
+    agentId: '14867-11591',
+    deptId: 'NB3-50',
+    characteristics: ['overly optimistic', 'silly'],
+    weapon: 'catapult',
+    pet: 'cat',
+    hobby: 'climbing',
+    banter: ['climbed mount Everest', 'failed their driving test 32 times'],
+    innocent: false
   },
   {
     name: 'winnie',
     displayName: 'Small Knee',
     pass: 'winnie',
     team: 'green',
-    career: 'forensics'
+    career: 'forensics',
+    agentId: '34719-28900',
+    deptId: 'NB3-50',
+    characteristics: ['helpful', 'itchy'],
+    weapon: 'gun',
+    pet: 'dog',
+    hobby: 'kayaking',
+    banter: ['is an orphan', 'lives underground'],
+    innocent: true
   },
   {
     name: 'graham',
     displayName: 'Grey Ham',
     pass: 'graham',
     team: 'green',
-    career: 'analyst'
+    career: 'analyst',
+    agentId: '10000-3',
+    deptId: 'NB3-50',
+    characteristics: ['limp', 'huggy'],
+    weapon: 'boomerang',
+    pet: 'rabbit',
+    hobby: 'fencing',
+    banter: ['landed on the moon', 'dined with the queen'],
+    innocent: true
   },
   {
     name: 'mary',
     displayName: 'Mary Childs',
     pass: 'mary',
     team: 'blue',
-    career: 'interrogator'
+    career: 'interrogator',
+    agentId: '62913-59637',
+    deptId: 'MK8-9',
+    characteristics: ['silly', 'clumsy'],
+    weapon: 'catapult',
+    pet: 'rabbit',
+    hobby: 'kayaking',
+    banter: ['invented the cov-id vaccine', 'has 7 husbands'],
+    innocent: true
   },
   {
     name: 'ivo',
     displayName: 'Iva Nov',
     pass: 'ivo',
     team: 'blue',
-    career: 'forensics'
+    career: 'forensics',
+    agentId: '25684-19865',
+    deptId: 'MK8-9',
+    characteristics: ['covid-19', 'helpful'],
+    weapon: 'boomerang',
+    pet: 'dog',
+    hobby: 'fencing',
+    banter: ['was raised by wolves', 'built the leaning tower of Pisa'],
+    innocent: true
   },
   {
     name: 'dean',
     displayName: 'Micky Takerman',
     pass: 'dean',
     team: 'blue',
-    career: 'analyst'
+    career: 'analyst',
+    agentId: '58436-48439',
+    deptId: 'MK8-9',
+    characteristics: ['overly optimistic', 'joker'],
+    weapon: 'gun',
+    pet: 'lizard',
+    hobby: 'dirt biking',
+    banter: ['ran away from the Russian circus', 'can speak backwards'],
+    innocent: true
   }
 ];

@@ -1,29 +1,150 @@
+import { users } from './users';
+import { capitalize, filter, find, isEqual, memoize, sample, uniqBy } from 'lodash';
+import * as replaceLast from 'replace-last/index';
+
+const getRandomIndices = (worth: number, clues: Array<string>): Array<number> => {
+  const arr = [];
+  while (arr.length < worth) {
+    const r = Math.floor(Math.random() * clues.length);
+    if (arr.indexOf(r) === -1) {
+      arr.push(r);
+    }
+  }
+  return arr;
+};
+
+// worth 1-7 returns that much data
+// worth 9 returns name
+const getRandomClue = memoize((code: string, worth: number): string => {
+
+  const storedClues = JSON.parse(localStorage.getItem('clues')) || {};
+  const storedClue = storedClues[code];
+  if (storedClue) {
+    return storedClue;
+  } else {
+    const innocentUsers = filter(users, {innocent: true});
+    const user = sample(innocentUsers);
+    if (worth === 9) {
+      const result = `${user.displayName} has an alibi and is innocent`;
+      storedClues[code] = result;
+      localStorage.setItem('clues', JSON.stringify(storedClues));
+      return result;
+    } else if (worth >= 0 && worth <= 7) {
+      const clues = [];
+      clues.push(`is on the ${user.team} team`);
+      clues.push(`has the career ${user.career}`);
+      const characteristic = sample(user.characteristics);
+      clues.push(`has the ${characteristic} characteristic`);
+      clues.push(`fights with a ${user.weapon}`);
+      clues.push(`has a pet ${user.pet}`);
+      clues.push(`loves to go ${user.hobby}`);
+      const banter = sample(user.banter);
+      clues.push(banter);
+      const indices = getRandomIndices(worth, clues);
+      const results = indices.map((idx) => clues[idx]);
+      let result = 'An innocent person ' + results.join(', ');
+      result = replaceLast(result, ',', ' and');
+      storedClues[code] = result;
+      localStorage.setItem('clues', JSON.stringify(storedClues));
+      return result;
+    }
+  }
+  return null;
+});
+
+const validateDeptIdCode = (team, code, myTeam, verse) => {
+  const clueRightComputer = `${verse} is correct well done - ` + getRandomClue(code, 9);
+  const clueWrongComputer = `${verse} is correct well done, but you must login on the ${myTeam} computer to use this code`;
+  const clue = team === myTeam ? clueRightComputer : clueWrongComputer;
+  return {
+    clue,
+    alarm: false,
+    alarmMessage: null
+  };
+};
+
+const validateTeamCode = (team, user, code, myTeam) => {
+  const clue = `${capitalize(myTeam)} team clue - ` + getRandomClue(code, 2);
+  const alarm = team !== myTeam && user.team !== myTeam;
+  return {
+    clue,
+    alarm,
+    alarmMessage: `for espionage by attempting to access the ${myTeam} teams clue on ${team}s computer`
+  };
+};
+
 export const codes = [
+  // team codes * 3
   {
-    code: '1234',
+    code: '1402',
     validate(team: string, user: any): any {
-      return {
-        clue: 'The criminal is ugly',
-        alarm: false
-      };
+      return validateTeamCode(team, user, this.code, 'red');
     }
   },
   {
-    code: '9998',
+    code: '1643',
     validate(team: string, user: any): any {
-      return {
-        clue: null,
-        alarm: true
-      };
+      return validateTeamCode(team, user, this.code, 'green');
     }
   },
   {
-    code: '9999',
+    code: '3692',
     validate(team: string, user: any): any {
-      return {
-        clue: 'Oops',
-        alarm: true
-      };
+      return validateTeamCode(team, user, this.code, 'blue');
+    }
+  },
+  // department id codes * 3
+  {
+    code: '5000',
+    validate(team: string): any {
+      return validateDeptIdCode(team, this.code, 'red', 'Luke 9:14');
+    }
+  },
+  {
+    code: '1365',
+    validate(team: string): any {
+      return validateDeptIdCode(team, this.code, 'green', 'Numbers 3:50');
+    }
+  },
+  {
+    code: '4000',
+    validate(team: string): any {
+      return validateDeptIdCode(team, this.code, 'blue', 'Mark 8:9');
     }
   }
 ];
+
+// agent id codes * 3
+const added = {
+  3276: false,
+  5819: false,
+  9997: false
+};
+
+users.forEach(myUser => {
+  const parts = myUser.agentId.split('-');
+  const agentSum = parseInt(parts[0], 10) - parseInt(parts[1], 10);
+  if (!added[agentSum] || !find(codes, {code: agentSum.toString()})) {
+    added[agentSum] = true;
+    codes.push(
+      {
+        code: agentSum.toString(),
+        validate(team: string, user: any): any {
+          const clue = getRandomClue(this.code, 2);
+          const alarm = myUser.career !== user.career;
+          return {
+            clue,
+            alarm,
+            alarmMessage: `for espionage by attempting to access a different users clue`
+          };
+        }
+      }
+    );
+  }
+});
+
+const uniqueCodes = uniqBy(codes, 'code');
+
+if (!isEqual(codes.length, uniqueCodes.length)) {
+  throw Error('duplicate codes');
+}

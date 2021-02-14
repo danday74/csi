@@ -47,6 +47,19 @@ export class AppComponent implements OnInit {
     return password.trim();
   }
 
+  get teamCode(): string {
+    if (this.team === 'red') {
+      return '1402';
+    }
+    if (this.team === 'green') {
+      return '1643';
+    }
+    if (this.team === 'blue') {
+      return '3692';
+    }
+    return null;
+  }
+
   ngOnInit(): void {
     if (this.team && this.user && this.user?.team !== this.team) {
       this.unauthorisedInterval = setInterval(this.unauthorised, 1000);
@@ -118,29 +131,12 @@ export class AppComponent implements OnInit {
       } else {
         const codeResponse = codeObj.validate(this.team, this.user);
         if (codeResponse.alarm) {
-          this.clue = codeResponse.clue ? 'YOU ARE UNDER ARREST - ' + codeResponse.clue : 'YOU ARE UNDER ARREST';
+          this.clue = codeResponse.alarmMessage ? 'YOU ARE UNDER ARREST ' + codeResponse.alarmMessage : 'YOU ARE UNDER ARREST';
           this.playAlarm();
         } else {
           this.clue = codeResponse.clue;
         }
       }
-    }
-  }
-
-  private unauthorised(): void {
-    this.unauthorisedTimer--;
-    if (this.unauthorisedTimer === 0) {
-      this.playAlarm();
-      clearInterval(this.unauthorisedInterval);
-    }
-  }
-
-  private playAlarm(): void {
-    const audio = new Audio('/assets/alarm.mp3');
-    try {
-      audio.play();
-    } catch (e) {
-      console.log('Alarm failed to play');
     }
   }
 
@@ -158,12 +154,29 @@ export class AppComponent implements OnInit {
       } else {
         const forensicsResponse = forensicsObj.validate(this.team, this.user);
         if (forensicsResponse.alarm) {
-          this.forensicsClue = forensicsResponse.clue ? 'YOU ARE UNDER ARREST - ' + forensicsResponse.clue : 'YOU ARE UNDER ARREST';
+          this.forensicsClue = forensicsResponse.alarmMessage ? 'YOU ARE UNDER ARREST ' + forensicsResponse.alarmMessage : 'YOU ARE UNDER ARREST';
           this.playAlarm();
         } else {
           this.forensicsClue = forensicsResponse.clue;
         }
       }
+    }
+  }
+
+  private unauthorised(): void {
+    this.unauthorisedTimer--;
+    if (this.unauthorisedTimer === 0) {
+      this.playAlarm();
+      clearInterval(this.unauthorisedInterval);
+    }
+  }
+
+  private playAlarm(): void {
+    const audio = new Audio('/assets/alarm.mp3');
+    try {
+      audio.play().then();
+    } catch (e) {
+      console.log('Alarm failed to play');
     }
   }
 }

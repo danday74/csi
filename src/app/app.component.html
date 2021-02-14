@@ -58,6 +58,7 @@
     <ng-container *ngIf="user.team !== team">
       <div class="unauthorised-login">
         <div>Warning this login is unauthorised</div>
+        <div>You are hacking into the {{ team }} teams computer</div>
         <div>You will be arrested if you do not logout within {{ unauthorisedTimer }} seconds</div>
       </div>
     </ng-container>
@@ -68,7 +69,9 @@
     </div>
 
     <div class="logged-in" [ngClass]="isSian ? 'funny' : 'serious'">
-      <div>{{ user.career | titlecase }} {{ user.displayName }}</div>
+      <div [style.color]="user.team">Agent ID: {{ user.agentId }}=</div>
+      <div [style.color]="user.team">Dept ID: {{ user.deptId }}</div>
+      <div [style.color]="user.team">{{ user.career | titlecase }} {{ user.displayName }}</div>
       <div [style.color]="user.team">{{ user.team | titlecase }} Team</div>
 
       <div class="enter-code">
@@ -109,8 +112,9 @@
           <span>&nbsp;&nbsp;&nbsp;{{ forensicsClue }}&nbsp;&nbsp;&nbsp;</span>
         </div>
       </div>
-
     </div>
+
+    <div class="team-code" [style.color]="team">{{ team }} Team Code is {{ teamCode }}</div>
 
   </ng-container>
 
