@@ -91,7 +91,7 @@ const validateTeamSpecificRedHerring = (user, myTeam) => {
 };
 
 export const codes = [
-  // team codes * 3
+  // team codes * 3 - alarm if not on red team and not on red computer
   {
     code: '1402',
     validate(team: string, user: any): any {
@@ -110,7 +110,7 @@ export const codes = [
       return validateTeamCode(team, user, this.code, 'blue');
     }
   },
-  // department id codes * 3
+  // department id codes * 3 - no alarm
   {
     code: '5000',
     validate(team: string): any {
@@ -129,7 +129,7 @@ export const codes = [
       return validateDeptIdCode(team, this.code, 'blue', 'Mark 8:9');
     }
   },
-  // get out of jail free * 3
+  // get out of jail free * 3 - no alarm
   {
     code: '8563',
     validate(): any {
@@ -148,7 +148,7 @@ export const codes = [
       return validateGift(this.code, 'a get out of jail free card');
     }
   },
-  // team specific red herring * 3
+  // team specific red herring * 3 - alarm if not on red team
   {
     code: '0645',
     validate(team: string, user: any): any {
@@ -169,7 +169,7 @@ export const codes = [
   }
 ];
 
-// agent id codes * 3
+// agent id codes * 3 - alarm if not the same career
 const added = {
   3276: false,
   5819: false,
