@@ -3,7 +3,7 @@ export const forensicsList = [
     code: 'cup',
     validate(team: string, user: any): any {
       return {
-        clue: 'This is just an example',
+        clue: 'Its just a normal cup',
         alarm: false,
         alarmMessage: null
       };
@@ -13,39 +13,29 @@ export const forensicsList = [
     code: 'balloon',
     validate(team: string, user: any): any {
       return {
-        clue: 'This is just an example',
+        clue: 'Did you really find a balloon?',
         alarm: false,
         alarmMessage: null
       };
     }
   },
   {
-    code: 'hair',
+    code: 'giraffe',
     validate(team: string, user: any): any {
       return {
-        clue: 'The criminal is hairy',
+        clue: null,
+        alarm: true,
+        alarmMessage: 'for pretending you found a giraffe'
+      };
+    }
+  },
+  {
+    code: 'bible',
+    validate(team: string, user: any): any {
+      return {
+        clue: 'Of course! You examine the bible and find a clue at VERSE REFERENCE',
         alarm: false,
         alarmMessage: null
-      };
-    }
-  },
-  {
-    code: 'coat',
-    validate(team: string, user: any): any {
-      return {
-        clue: null,
-        alarm: true,
-        alarmMessage: null
-      };
-    }
-  },
-  {
-    code: 'bug',
-    validate(team: string, user: any): any {
-      return {
-        clue: null,
-        alarm: true,
-        alarmMessage: 'for analysing a suspicious insect'
       };
     }
   }
