@@ -4,7 +4,8 @@ export const forensicsList = [
     validate(team: string, user: any): any {
       return {
         clue: 'This is just an example',
-        alarm: false
+        alarm: false,
+        alarmMessage: null
       };
     }
   },
@@ -13,7 +14,8 @@ export const forensicsList = [
     validate(team: string, user: any): any {
       return {
         clue: 'This is just an example',
-        alarm: false
+        alarm: false,
+        alarmMessage: null
       };
     }
   },
@@ -22,7 +24,8 @@ export const forensicsList = [
     validate(team: string, user: any): any {
       return {
         clue: 'The criminal is hairy',
-        alarm: false
+        alarm: false,
+        alarmMessage: null
       };
     }
   },
@@ -31,7 +34,8 @@ export const forensicsList = [
     validate(team: string, user: any): any {
       return {
         clue: null,
-        alarm: true
+        alarm: true,
+        alarmMessage: null
       };
     }
   },
@@ -39,8 +43,9 @@ export const forensicsList = [
     code: 'bug',
     validate(team: string, user: any): any {
       return {
-        clue: 'Oops',
-        alarm: true
+        clue: null,
+        alarm: true,
+        alarmMessage: 'for analysing a suspicious insect'
       };
     }
   }

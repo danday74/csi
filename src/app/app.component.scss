@@ -183,6 +183,11 @@
   &.arrest {
     background-color: #D42E12;
   }
+
+  &.warn {
+    background-color: #FFC107;
+    color: #000;
+  }
 }
 
 .example {

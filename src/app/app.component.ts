@@ -145,9 +145,7 @@ export class AppComponent implements OnInit {
       const forensics = this.forensics;
       this.forensics = '';
       const forensicsObj = find(forensicsList, (code) => {
-        console.log(code.code);
-        console.log(forensics);
-        return code.code.toLowerCase().includes(forensics);
+        return code.code.toLowerCase().includes(forensics.toLowerCase());
       });
       if (!forensicsObj) {
         this.forensicsClue = 'Could not extract sufficient samples from specimen';

@@ -69,8 +69,8 @@
     </div>
 
     <div class="logged-in" [ngClass]="isSian ? 'funny' : 'serious'">
-      <div [style.color]="user.team">Agent ID: {{ user.agentId }}=</div>
-      <div [style.color]="user.team">Dept ID: {{ user.deptId }}</div>
+      <div [style.color]="user.team">Agent ID = {{ user.agentId }}=</div>
+      <div [style.color]="user.team">Dept ID = {{ user.deptId.replace('-', ':') }}</div>
       <div [style.color]="user.team">{{ user.career | titlecase }} {{ user.displayName }}</div>
       <div [style.color]="user.team">{{ user.team | titlecase }} Team</div>
 
@@ -87,7 +87,7 @@
       </div>
 
       <div [class.invisible]="!clue" class="clue">
-        <div class="clue-inner" [class.arrest]="clue?.includes('ARREST')">
+        <div class="clue-inner" [class.arrest]="clue?.includes('ARREST')" [class.warn]="clue === 'Invalid code'">
           <span>&nbsp;&nbsp;&nbsp;{{ clue || 'empty' }}&nbsp;&nbsp;&nbsp;</span>
         </div>
       </div>
@@ -108,7 +108,7 @@
       </ng-container>
 
       <div [class.invisible]="!forensicsClue" class="forensics-clue">
-        <div class="forensics-clue-inner" [class.arrest]="forensicsClue?.includes('ARREST')">
+        <div class="forensics-clue-inner" [class.arrest]="forensicsClue?.includes('ARREST')" [class.warn]="forensicsClue?.startsWith('Could not extract')">
           <span>&nbsp;&nbsp;&nbsp;{{ forensicsClue }}&nbsp;&nbsp;&nbsp;</span>
         </div>
       </div>

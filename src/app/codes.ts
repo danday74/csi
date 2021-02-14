@@ -73,6 +73,23 @@ const validateTeamCode = (team, user, code, myTeam) => {
   };
 };
 
+const validateGift = (code, gift) => {
+  return {
+    clue: `Say the code ${code} to an official and they will give you ${gift}`,
+    alarm: false,
+    alarmMessage: null
+  };
+};
+
+const validateTeamSpecificRedHerring = (user, myTeam) => {
+  const alarm = user.team !== myTeam;
+  return {
+    clue: 'This code is a red herring, if any other team uses it then they will get arrested',
+    alarm,
+    alarmMessage: 'for using a red herring code'
+  };
+};
+
 export const codes = [
   // team codes * 3
   {
@@ -111,6 +128,44 @@ export const codes = [
     validate(team: string): any {
       return validateDeptIdCode(team, this.code, 'blue', 'Mark 8:9');
     }
+  },
+  // get out of jail free * 3
+  {
+    code: '8563',
+    validate(): any {
+      return validateGift(this.code, 'a get out of jail free card');
+    }
+  },
+  {
+    code: '8764',
+    validate(): any {
+      return validateGift(this.code, 'a get out of jail free card');
+    }
+  },
+  {
+    code: '3265',
+    validate(): any {
+      return validateGift(this.code, 'a get out of jail free card');
+    }
+  },
+  // team specific red herring * 3
+  {
+    code: '0645',
+    validate(team: string, user: any): any {
+      return validateTeamSpecificRedHerring(user, 'red');
+    }
+  },
+  {
+    code: '8562',
+    validate(team: string, user: any): any {
+      return validateTeamSpecificRedHerring(user, 'green');
+    }
+  },
+  {
+    code: '1654',
+    validate(team: string, user: any): any {
+      return validateTeamSpecificRedHerring(user, 'blue');
+    }
   }
 ];
 
@@ -135,7 +190,7 @@ users.forEach(myUser => {
           return {
             clue,
             alarm,
-            alarmMessage: `for espionage by attempting to access a different users clue`
+            alarmMessage: 'for espionage by attempting to access a different users clue'
           };
         }
       }
