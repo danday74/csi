@@ -30,7 +30,7 @@ export class AppComponent implements OnInit {
     {
       name: 'Video One',
       url: 'https://youtube.com/embed/1IAhDGYlpqY',
-      locked: false
+      locked: true
     },
     {
       name: 'Video Two',
