@@ -14,6 +14,10 @@ const getRandomInt = (min, max) => {
   return Math.floor(Math.random() * (max - min + 1) + min);
 }
 
+// const MODE = 'sample'
+// const MODE = 'take-one'
+const MODE = 'take-one-strict'
+
 const generate = () => {
   let users = [
     // RED TEAM
@@ -135,7 +139,7 @@ const generate = () => {
       characteristics: [],
       weapon: '',
       pet: '',
-      hobby: '',
+      hobby: 'dirt biking',
       banter: [],
       innocent: false
     },
@@ -156,7 +160,9 @@ const generate = () => {
     }
   ]
 
-  const weightedCharacteristics = [
+  // SAMPLE WEIGHTS
+
+  const sampleCharacteristics = [
     {name: 'normal', weight: 5},
     {name: 'clumsy', weight: 1},
     {name: 'huggy', weight: 1},
@@ -170,25 +176,70 @@ const generate = () => {
     {name: 'COVID-19', weight: 1}
   ]
 
-  const weightedWeapons = [
+  const sampleWeapons = [
     {name: 'gun', weight: 2},
     {name: 'catapult', weight: 2},
     {name: 'boomerang', weight: 1}
   ]
 
-  const weightedPets = [
+  const samplePets = [
     {name: 'cat', weight: 3},
     {name: 'dog', weight: 3},
     {name: 'rabbit', weight: 2},
     {name: 'lizard', weight: 1}
   ]
 
-  const weightedHobbies = [
+  const sampleHobbies = [
     {name: 'climbing', weight: 3},
     {name: 'dirt biking', weight: 2},
     {name: 'kayaking', weight: 1},
     {name: 'fencing', weight: 1}
   ]
+
+  // TAKE ONE WEIGHTS
+
+  // should total 17 = 18 - Graham's one
+  const takeOneCharacteristics = [
+    {name: 'normal', weight: 7},
+    {name: 'clumsy', weight: 1},
+    {name: 'huggy', weight: 1},
+    {name: 'helpful', weight: 1},
+    {name: 'nervous twitch', weight: 1},
+    {name: 'overly optimistic', weight: 1},
+    {name: 'joker', weight: 1}, // +1
+    {name: 'narcoleptic', weight: 1},
+    {name: 'itchy', weight: 1},
+    {name: 'limp', weight: 1},
+    {name: 'COVID-19', weight: 1}
+  ]
+
+  // should total 9
+  const takeOneWeapons = [
+    {name: 'gun', weight: 5},
+    {name: 'catapult', weight: 3},
+    {name: 'boomerang', weight: 1}
+  ]
+
+  // should total 9
+  const takeOnePets = [
+    {name: 'cat', weight: 4},
+    {name: 'dog', weight: 4},
+    {name: 'rabbit', weight: 1},
+    {name: 'lizard', weight: 0}
+  ]
+
+  // should total 7 = 9 - Graham's one - Dean's one
+  const takeOneHobbies = [
+    {name: 'climbing', weight: 5},
+    {name: 'dirt biking', weight: 0}, // +1
+    {name: 'kayaking', weight: 2}, // +1
+    {name: 'fencing', weight: 0}
+  ]
+
+  const weightedCharacteristics = (MODE === 'sample') ? sampleCharacteristics : takeOneCharacteristics;
+  const weightedWeapons = (MODE === 'sample') ? sampleWeapons : takeOneWeapons;
+  const weightedPets = (MODE === 'sample') ? samplePets : takeOnePets;
+  const weightedHobbies = (MODE === 'sample') ? sampleHobbies : takeOneHobbies;
 
   const banters = [
     'holds a world record',
@@ -218,14 +269,61 @@ const generate = () => {
 
   users = users.map((user) => {
     const password = getRandomInt(0, 99999).toString().padStart(5, '0');
-    if (!user.pass) user.pass = password
+    if (!user.pass) user.pass = password // all modes
+
+    let bodgeCount = 0;
+
     while (user.characteristics.length < 2) {
-      user.characteristics.push(_.sample(characteristics))
-      user.characteristics = _.uniq(user.characteristics)
+      if (MODE === 'sample') {
+        user.characteristics.push(_.sample(characteristics))
+        user.characteristics = _.uniq(user.characteristics)
+      } else {
+        if (characteristics.length === 0) throw Error('not enough characteristics')
+        const idx = getRandomInt(0, characteristics.length - 1)
+        if (!user.characteristics.includes(characteristics[idx])) {
+          bodgeCount = 0;
+          const characteristic = characteristics.splice(idx, 1)[0]
+          user.characteristics.push(characteristic)
+        } else {
+          bodgeCount++;
+          if (bodgeCount === 100) throw Error('too many bodges')
+        }
+      }
     }
-    if (!user.weapon) user.weapon = _.sample(weapons)
-    if (!user.pet) user.pet = _.sample(pets)
-    if (!user.hobby) user.hobby = _.sample(hobbies)
+
+    if (!user.weapon) {
+      if (MODE === 'sample') {
+        user.weapon = _.sample(weapons)
+      } else {
+        const idx = getRandomInt(0, weapons.length - 1)
+        const weapon = weapons.splice(idx, 1)[0]
+        if (weapon == null) throw Error('not enough weapons')
+        user.weapon = weapon
+      }
+    }
+
+    if (!user.pet) {
+      if (MODE === 'sample') {
+        user.pet = _.sample(pets)
+      } else {
+        const idx = getRandomInt(0, pets.length - 1)
+        const pet = pets.splice(idx, 1)[0]
+        if (pet == null) throw Error('not enough pets')
+        user.pet = pet
+      }
+    }
+
+    if (!user.hobby) {
+      if (MODE === 'sample') {
+        user.hobby = _.sample(hobbies)
+      } else {
+        const idx = getRandomInt(0, hobbies.length - 1)
+        const hobby = hobbies.splice(idx, 1)[0]
+        if (hobby == null) throw Error('not enough hobbies')
+        user.hobby = hobby
+      }
+    }
+
     while (user.banter.length < 2) {
       const idx = getRandomInt(0, banters.length - 1)
       const banter = banters.splice(idx, 1)[0]
@@ -235,9 +333,25 @@ const generate = () => {
     return user
   })
 
+  if (MODE === 'take-one-strict' && characteristics.length !== 0) throw Error(`strict characteristics error length is ${characteristics.length}`)
+  if (MODE === 'take-one-strict' && weapons.length !== 0) throw Error(`strict weapons error length is ${weapons.length}`)
+  if (MODE === 'take-one-strict' && pets.length !== 0) throw Error(`strict pets error length is ${pets.length}`)
+  if (MODE === 'take-one-strict' && hobbies.length !== 0) throw Error(`strict hobbies error length is ${hobbies.length}`)
+  if (MODE === 'take-one-strict' && banters.length !== 0) throw Error(`strict banters error length is ${banters.length}`)
+
   console.log(users)
 
   fs.writeFileSync('src/app/users.ts', `/* tslint:disable */\nexport const users = ${JSON.stringify(users)};\n`)
 }
 
-generate()
+let attempts = 0;
+let success = false;
+while (attempts < 9 && success === false) {
+  attempts++
+  try {
+    generate()
+    success = true
+  } catch (err) {
+    console.log(`attempt ${attempts} - ${err.message}`)
+  }
+}
