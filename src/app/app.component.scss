@@ -212,9 +212,11 @@
   font-weight: bold;
   text-align: center;
   position: absolute;
-  bottom: 10px;
-  width: 200px;
-  left: calc(50% - 100px);
+  background-color: #000;
+  bottom: 0;
+  width: 100%;
+  padding-top: 10px;
+  padding-bottom: 10px;
 }
 
 .user-card {
@@ -270,4 +272,22 @@
 
 .clear-both {
   clear: both;
+}
+
+.logs-info {
+  font-size: 14px;
+  color: #999;
+  margin-bottom: 20px;
+}
+
+.anonymous-button-wrapper {
+  position: relative;
+  display: flex;
+  justify-content: center;
+}
+
+.anonymous-button {
+  position: absolute;
+  top: -10px;
+  min-width: 90px;
 }

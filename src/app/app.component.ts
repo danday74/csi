@@ -26,6 +26,7 @@ export class AppComponent implements OnInit {
   clue: string;
   forensics: string;
   forensicsClue: string;
+  logs = localStorage.getItem('logs') ? JSON.parse(localStorage.getItem('logs')) : [];
   videos = [
     {
       name: 'Video One',
@@ -146,15 +147,19 @@ export class AppComponent implements OnInit {
       const codeObj = find(codes, {code});
       if (!codeObj) {
         this.clue = 'Invalid code';
+        this.logs.unshift({code, user: this.user.displayName, team: this.user.team, alarm: false, clue: false, anon: false});
       } else {
         const codeResponse = codeObj.validate(this.team, this.user);
         if (codeResponse.alarm) {
           this.clue = codeResponse.alarmMessage ? 'YOU ARE UNDER ARREST ' + codeResponse.alarmMessage : 'YOU ARE UNDER ARREST';
           this.playAlarm();
+          this.logs.unshift({code, user: this.user.displayName, team: this.user.team, alarm: true, clue: false, anon: false});
         } else {
           this.clue = codeResponse.clue;
+          this.logs.unshift({code, user: this.user.displayName, team: this.user.team, alarm: false, clue: true, anon: false});
         }
       }
+      localStorage.setItem('logs', JSON.stringify(this.logs));
     }
   }
 
@@ -194,5 +199,10 @@ export class AppComponent implements OnInit {
     } catch (e) {
       console.log('Alarm failed to play');
     }
+  }
+
+  makeAnonymous(idx: number): void {
+    this.logs[idx].anon = true;
+    localStorage.setItem('logs', JSON.stringify(this.logs));
   }
 }

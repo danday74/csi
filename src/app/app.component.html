@@ -149,6 +149,72 @@
 
       </ng-container>
 
+      <ng-container *ngIf="user.career === 'interrogator'">
+        <div class="logs">
+          <div class="logs-info">
+            <div>Details of the last three 4 digit codes used on this computer will appear here</div>
+            <div>If these prove that other teams have accessed your computer, report it to officials so that appropriate arrests can be made</div>
+          </div>
+          <ng-container *ngIf="this.logs.length">
+
+            <table class="table table-dark table-striped">
+              <thead>
+              <tr>
+                <th scope="col">Code</th>
+                <th scope="col">User</th>
+                <th scope="col">Team</th>
+                <th scope="col">Alarm</th>
+                <th scope="col">Clue</th>
+                <th scope="col">
+                  <span class="invisible">Control</span>
+                </th>
+              </tr>
+              </thead>
+              <tbody>
+
+              <ng-container *ngFor="let log of logs; index as idx">
+
+                <ng-container *ngIf="idx < 3">
+
+                  <tr>
+                    <th scope="row">{{ log.code }}</th>
+                    <td [style.color]="log.anon ? '#AAA' : log.team">
+                      <ng-container *ngIf="!log.anon">{{ log.user }}</ng-container>
+                      <ng-container *ngIf="log.anon">anon</ng-container>
+                    </td>
+                    <td [style.color]="log.anon ? '#AAA' : log.team">
+                      <ng-container *ngIf="!log.anon">{{ log.team | titlecase }}</ng-container>
+                      <ng-container *ngIf="log.anon">anon</ng-container>
+                    </td>
+                    <td [style.color]="log.alarm ? '#008800' : '#880000'">
+                      <i *ngIf="log.alarm" class="fa fa-check" aria-hidden="true"></i>
+                      <i *ngIf="!log.alarm" class="fa fa-times" aria-hidden="true"></i>
+                    </td>
+                    <td [style.color]="log.clue ? '#008800' : '#880000'">
+                      <i *ngIf="log.clue" class="fa fa-check" aria-hidden="true"></i>
+                      <i *ngIf="!log.clue" class="fa fa-times" aria-hidden="true"></i>
+                    </td>
+                    <td>
+                      <div class="anonymous-button-wrapper">
+                        <button class="btn btn-light btn-sm anonymous-button" [disabled]="log.anon" (click)="makeAnonymous(idx)">
+                          <span *ngIf="!log.anon">Hide User</span>
+                          <span *ngIf="log.anon">Anon</span>
+                        </button>
+                      </div>
+                    </td>
+                  </tr>
+
+                </ng-container>
+              </ng-container>
+
+
+              </tbody>
+            </table>
+
+          </ng-container>
+        </div>
+      </ng-container>
+
     </div>
 
     <div class="clear-both"></div>
