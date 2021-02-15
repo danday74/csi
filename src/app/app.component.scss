@@ -226,7 +226,12 @@
   padding-bottom: 15px;
   border-top: 1px solid #EEE;
   border-bottom: 1px solid #EEE;
-  font-size: 18px;
+  font-size: 20px;
+
+  .smaller {
+    font-size: 14px;
+    text-transform: uppercase;
+  }
 }
 
 .grid {

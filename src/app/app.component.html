@@ -70,10 +70,10 @@
 
     <div class="logged-in" [ngClass]="isSian ? 'funny' : 'serious'">
       <div class="user-card" [style.backgroundColor]="user.team">
-        <div>Agent ID = {{ user.agentId }}=</div>
-        <div>Dept ID = {{ user.deptId.replace('-', ':') }}</div>
+        <div class="smaller">Agent ID = {{ user.agentId }}=</div>
+        <div class="smaller">Dept ID = {{ user.deptId.replace('-', ':') }}</div>
         <div>{{ user.career | titlecase }} {{ user.displayName }}</div>
-        <div>{{ user.team | titlecase }} Team</div>
+        <div class="smaller">{{ user.team | titlecase }} Team</div>
       </div>
 
       <div class="enter-code">
