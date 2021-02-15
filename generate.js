@@ -20,7 +20,7 @@ const generate = () => {
     {
       name: 'elene',
       displayName: 'Iona Lott',
-      pass: 'elene',
+      pass: '',
       team: 'red',
       career: 'interrogator',
       agentId: '13276-10000',
@@ -35,7 +35,7 @@ const generate = () => {
     {
       name: 'keziah',
       displayName: 'Iva Pencil',
-      pass: 'keziah',
+      pass: '',
       team: 'red',
       career: 'analyst',
       agentId: '269877552-269867555',
@@ -50,7 +50,7 @@ const generate = () => {
     {
       name: 'maria',
       displayName: 'Ma WeeOui',
-      pass: 'maria',
+      pass: '',
       team: 'red',
       career: 'forensics',
       agentId: '58342-52523',
@@ -66,7 +66,7 @@ const generate = () => {
     {
       name: 'graham',
       displayName: 'Joe Kerr',
-      pass: 'graham',
+      pass: '',
       team: 'green',
       career: 'interrogator',
       agentId: '14867-11591',
@@ -81,7 +81,7 @@ const generate = () => {
     {
       name: 'peter',
       displayName: 'Don Keigh',
-      pass: 'peter',
+      pass: '',
       team: 'green',
       career: 'analyst',
       agentId: '10000-3',
@@ -96,7 +96,7 @@ const generate = () => {
     {
       name: 'winnie',
       displayName: 'Anna Fender',
-      pass: 'winnie',
+      pass: '',
       team: 'green',
       career: 'forensics',
       agentId: '34719-28900',
@@ -112,7 +112,7 @@ const generate = () => {
     {
       name: 'mary',
       displayName: 'Mona Lott',
-      pass: 'mary',
+      pass: '',
       team: 'blue',
       career: 'interrogator',
       agentId: '62913-59637',
@@ -127,7 +127,7 @@ const generate = () => {
     {
       name: 'dean',
       displayName: 'Micky Takerman',
-      pass: 'dean',
+      pass: '',
       team: 'blue',
       career: 'analyst',
       agentId: '58436-48439',
@@ -142,7 +142,7 @@ const generate = () => {
     {
       name: 'ivo',
       displayName: 'Phil McCavity',
-      pass: 'ivo',
+      pass: '',
       team: 'blue',
       career: 'forensics',
       agentId: '25684-19865',
@@ -217,6 +217,8 @@ const generate = () => {
   const hobbies = getArray(weightedHobbies)
 
   users = users.map((user) => {
+    const password = getRandomInt(0, 99999).toString().padStart(5, '0');
+    if (!user.pass) user.pass = password
     while (user.characteristics.length < 2) {
       user.characteristics.push(_.sample(characteristics))
       user.characteristics = _.uniq(user.characteristics)
