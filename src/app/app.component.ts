@@ -5,7 +5,6 @@ import { find } from 'lodash';
 import { users } from './users';
 import { codes } from './codes';
 import { forensicsList } from './forensics';
-import { DomSanitizer } from '@angular/platform-browser';
 
 const DEFAULT_UNAUTHORISED_TIME_ALLOWANCE = 60;
 
@@ -52,7 +51,7 @@ export class AppComponent implements OnInit {
 
   private html = $('html');
 
-  constructor(private domSanitizer: DomSanitizer) {
+  constructor() {
     this.unauthorised = this.unauthorised.bind(this);
   }
 
@@ -184,6 +183,11 @@ export class AppComponent implements OnInit {
     }
   }
 
+  makeAnonymous(idx: number): void {
+    this.logs[idx].anon = true;
+    localStorage.setItem('logs', JSON.stringify(this.logs));
+  }
+
   private unauthorised(): void {
     this.unauthorisedTimer--;
     if (this.unauthorisedTimer === 0) {
@@ -199,10 +203,5 @@ export class AppComponent implements OnInit {
     } catch (e) {
       console.log('Alarm failed to play');
     }
-  }
-
-  makeAnonymous(idx: number): void {
-    this.logs[idx].anon = true;
-    localStorage.setItem('logs', JSON.stringify(this.logs));
   }
 }
