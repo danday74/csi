@@ -14,7 +14,7 @@
 
   <ng-container *ngIf="!user">
 
-    <div class="funny-or-serious">
+    <div class="funny-or-serious invisible">
       <div class="input-group mb-3">
         <input type="checkbox" [ngModel]="isSian" (ngModelChange)="toggleLook()">
         <span class="toggle-look" (click)="toggleLook()">Toggle look</span>
@@ -33,7 +33,7 @@
         </div>
 
         <div class="input-group mb-3">
-          <input type="text" class="form-control" placeholder="Username" formControlName="username">
+          <input type="text" class="form-control" placeholder="Username" spellcheck="false" formControlName="username">
         </div>
 
         <div class="input-group mb-3">
