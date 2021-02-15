@@ -48,12 +48,10 @@ export class AppComponent implements OnInit {
       locked: true
     }
   ];
-
   loginForm = new FormGroup({
     username: new FormControl('', Validators.required),
     password: new FormControl('', Validators.required)
   });
-
   private html = $('html');
 
   constructor() {
@@ -81,6 +79,25 @@ export class AppComponent implements OnInit {
       return '3692';
     }
     return null;
+  }
+
+  clueTestCount(level): number {
+    const clues = this.clueTests.filter(clue => clue.level === level);
+    return clues.length;
+  }
+
+  clueTestUsefulCount(level): number {
+    const clues = this.clueTests.filter(clue => clue.level === level && clue.matches === 1);
+    return clues.length;
+  }
+
+  clueTestPercentUseful(level): number {
+    const count = this.clueTestCount(level);
+    if (count === 0) {
+      return 0;
+    }
+    const usefulCount = this.clueTestUsefulCount(level);
+    return 100 / count * usefulCount;
   }
 
   ngOnInit(): void {
@@ -197,9 +214,16 @@ export class AppComponent implements OnInit {
   }
 
   getClueTest(level: number): void {
-    const rnd = getRandomInt(1111111, 9999999).toString();
-    const clue = getRandomClue(rnd, level);
-    this.clueTests.push(clue);
+    for (let i = 0; i < 1000; i++) {
+      const rnd = getRandomInt(1111111111, 9999999999).toString();
+      const clue = getRandomClue(rnd, level);
+      this.clueTests.push(clue);
+      // console.log(clue);
+    }
+  }
+
+  clearClueTest(): void {
+    this.clueTests = [];
   }
 
   private unauthorised(): void {
@@ -217,9 +241,5 @@ export class AppComponent implements OnInit {
     } catch (e) {
       console.log('Alarm failed to play');
     }
-  }
-
-  clearClueTest(): void {
-    this.clueTests = [];
   }
 }

@@ -15,7 +15,7 @@ const getRandomIndices = (worth: number, clues: Array<string>): Array<number> =>
 
 // worth 1-7 returns that much data
 // worth 9 returns name
-export const getRandomClue = memoize((code: string, worth: number): { clue: string, matches: number } => {
+export const getRandomClue = memoize((code: string, worth: number): { clue: string, matches: number, level: number } => {
 
   const storedClues = JSON.parse(localStorage.getItem('clues')) || {};
   const storedClue = storedClues[code];
@@ -32,7 +32,8 @@ export const getRandomClue = memoize((code: string, worth: number): { clue: stri
       }
       return {
         clue: result,
-        matches: 1
+        matches: 1,
+        level: worth
       };
     } else if (worth >= 0 && worth <= 8) {
       const clues = [];
@@ -86,9 +87,13 @@ export const getRandomClue = memoize((code: string, worth: number): { clue: stri
         storedClues[code] = result;
         localStorage.setItem('clues', JSON.stringify(storedClues));
       }
+
+      console.log(usrs.map(usr => usr.name));
+
       return {
         clue: result,
-        matches: usrs.length
+        matches: usrs.length,
+        level: worth
       };
     }
   }

@@ -20,9 +20,29 @@
       <btn class="btn btn-light btn-lg" (click)="clearClueTest()">Clear</btn>
     </div>
 
+    <div class="clue-test-averages">
+      <div>
+        <ng-container *ngIf="clueTestCount(1) > 0">
+          <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+          <span>Level 1 = {{ clueTestPercentUseful(1) | number: '1.2-2' }}% ({{ clueTestUsefulCount(1) }}/{{ clueTestCount(1) }})</span>
+          <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+        </ng-container>
+        <ng-container *ngIf="clueTestCount(2) > 0">
+          <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+          <span>Level 2 = {{ clueTestPercentUseful(2) | number: '1.2-2' }}% ({{ clueTestUsefulCount(2) }}/{{ clueTestCount(2) }})</span>
+          <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+        </ng-container>
+        <ng-container *ngIf="clueTestCount(3) > 0">
+          <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+          <span>Level 3 = {{ clueTestPercentUseful(3) | number: '1.2-2' }}% ({{ clueTestUsefulCount(3) }}/{{ clueTestCount(3) }})</span>
+          <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+        </ng-container>
+      </div>
+    </div>
+
     <ng-container *ngFor="let clueTest of clueTests">
       <div>
-        <div class="clue-test">{{ clueTest.clue }} <span class="clue-test-matches">{{ clueTest.matches }}</span></div>
+        <div class="clue-test" [ngClass]="'clue-level-' + clueTest.level">{{ clueTest.clue }} <span class="clue-test-matches">{{ clueTest.matches }}</span></div>
       </div>
     </ng-container>
   </div>

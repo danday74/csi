@@ -18,12 +18,28 @@
   margin-bottom: 10px;
 }
 
+.clue-level-1 {
+  background-color: pink !important;
+}
+
 .clue-test-matches {
   background-color: #FFF;
   color: #000;
   border-radius: 5px;
   padding: 0 7px;
   margin-left: 3px;
+}
+
+.clue-test-averages {
+  border-top: 1px solid #555;
+  position: fixed;
+  bottom: 0;
+  padding: 10px;
+  background-color: #000;
+  text-align: center;
+  width: 100%;
+  z-index: 2222;
+  min-height: 44px;
 }
 
 .clue-test {
