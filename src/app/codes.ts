@@ -26,8 +26,10 @@ export const getRandomClue = memoize((code: string, worth: number): string => {
     const user = sample(innocentUsers);
     if (worth === 9) {
       const result = `${user.displayName} has an alibi and is innocent`;
-      storedClues[code] = result;
-      localStorage.setItem('clues', JSON.stringify(storedClues));
+      if (code.length === 4) {
+        storedClues[code] = result;
+        localStorage.setItem('clues', JSON.stringify(storedClues));
+      }
       return result;
     } else if (worth >= 0 && worth <= 8) {
       const clues = [];
@@ -46,8 +48,10 @@ export const getRandomClue = memoize((code: string, worth: number): string => {
       const results = indices.map((idx) => clues[idx]);
       let result = 'An innocent person ' + results.join(', ');
       result = replaceLast(result, ',', ' and');
-      storedClues[code] = result;
-      localStorage.setItem('clues', JSON.stringify(storedClues));
+      if (code.length === 4) {
+        storedClues[code] = result;
+        localStorage.setItem('clues', JSON.stringify(storedClues));
+      }
       return result;
     }
   }
