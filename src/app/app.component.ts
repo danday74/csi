@@ -218,4 +218,8 @@ export class AppComponent implements OnInit {
       console.log('Alarm failed to play');
     }
   }
+
+  clearClueTest(): void {
+    this.clueTests = [];
+  }
 }
