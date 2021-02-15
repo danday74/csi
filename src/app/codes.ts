@@ -15,7 +15,7 @@ const getRandomIndices = (worth: number, clues: Array<string>): Array<number> =>
 
 // worth 1-7 returns that much data
 // worth 9 returns name
-export const getRandomClue = memoize((code: string, worth: number): string => {
+export const getRandomClue = memoize((code: string, worth: number): { clue: string, matches: number } => {
 
   const storedClues = JSON.parse(localStorage.getItem('clues')) || {};
   const storedClue = storedClues[code];
@@ -30,21 +30,55 @@ export const getRandomClue = memoize((code: string, worth: number): string => {
         storedClues[code] = result;
         localStorage.setItem('clues', JSON.stringify(storedClues));
       }
-      return result;
+      return {
+        clue: result,
+        matches: 1
+      };
     } else if (worth >= 0 && worth <= 8) {
       const clues = [];
       clues.push(`is on the ${user.team} team`);
       clues.push(`has the career ${user.career}`);
       const characteristic1 = user.characteristics[0];
       clues.push(`has the ${characteristic1} characteristic`);
-      const characteristic2 = user.characteristics[0];
+      const characteristic2 = user.characteristics[1];
       clues.push(`has the ${characteristic2} characteristic`);
       clues.push(`fights with a ${user.weapon}`);
       clues.push(`has a pet ${user.pet}`);
       clues.push(`loves to go ${user.hobby}`);
       const banter = sample(user.banter);
       clues.push(banter);
+
       const indices = getRandomIndices(worth, clues);
+      // IMPORTANT MUST MATCH THE ORDER OF CLUES ABOVE
+      const usrs = users.filter((usr) => {
+        let match = true;
+        if (indices.includes(0)) {
+          match = match && usr.team === user.team;
+        }
+        if (indices.includes(1)) {
+          match = match && usr.career === user.career;
+        }
+        if (indices.includes(2)) {
+          match = match && usr.characteristics.includes(characteristic1);
+        }
+        if (indices.includes(3)) {
+          match = match && usr.characteristics.includes(characteristic2);
+        }
+        if (indices.includes(4)) {
+          match = match && usr.weapon === user.weapon;
+        }
+        if (indices.includes(5)) {
+          match = match && usr.pet === user.pet;
+        }
+        if (indices.includes(6)) {
+          match = match && usr.hobby === user.hobby;
+        }
+        if (indices.includes(7)) {
+          match = match && usr.banter.includes(banter);
+        }
+        return match;
+      });
+
       const results = indices.map((idx) => clues[idx]);
       let result = 'An innocent person ' + results.join(', ');
       result = replaceLast(result, ',', ' and');
@@ -52,14 +86,17 @@ export const getRandomClue = memoize((code: string, worth: number): string => {
         storedClues[code] = result;
         localStorage.setItem('clues', JSON.stringify(storedClues));
       }
-      return result;
+      return {
+        clue: result,
+        matches: usrs.length
+      };
     }
   }
   return null;
 });
 
 const validateDeptIdCode = (team, code, myTeam, verse) => {
-  const clueRightComputer = `${verse} is correct well done - ` + getRandomClue(code, 9);
+  const clueRightComputer = `${verse} is correct well done - ` + getRandomClue(code, 9).clue;
   const clueWrongComputer = `${verse} is correct well done, but you must login on the ${myTeam} computer to use this code`;
   const clue = team === myTeam ? clueRightComputer : clueWrongComputer;
   return {
@@ -70,7 +107,7 @@ const validateDeptIdCode = (team, code, myTeam, verse) => {
 };
 
 const validateTeamCode = (team, user, code, myTeam) => {
-  const clue = `${capitalize(myTeam)} team clue - ` + getRandomClue(code, 2);
+  const clue = `${capitalize(myTeam)} team clue - ` + getRandomClue(code, 2).clue;
   const alarm = team !== myTeam && user.team !== myTeam;
   return {
     clue,
@@ -191,7 +228,7 @@ users.forEach(myUser => {
       {
         code: agentSum.toString(),
         validate(team: string, user: any): any {
-          const clue = getRandomClue(this.code, 2);
+          const clue = getRandomClue(this.code, 2).clue;
           const alarm = myUser.career !== user.career;
           return {
             clue,

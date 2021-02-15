@@ -20,7 +20,7 @@
 
     <ng-container *ngFor="let clueTest of clueTests">
       <div>
-        <div class="clue-test">{{ clueTest }}</div>
+        <div class="clue-test">{{ clueTest.clue }} <span class="clue-test-matches">{{ clueTest.matches }}</span></div>
       </div>
     </ng-container>
   </div>
