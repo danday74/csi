@@ -49,7 +49,7 @@ const generate = () => {
     },
     {
       name: 'maria',
-      displayName: 'Ma OuiOui',
+      displayName: 'Ma WeeOui',
       pass: 'maria',
       team: 'red',
       career: 'forensics',
