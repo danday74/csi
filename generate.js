@@ -84,7 +84,7 @@ const generate = () => {
     },
     {
       name: 'peter',
-      displayName: 'Don Keigh',
+      displayName: 'Robin Banks',
       pass: '',
       team: 'green',
       career: 'analyst',
@@ -250,7 +250,7 @@ const generate = () => {
     'sleeps upside down',
     'climbed mount Everest',
     'failed their driving test 37 times',
-    'is an orphan',
+    'once turned orange after eating too many carrots',
     'lives underground',
     'landed on the moon',
     'dined with the Queen',
