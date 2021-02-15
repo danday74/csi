@@ -1,3 +1,8 @@
+.which-team-will-be-using {
+  font-size: 1.3rem;
+  margin-bottom: 10px;
+}
+
 .team-selector {
   margin-top: 100px;
   text-align: center;
@@ -6,6 +11,7 @@
 .btn-color {
   margin-top: 20px;
   margin-right: 20px;
+  min-width: 120px;
 
   &:last-child {
     margin-right: 0;
