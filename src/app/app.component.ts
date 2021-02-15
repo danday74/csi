@@ -3,10 +3,14 @@ import * as $ from 'jquery';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { find } from 'lodash';
 import { users } from './users';
-import { codes } from './codes';
+import { codes, getRandomClue } from './codes';
 import { forensicsList } from './forensics';
 
 const DEFAULT_UNAUTHORISED_TIME_ALLOWANCE = 60;
+
+const getRandomInt = (min, max) => {
+  return Math.floor(Math.random() * (max - min + 1) + min);
+};
 
 @Component({
   selector: 'app-root',
@@ -20,6 +24,7 @@ export class AppComponent implements OnInit {
   user = localStorage.getItem('user') ? JSON.parse(localStorage.getItem('user')) : null;
   failedLoginCount = parseInt(localStorage.getItem('failed') ? JSON.parse(localStorage.getItem('failed')) : 0, 10);
   unauthorisedTimer = DEFAULT_UNAUTHORISED_TIME_ALLOWANCE;
+  clueTests = [];
   unauthorisedInterval = null;
   code: string;
   clue: string;
@@ -189,6 +194,12 @@ export class AppComponent implements OnInit {
   makeAnonymous(idx: number): void {
     this.logs[idx].anon = true;
     localStorage.setItem('logs', JSON.stringify(this.logs));
+  }
+
+  getClueTest(level: number): void {
+    const rnd = getRandomInt(1111111, 9999999).toString();
+    const clue = getRandomClue(rnd, level);
+    this.clueTests.push(clue);
   }
 
   private unauthorised(): void {

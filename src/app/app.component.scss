@@ -8,14 +8,27 @@
   text-align: center;
 }
 
+.clue-tests {
+  margin-top: 50px;
+  margin-bottom: 20px;
+}
+
+.clue-tests-heading {
+  font-size: 1.2rem;
+  margin-bottom: 10px;
+}
+
+.clue-test {
+  padding: 10px;
+  background-color: cornflowerblue;
+  border-radius: 5px;
+  display: inline-block;
+  margin-top: 10px;
+}
+
 .btn-color {
   margin-top: 20px;
-  margin-right: 20px;
   min-width: 120px;
-
-  &:last-child {
-    margin-right: 0;
-  }
 }
 
 .btn-red {

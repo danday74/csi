@@ -4,8 +4,25 @@
     <div class="which-team-will-be-using">Which team will be using this computer?</div>
 
     <button class="btn btn-red btn-lg btn-color" (click)="setTeam('red')">Red</button>
+    <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
     <button class="btn btn-green btn-lg btn-color" (click)="setTeam('green')">Green</button>
+    <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
     <button class="btn btn-blue btn-lg btn-color" (click)="setTeam('blue')">Blue</button>
+
+    <div class="clue-tests">
+      <div class="clue-tests-heading">Clue Tests</div>
+      <btn class="btn btn-light btn-lg" (click)="getClueTest(1)">Level 1</btn>
+      <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+      <btn class="btn btn-light btn-lg" (click)="getClueTest(2)">Level 2</btn>
+      <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+      <btn class="btn btn-light btn-lg" (click)="getClueTest(3)">Level 3</btn>
+    </div>
+
+    <ng-container *ngFor="let clueTest of clueTests">
+      <div>
+        <div class="clue-test">{{ clueTest }}</div>
+      </div>
+    </ng-container>
   </div>
 
 </ng-container>
@@ -37,7 +54,7 @@
         </div>
 
         <div class="input-group mb-3">
-          <input type="text" class="form-control" placeholder="Password" formControlName="password">
+          <input type="password" class="form-control" placeholder="Password" spellcheck="false" formControlName="password">
         </div>
 
         <button *ngIf="isSian" type="submit" class="btn btn-warning" [disabled]="loginForm.invalid" (click)="login()">ENTER</button>

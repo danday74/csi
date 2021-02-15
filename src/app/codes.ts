@@ -15,7 +15,7 @@ const getRandomIndices = (worth: number, clues: Array<string>): Array<number> =>
 
 // worth 1-7 returns that much data
 // worth 9 returns name
-const getRandomClue = memoize((code: string, worth: number): string => {
+export const getRandomClue = memoize((code: string, worth: number): string => {
 
   const storedClues = JSON.parse(localStorage.getItem('clues')) || {};
   const storedClue = storedClues[code];
