@@ -200,17 +200,17 @@ const generate = () => {
 
   // should total 17 = 18 - Graham's one
   const takeOneCharacteristics = [
-    {name: 'normal', weight: 7},
-    {name: 'clumsy', weight: 1},
+    {name: 'normal', weight: 5},
+    {name: 'clumsy', weight: 2},
     {name: 'huggy', weight: 1},
-    {name: 'helpful', weight: 1},
+    {name: 'helpful', weight: 0},
     {name: 'nervous twitch', weight: 1},
-    {name: 'overly optimistic', weight: 1},
-    {name: 'joker', weight: 1}, // +1
-    {name: 'narcoleptic', weight: 1},
+    {name: 'overly optimistic', weight: 2},
+    {name: 'joker', weight: 0}, // +1
+    {name: 'narcoleptic', weight: 2},
     {name: 'itchy', weight: 1},
     {name: 'limp', weight: 1},
-    {name: 'COVID-19', weight: 1}
+    {name: 'COVID-19', weight: 2}
   ]
 
   // should total 9
@@ -223,17 +223,17 @@ const generate = () => {
   // should total 9
   const takeOnePets = [
     {name: 'cat', weight: 4},
-    {name: 'dog', weight: 4},
-    {name: 'rabbit', weight: 1},
+    {name: 'dog', weight: 3},
+    {name: 'rabbit', weight: 2},
     {name: 'lizard', weight: 0}
   ]
 
   // should total 7 = 9 - Graham's one - Dean's one
   const takeOneHobbies = [
-    {name: 'climbing', weight: 5},
+    {name: 'climbing', weight: 3},
     {name: 'dirt biking', weight: 0}, // +1
-    {name: 'kayaking', weight: 2}, // +1
-    {name: 'fencing', weight: 0}
+    {name: 'kayaking', weight: 1}, // +1
+    {name: 'fencing', weight: 3}
   ]
 
   const weightedCharacteristics = (MODE === 'sample') ? sampleCharacteristics : takeOneCharacteristics;
