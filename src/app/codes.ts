@@ -29,12 +29,14 @@ const getRandomClue = memoize((code: string, worth: number): string => {
       storedClues[code] = result;
       localStorage.setItem('clues', JSON.stringify(storedClues));
       return result;
-    } else if (worth >= 0 && worth <= 7) {
+    } else if (worth >= 0 && worth <= 8) {
       const clues = [];
       clues.push(`is on the ${user.team} team`);
       clues.push(`has the career ${user.career}`);
-      const characteristic = sample(user.characteristics);
-      clues.push(`has the ${characteristic} characteristic`);
+      const characteristic1 = user.characteristics[0];
+      clues.push(`has the ${characteristic1} characteristic`);
+      const characteristic2 = user.characteristics[0];
+      clues.push(`has the ${characteristic2} characteristic`);
       clues.push(`fights with a ${user.weapon}`);
       clues.push(`has a pet ${user.pet}`);
       clues.push(`loves to go ${user.hobby}`);
