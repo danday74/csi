@@ -29,7 +29,7 @@ const generate = () => {
       career: 'interrogator',
       agentId: '13276-10000',
       deptId: 'LK9-14',
-      characteristics: [],
+      characteristics: ['rich'],
       weapon: '',
       pet: '',
       hobby: '',
@@ -198,9 +198,9 @@ const generate = () => {
 
   // TAKE ONE WEIGHTS
 
-  // should total 17 = 18 - Graham's one
+  // should total 16 = 18 - Graham's one - Elene's one
   const takeOneCharacteristics = [
-    {name: 'normal', weight: 5},
+    {name: 'normal', weight: 4},
     {name: 'clumsy', weight: 2},
     {name: 'huggy', weight: 1},
     {name: 'helpful', weight: 0},
@@ -208,7 +208,7 @@ const generate = () => {
     {name: 'overly optimistic', weight: 2},
     {name: 'joker', weight: 0}, // +1
     {name: 'narcoleptic', weight: 2},
-    {name: 'itchy', weight: 1},
+    {name: 'rich', weight: 1}, // +1
     {name: 'limp', weight: 1},
     {name: 'COVID-19', weight: 2}
   ]
