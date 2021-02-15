@@ -38,5 +38,15 @@ export const forensicsList = [
         alarmMessage: null
       };
     }
+  },
+  {
+    code: 'wiper',
+    validate(team: string, user: any): any {
+      return {
+        clue: 'Of course! You examine the brain wiper 2000 and find a clue',
+        alarm: false,
+        alarmMessage: null
+      };
+    }
   }
 ];
