@@ -288,7 +288,10 @@ export class AppComponent implements OnInit, AfterViewInit {
   }
 
   private initSmash(): void {
+    this.smashObj = null;
     this.html.addClass('show-smash');
+    this.html.removeClass('show-smash-2');
+    localStorage.removeItem('smash');
   }
 
   private smash(): void {
