@@ -42,7 +42,8 @@
 
     <ng-container *ngFor="let clueTest of clueTests">
       <div>
-        <div class="clue-test" [ngClass]="'clue-level-' + clueTest.level">{{ clueTest.clue }} <span class="clue-test-matches">{{ clueTest.matches }}</span></div>
+        <div class="clue-test" [ngClass]="'clue-level-' + clueTest.level">{{ clueTest.clue }} <span class="clue-test-matches">{{ clueTest.matches }}</span>
+        </div>
       </div>
     </ng-container>
   </div>
@@ -272,4 +273,14 @@
   <div [class.invisible]="!arrestFlashMessage">
     <span class="arrest-small">{{ arrestFlashMessage }}</span>
   </div>
+</div>
+
+<div class="smash-error">
+  <ng-container *ngIf="smashObj?.message">
+    <div class="animate__animated animate__fadeIn">
+      <div class="wrench"><i class="fa fa-wrench" aria-hidden="true"></i></div>
+      <div>{{ smashObj.message }}</div>
+      <div class="engineer">An engineer is on the way to fix it and will arrive in {{ DEFAULT_SMASH_TIME - smashSecs }} seconds</div>
+    </div>
+  </ng-container>
 </div>

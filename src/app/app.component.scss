@@ -358,3 +358,29 @@
     top: -40px;
   }
 }
+
+.smash-error {
+  user-select: none;
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  background-color: #222;
+  color: #D42E12;
+  text-align: center;
+  padding-top: 300px;
+  font-size: 48px;
+  z-index: 99999999999999999999999999999;
+
+  .wrench {
+    font-size: 72px;
+    color: #FFF;
+  }
+
+  .engineer {
+    color: #FFF;
+    margin-top: 15px;
+    font-size: 20px;
+  }
+}

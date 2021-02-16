@@ -21,3 +21,54 @@ html.silly {
     background-color: #FFF;
   }
 }
+
+html.show-smash {
+  #container-wrapper {
+    visibility: visible;
+  }
+}
+
+html.show-smash-2 {
+  .smash-error {
+    visibility: visible;
+  }
+}
+
+.smash-error {
+  visibility: hidden;
+}
+
+#container-wrapper {
+  visibility: hidden;
+}
+
+#container-wrapper {
+  background-color: #222;
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  z-index: 999999999999999999;
+
+  canvas {
+    position: absolute;
+    backface-visibility: hidden;
+  }
+
+  #container {
+    position: absolute;
+    width: 400px; // 768
+    height: 581px; // 485
+    left: 0;
+    right: 0;
+    top: -105px;
+    bottom: 0;
+    margin: auto;
+
+    img {
+      position: absolute;
+      cursor: pointer;
+    }
+  }
+}

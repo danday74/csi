@@ -1,10 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import { AfterViewInit, Component, OnInit } from '@angular/core';
 import * as $ from 'jquery';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { find } from 'lodash';
 import { users } from './users';
 import { codes, getRandomClue } from './codes';
 import { forensicsList } from './forensics';
+import { differenceInSeconds } from 'date-fns';
 
 const DEFAULT_UNAUTHORISED_TIME_ALLOWANCE = 60;
 
@@ -18,7 +19,9 @@ const getRandomInt = (min, max) => {
   styleUrls: ['./app.component.scss']
 })
 
-export class AppComponent implements OnInit {
+export class AppComponent implements OnInit, AfterViewInit {
+  DEFAULT_SMASH_TIME = 180;
+
   team = localStorage.getItem('team') ? localStorage.getItem('team') : null;
   isSian = localStorage.getItem('isSian') ? JSON.parse(localStorage.getItem('isSian')) : false;
   user = localStorage.getItem('user') ? JSON.parse(localStorage.getItem('user')) : null;
@@ -35,6 +38,8 @@ export class AppComponent implements OnInit {
   forensics: string;
   forensicsClue: string;
   logs = localStorage.getItem('logs') ? JSON.parse(localStorage.getItem('logs')) : [];
+  smashObj = localStorage.getItem('smash') ? JSON.parse(localStorage.getItem('smash')) : null;
+  smashSecs: number;
   videos = [
     {
       name: 'Video One',
@@ -56,6 +61,7 @@ export class AppComponent implements OnInit {
     username: new FormControl('', Validators.required),
     password: new FormControl('', Validators.required)
   });
+
   private html = $('html');
 
   constructor() {
@@ -108,12 +114,32 @@ export class AppComponent implements OnInit {
   }
 
   ngOnInit(): void {
+
+    if (this.smashObj) {
+      const now = new Date();
+      const whenSmashed = new Date(this.smashObj.date);
+      const diffInSecs = differenceInSeconds(now, whenSmashed);
+      if (diffInSecs > this.DEFAULT_SMASH_TIME) {
+        localStorage.removeItem('smash');
+      } else {
+        this.manageSmash();
+      }
+    }
+
     if (this.team && this.user && this.user?.team !== this.team) {
       this.unauthorisedInterval = setInterval(this.unauthorised, 1000);
     }
 
     this.isSian = !this.isSian;
     this.toggleLook();
+  }
+
+  ngAfterViewInit(): void {
+    const containerWrapper = document.getElementById('container');
+
+    containerWrapper.addEventListener('click', () => {
+      this.smash();
+    });
   }
 
   toggleLook(): void {
@@ -185,6 +211,9 @@ export class AppComponent implements OnInit {
           this.clue = codeResponse.alarmMessage ? 'YOU ARE UNDER ARREST ' + codeResponse.alarmMessage : 'YOU ARE UNDER ARREST';
           this.logs.unshift({code, user: this.user.displayName, team: this.user.team, alarm: true, clue: false, anon: false});
           this.playAlarm(codeResponse.alarmMessage);
+        } else if (codeResponse.smash) {
+          this.logs.unshift({code, user: this.user.displayName, team: this.user.team, alarm: false, clue: false, anon: false});
+          this.initSmash();
         } else {
           this.clue = codeResponse.clue;
           this.logs.unshift({code, user: this.user.displayName, team: this.user.team, alarm: false, clue: true, anon: false});
@@ -256,5 +285,64 @@ export class AppComponent implements OnInit {
     setTimeout(() => {
       this.showArrestFlash = false;
     }, 10000);
+  }
+
+  private initSmash(): void {
+    this.html.addClass('show-smash');
+  }
+
+  private smash(): void {
+
+    const smashObj = {
+      date: new Date(),
+      message: `${this.user.displayName} has broken your computer`
+    };
+
+    localStorage.setItem('smash', JSON.stringify(smashObj));
+    this.logout();
+
+    const audio = new Audio('/assets/smash.mp3');
+    try {
+      audio.play().then();
+    } catch (e) {
+      console.log('Smash failed to play');
+    }
+
+    setTimeout(() => {
+      this.manageSmash(new Date());
+      setTimeout(() => {
+        this.smashObj = JSON.parse(localStorage.getItem('smash'));
+      }, 5000);
+    }, 2000);
+  }
+
+  private manageSmash(pWhenSmashed: Date = null): void {
+    const now = new Date();
+    const whenSmashed = pWhenSmashed || new Date(this.smashObj.date);
+    const diffInSecs = differenceInSeconds(now, whenSmashed);
+
+    this.smashSecs = diffInSecs;
+    this.html.removeClass('show-smash');
+    this.html.addClass('show-smash-2');
+    const smashInterval = setInterval(() => {
+      const now2 = new Date();
+      const diffInSecs2 = differenceInSeconds(now2, whenSmashed);
+      this.smashSecs = diffInSecs2;
+
+      if (diffInSecs2 === this.DEFAULT_SMASH_TIME - 3) {
+        const audio = new Audio('/assets/wrench.mp3');
+        try {
+          audio.play().then();
+        } catch (e) {
+          console.log('Wrench failed to play');
+        }
+      }
+
+      if (diffInSecs2 > this.DEFAULT_SMASH_TIME) {
+        localStorage.removeItem('smash');
+        this.html.removeClass('show-smash-2');
+        clearInterval(smashInterval);
+      }
+    }, 1000);
   }
 }

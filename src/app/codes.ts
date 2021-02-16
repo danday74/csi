@@ -107,7 +107,8 @@ const validateDeptIdCode = (team, code, myTeam, verse) => {
   return {
     clue,
     alarm: false,
-    alarmMessage: null
+    alarmMessage: null,
+    smash: false
   };
 };
 
@@ -117,7 +118,8 @@ const validateTeamCode = (team, user, code, myTeam) => {
   return {
     clue,
     alarm,
-    alarmMessage: `for espionage by attempting to access the ${myTeam} teams clue on ${team}s computer`
+    alarmMessage: `for espionage by attempting to access the ${myTeam} teams clue on ${team}s computer`,
+    smash: false
   };
 };
 
@@ -125,7 +127,8 @@ const validateGift = (code, gift) => {
   return {
     clue: `Say the code ${code} to an official and they will give you ${gift}`,
     alarm: false,
-    alarmMessage: null
+    alarmMessage: null,
+    smash: false
   };
 };
 
@@ -134,7 +137,17 @@ const validateTeamSpecificRedHerring = (user, myTeam) => {
   return {
     clue: 'This code is a red herring, if any other team uses it then they will get arrested',
     alarm,
-    alarmMessage: 'for using a red herring code'
+    alarmMessage: 'for using a red herring code',
+    smash: false
+  };
+};
+
+const validateSmash = () => {
+  return {
+    clue: null,
+    alarm: false,
+    alarmMessage: null,
+    smash: true
   };
 };
 
@@ -214,6 +227,12 @@ export const codes = [
     validate(team: string, user: any): any {
       return validateTeamSpecificRedHerring(user, 'blue');
     }
+  },
+  {
+    code: '1111',
+    validate(): any {
+      return validateSmash();
+    }
   }
 ];
 
@@ -238,7 +257,8 @@ users.forEach(myUser => {
           return {
             clue,
             alarm,
-            alarmMessage: 'for espionage by attempting to access a different users clue'
+            alarmMessage: 'for espionage by attempting to access a different users clue',
+            smash: false
           };
         }
       }
