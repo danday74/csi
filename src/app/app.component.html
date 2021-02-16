@@ -263,3 +263,13 @@
   </ng-container>
 
 </ng-container>
+
+<div *ngIf="showArrestFlash" class="alarm-full-screen">
+  <div [class.invisible]="!arrestFlash">
+    <span *ngIf="arrestFlashDisplayName">{{ arrestFlashDisplayName | uppercase }} IS UNDER ARREST</span>
+    <span *ngIf="!arrestFlashDisplayName">YOU ARE UNDER ARREST</span>
+  </div>
+  <div [class.invisible]="!arrestFlashMessage">
+    <span class="arrest-small">{{ arrestFlashMessage }}</span>
+  </div>
+</div>

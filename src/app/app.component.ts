@@ -25,6 +25,10 @@ export class AppComponent implements OnInit {
   failedLoginCount = parseInt(localStorage.getItem('failed') ? JSON.parse(localStorage.getItem('failed')) : 0, 10);
   unauthorisedTimer = DEFAULT_UNAUTHORISED_TIME_ALLOWANCE;
   clueTests = [];
+  arrestFlash = false;
+  showArrestFlash = false;
+  arrestFlashDisplayName;
+  arrestFlashMessage;
   unauthorisedInterval = null;
   code: string;
   clue: string;
@@ -56,6 +60,9 @@ export class AppComponent implements OnInit {
 
   constructor() {
     this.unauthorised = this.unauthorised.bind(this);
+    setInterval(() => {
+      this.arrestFlash = !this.arrestFlash;
+    }, 500);
   }
 
   get username(): string {
@@ -135,7 +142,7 @@ export class AppComponent implements OnInit {
       this.failedLoginCount++;
       if (this.failedLoginCount === 3) {
         this.failedLoginCount = 0;
-        this.playAlarm();
+        this.playAlarm('for a security breach');
       }
     } else {
       this.code = null;
@@ -176,8 +183,8 @@ export class AppComponent implements OnInit {
         const codeResponse = codeObj.validate(this.team, this.user);
         if (codeResponse.alarm) {
           this.clue = codeResponse.alarmMessage ? 'YOU ARE UNDER ARREST ' + codeResponse.alarmMessage : 'YOU ARE UNDER ARREST';
-          this.playAlarm();
           this.logs.unshift({code, user: this.user.displayName, team: this.user.team, alarm: true, clue: false, anon: false});
+          this.playAlarm(codeResponse.alarmMessage);
         } else {
           this.clue = codeResponse.clue;
           this.logs.unshift({code, user: this.user.displayName, team: this.user.team, alarm: false, clue: true, anon: false});
@@ -200,7 +207,7 @@ export class AppComponent implements OnInit {
         const forensicsResponse = forensicsObj.validate(this.team, this.user);
         if (forensicsResponse.alarm) {
           this.forensicsClue = forensicsResponse.alarmMessage ? 'YOU ARE UNDER ARREST ' + forensicsResponse.alarmMessage : 'YOU ARE UNDER ARREST';
-          this.playAlarm();
+          this.playAlarm(forensicsResponse.alarmMessage);
         } else {
           this.forensicsClue = forensicsResponse.clue;
         }
@@ -229,17 +236,24 @@ export class AppComponent implements OnInit {
   private unauthorised(): void {
     this.unauthorisedTimer--;
     if (this.unauthorisedTimer === 0) {
-      this.playAlarm();
+      this.playAlarm('for unauthorised access');
       clearInterval(this.unauthorisedInterval);
     }
   }
 
-  private playAlarm(): void {
+  private playAlarm(arrestFlashMessage = null): void {
+    this.arrestFlashDisplayName = this.user?.displayName;
+    this.arrestFlashMessage = arrestFlashMessage;
     const audio = new Audio('/assets/alarm.mp3');
     try {
       audio.play().then();
     } catch (e) {
       console.log('Alarm failed to play');
     }
+    this.showArrestFlash = true;
+    this.logout();
+    setTimeout(() => {
+      this.showArrestFlash = false;
+    }, 10000);
   }
 }

@@ -338,3 +338,23 @@
   top: -10px;
   min-width: 90px;
 }
+
+.alarm-full-screen {
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  background-color: #000;
+  color: #D42E12;
+  text-align: center;
+  padding-top: 300px;
+  font-size: 72px;
+  z-index: 99999999999999999999999999999;
+
+  .arrest-small {
+    font-size: 28px;
+    position: relative;
+    top: -40px;
+  }
+}
