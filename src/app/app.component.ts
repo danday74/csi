@@ -244,6 +244,7 @@ export class AppComponent implements OnInit {
   private playAlarm(arrestFlashMessage = null): void {
     this.arrestFlashDisplayName = this.user?.displayName;
     this.arrestFlashMessage = arrestFlashMessage;
+    console.log('person to arrest', this.arrestFlashDisplayName);
     const audio = new Audio('/assets/alarm.mp3');
     try {
       audio.play().then();
