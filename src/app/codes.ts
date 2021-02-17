@@ -1,6 +1,7 @@
 import { users } from './users';
 import { capitalize, filter, find, isEqual, memoize, sample, uniqBy } from 'lodash';
 import * as replaceLast from 'replace-last/index';
+import { IClue } from './interfaces/i-clue';
 
 const getRandomIndices = (worth: number, clues: Array<string>): Array<number> => {
   const arr = [];
@@ -100,7 +101,7 @@ export const getRandomClue = memoize((code: string, worth: number): { clue: stri
   return null;
 });
 
-const validateDeptIdCode = (team, code, myTeam, verse) => {
+const validateDeptIdCode = (team, code, myTeam, verse): IClue => {
   const clueRightComputer = `${verse} is correct well done - ` + getRandomClue(code, 9).clue;
   const clueWrongComputer = `${verse} is correct well done, but you must login on the ${myTeam} computer to use this code`;
   const clue = team === myTeam ? clueRightComputer : clueWrongComputer;
@@ -108,50 +109,65 @@ const validateDeptIdCode = (team, code, myTeam, verse) => {
     clue,
     alarm: false,
     alarmMessage: null,
-    smash: false
+    smash: false,
+    blur: false
   };
 };
 
-const validateTeamCode = (team, user, code, myTeam) => {
+const validateTeamCode = (team, user, code, myTeam): IClue => {
   const clue = `${capitalize(myTeam)} team clue - ` + getRandomClue(code, 2).clue;
   const alarm = team !== myTeam && user.team !== myTeam;
   return {
     clue,
     alarm,
     alarmMessage: `for espionage by attempting to access the ${myTeam} teams clue on ${team}s computer`,
-    smash: false
+    smash: false,
+    blur: false
   };
 };
 
-const validateGift = (code, gift) => {
+const validateGift = (code, gift): IClue => {
   return {
     clue: `Say the code ${code} to an official and they will give you ${gift}`,
     alarm: false,
     alarmMessage: null,
-    smash: false
+    smash: false,
+    blur: false
   };
 };
 
-const validateTeamSpecificRedHerring = (user, myTeam) => {
+const validateTeamSpecificRedHerring = (user, myTeam): IClue => {
   const alarm = user.team !== myTeam;
   return {
     clue: 'This code is a red herring, if any other team uses it then they will get arrested',
     alarm,
     alarmMessage: 'for using a red herring code',
-    smash: false
+    smash: false,
+    blur: false
   };
 };
 
-const validateSmash = () => {
+const validateSmash = (): IClue => {
   return {
     clue: null,
     alarm: false,
     alarmMessage: null,
-    smash: true
+    smash: true,
+    blur: false
   };
 };
 
-export const codes = [
+const validateBlur = (): IClue => {
+  return {
+    clue: null,
+    alarm: false,
+    alarmMessage: null,
+    smash: false,
+    blur: true
+  };
+};
+
+export const codes: Array<{code: string, validate: (team: string, user: any) => IClue}> = [
   // team codes * 3 - alarm if not on red team and not on red computer
   {
     code: '1402',
@@ -232,6 +248,12 @@ export const codes = [
     code: '1111',
     validate(): any {
       return validateSmash();
+    }
+  },
+  {
+    code: '2222',
+    validate(): any {
+      return validateBlur();
     }
   }
 ];

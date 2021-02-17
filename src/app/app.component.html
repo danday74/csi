@@ -1,269 +1,271 @@
-<ng-container *ngIf="!team">
+<div class="my-main-app" [class.my-blur]="blur">
 
-  <div class="team-selector">
-    <div class="which-team-will-be-using">Which team will be using this computer?</div>
+  <ng-container *ngIf="!team">
 
-    <button class="btn btn-red btn-lg btn-color" (click)="setTeam('red')">Red</button>
-    <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
-    <button class="btn btn-green btn-lg btn-color" (click)="setTeam('green')">Green</button>
-    <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
-    <button class="btn btn-blue btn-lg btn-color" (click)="setTeam('blue')">Blue</button>
+    <div class="team-selector">
+      <div class="which-team-will-be-using">Which team will be using this computer?</div>
 
-    <div class="clue-tests">
-      <div class="clue-tests-heading">Clue Tests</div>
-      <btn class="btn btn-light btn-lg" (click)="getClueTest(1)">Level 1</btn>
+      <button class="btn btn-red btn-lg btn-color" (click)="setTeam('red')">Red</button>
       <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
-      <btn class="btn btn-light btn-lg" (click)="getClueTest(2)">Level 2</btn>
+      <button class="btn btn-green btn-lg btn-color" (click)="setTeam('green')">Green</button>
       <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
-      <btn class="btn btn-light btn-lg" (click)="getClueTest(3)">Level 3</btn>
-      <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
-      <btn class="btn btn-light btn-lg" (click)="clearClueTest()">Clear</btn>
-    </div>
+      <button class="btn btn-blue btn-lg btn-color" (click)="setTeam('blue')">Blue</button>
 
-    <div class="clue-test-averages">
-      <div>
-        <ng-container *ngIf="clueTestCount(1) > 0">
-          <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
-          <span>Level 1 = {{ clueTestPercentUseful(1) | number: '1.2-2' }}% ({{ clueTestUsefulCount(1) }}/{{ clueTestCount(1) }})</span>
-          <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
-        </ng-container>
-        <ng-container *ngIf="clueTestCount(2) > 0">
-          <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
-          <span>Level 2 = {{ clueTestPercentUseful(2) | number: '1.2-2' }}% ({{ clueTestUsefulCount(2) }}/{{ clueTestCount(2) }})</span>
-          <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
-        </ng-container>
-        <ng-container *ngIf="clueTestCount(3) > 0">
-          <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
-          <span>Level 3 = {{ clueTestPercentUseful(3) | number: '1.2-2' }}% ({{ clueTestUsefulCount(3) }}/{{ clueTestCount(3) }})</span>
-          <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
-        </ng-container>
-      </div>
-    </div>
-
-    <ng-container *ngFor="let clueTest of clueTests">
-      <div>
-        <div class="clue-test" [ngClass]="'clue-level-' + clueTest.level">{{ clueTest.clue }} <span class="clue-test-matches">{{ clueTest.matches }}</span>
-        </div>
-      </div>
-    </ng-container>
-  </div>
-
-</ng-container>
-
-<ng-container *ngIf="team">
-
-  <ng-container *ngIf="!user">
-
-    <div class="funny-or-serious invisible">
-      <div class="input-group mb-3">
-        <input type="checkbox" [ngModel]="isSian" (ngModelChange)="toggleLook()">
-        <span class="toggle-look" (click)="toggleLook()">Toggle look</span>
-      </div>
-    </div>
-
-    <div [ngClass]="isSian ? 'funny' : 'serious'">
-
-      <div class="team-text" [style.color]="team">{{ team | titlecase }} Team HQ</div>
-
-      <form class="login-form" [formGroup]="loginForm">
-
-        <div class="login-text">
-          <img *ngIf="isSian" src="/assets/sian-ap.gif">
-          <img *ngIf="!isSian" src="/assets/dan-ap.png">
-        </div>
-
-        <div class="input-group mb-3">
-          <input type="text" class="form-control" placeholder="Username" spellcheck="false" formControlName="username">
-        </div>
-
-        <div class="input-group mb-3">
-          <input type="password" class="form-control" placeholder="Password" spellcheck="false" formControlName="password">
-        </div>
-
-        <button *ngIf="isSian" type="submit" class="btn btn-warning" [disabled]="loginForm.invalid" (click)="login()">ENTER</button>
-        <button *ngIf="!isSian" type="submit" class="btn btn-light" [disabled]="loginForm.invalid" (click)="login()">Login</button>
-
-        <div *ngIf="failedLoginCount > 0" class="failed-login-count">
-          <div>You have failed login {{ failedLoginCount }} times</div>
-          <div *ngIf="failedLoginCount === 2" class="badge">If you fail to login again you will be arrested for a security breach</div>
-        </div>
-
-      </form>
-    </div>
-
-  </ng-container>
-
-  <ng-container *ngIf="user">
-
-    <ng-container *ngIf="user.team !== team">
-      <div class="unauthorised-login">
-        <div>Warning this login is unauthorised</div>
-        <div>You are hacking into the {{ team }} teams computer</div>
-        <div>You will be arrested if you do not logout within {{ unauthorisedTimer }} seconds</div>
-      </div>
-    </ng-container>
-
-    <div class="logout-button">
-      <button *ngIf="isSian" type="button" class="btn btn-warning" (click)="logout()">Logout</button>
-      <button *ngIf="!isSian" type="button" class="btn btn-light" (click)="logout()">Logout</button>
-    </div>
-
-    <div class="logged-in" [ngClass]="isSian ? 'funny' : 'serious'">
-      <div class="user-card" [style.backgroundColor]="user.team">
-        <div class="smaller">Agent ID = {{ user.agentId }}=</div>
-        <div class="smaller">Dept ID = {{ user.deptId.replace('-', ':') }}</div>
-        <div>{{ user.career | titlecase }} {{ user.displayName }}</div>
-        <div class="smaller">{{ user.team | titlecase }} Team</div>
+      <div class="clue-tests">
+        <div class="clue-tests-heading">Clue Tests</div>
+        <btn class="btn btn-light btn-lg" (click)="getClueTest(1)">Level 1</btn>
+        <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+        <btn class="btn btn-light btn-lg" (click)="getClueTest(2)">Level 2</btn>
+        <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+        <btn class="btn btn-light btn-lg" (click)="getClueTest(3)">Level 3</btn>
+        <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+        <btn class="btn btn-light btn-lg" (click)="clearClueTest()">Clear</btn>
       </div>
 
-      <div class="enter-code">
-        Enter a 4 digit code
-        <div class="enter-code-input">
-          <div class="input-group mt-3">
-            <input type="text" pattern="[0-9]{4}" maxlength="4" class="form-control" [(ngModel)]="code" placeholder="4 digit code" (keyup.enter)="submitCode()">
-            <div class="input-group-append">
-              <span (click)="submitCode()" class="input-group-text submit-button">Submit</span>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <div [class.invisible]="!clue" class="clue">
-        <div class="clue-inner" [class.arrest]="clue?.includes('ARREST')" [class.warn]="clue === 'Invalid code'">
-          <span>&nbsp;&nbsp;&nbsp;{{ clue || 'empty' }}&nbsp;&nbsp;&nbsp;</span>
-        </div>
-      </div>
-
-      <ng-container *ngIf="user.career === 'forensics'">
-
-        <div class="enter-forensics">
-          Describe the item you found and wish to put under the microscope <span class="example">e.g. cup, balloon, giraffe</span>
-        </div>
-        <div class="enter-forensics-input">
-          <div class="input-group mt-3">
-            <input type="text" class="form-control" [(ngModel)]="forensics" placeholder="Specimen" (keyup.enter)="submitForensics()">
-            <div class="input-group-append">
-              <span (click)="submitForensics()" class="input-group-text submit-button">Submit</span>
-            </div>
-          </div>
-        </div>
-
-        <div [class.invisible]="!forensicsClue" class="forensics-clue">
-          <div class="forensics-clue-inner" [class.arrest]="forensicsClue?.includes('ARREST')" [class.warn]="forensicsClue?.startsWith('Could not extract')">
-            <span>&nbsp;&nbsp;&nbsp;{{ forensicsClue }}&nbsp;&nbsp;&nbsp;</span>
-          </div>
-        </div>
-
-      </ng-container>
-
-      <ng-container *ngIf="user.career === 'analyst'">
-
-        <div class="video-stuff">
-          <div class="grid">
-            <ng-container *ngFor="let video of videos">
-              <div>
-                <div>
-                  <span class="video-name" [class.locked]="video.locked">{{ video.name }}</span>
-                  <ng-container *ngIf="video.locked">
-                    <div class="padlock"><i class="fa fa-lock" aria-hidden="true"></i></div>
-                  </ng-container>
-                </div>
-                <ng-container *ngIf="video.locked">
-                  <div class="video-overlay"></div>
-                  <!-- 560, 315 -->
-                  <div class="iframe-wrapper locked">
-                    <iframe width="420" height="236" [src]="video.url | safe" frameborder="0"
-                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-                  </div>
-                </ng-container>
-                <ng-container *ngIf="!video.locked">
-                  <div class="iframe-wrapper">
-                    <iframe width="420" height="236" [src]="video.url | safe" frameborder="0"
-                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-                  </div>
-                </ng-container>
-              </div>
-            </ng-container>
-          </div>
-        </div>
-
-      </ng-container>
-
-      <ng-container *ngIf="user.career === 'interrogator'">
-        <div class="logs">
-          <div class="logs-info">
-            <div>Details of the last three 4 digit codes used on this computer will appear here</div>
-            <div>If these prove that other teams have accessed your computer, report it to officials so that appropriate arrests can be made</div>
-          </div>
-          <ng-container *ngIf="this.logs.length">
-
-            <table class="table table-dark table-striped">
-              <thead>
-              <tr>
-                <th scope="col">Code</th>
-                <th scope="col">User</th>
-                <th scope="col">Team</th>
-                <th scope="col">Alarm</th>
-                <th scope="col">Clue</th>
-                <th scope="col">
-                  <span class="invisible">Control</span>
-                </th>
-              </tr>
-              </thead>
-              <tbody>
-
-              <ng-container *ngFor="let log of logs; index as idx">
-
-                <ng-container *ngIf="idx < 3">
-
-                  <tr>
-                    <th scope="row">{{ log.code }}</th>
-                    <td [style.color]="log.anon ? '#AAA' : log.team">
-                      <ng-container *ngIf="!log.anon">{{ log.user }}</ng-container>
-                      <ng-container *ngIf="log.anon">anon</ng-container>
-                    </td>
-                    <td [style.color]="log.anon ? '#AAA' : log.team">
-                      <ng-container *ngIf="!log.anon">{{ log.team | titlecase }}</ng-container>
-                      <ng-container *ngIf="log.anon">anon</ng-container>
-                    </td>
-                    <td [style.color]="log.alarm ? '#008800' : '#880000'">
-                      <i *ngIf="log.alarm" class="fa fa-check" aria-hidden="true"></i>
-                      <i *ngIf="!log.alarm" class="fa fa-times" aria-hidden="true"></i>
-                    </td>
-                    <td [style.color]="log.clue ? '#008800' : '#880000'">
-                      <i *ngIf="log.clue" class="fa fa-check" aria-hidden="true"></i>
-                      <i *ngIf="!log.clue" class="fa fa-times" aria-hidden="true"></i>
-                    </td>
-                    <td>
-                      <div class="anonymous-button-wrapper">
-                        <button class="btn btn-light btn-sm anonymous-button" [disabled]="log.anon" (click)="makeAnonymous(idx)">
-                          <span *ngIf="!log.anon">Hide User</span>
-                          <span *ngIf="log.anon">Anon</span>
-                        </button>
-                      </div>
-                    </td>
-                  </tr>
-
-                </ng-container>
-              </ng-container>
-
-
-              </tbody>
-            </table>
-
+      <div class="clue-test-averages">
+        <div>
+          <ng-container *ngIf="clueTestCount(1) > 0">
+            <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+            <span>Level 1 = {{ clueTestPercentUseful(1) | number: '1.2-2' }}% ({{ clueTestUsefulCount(1) }}/{{ clueTestCount(1) }})</span>
+            <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+          </ng-container>
+          <ng-container *ngIf="clueTestCount(2) > 0">
+            <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+            <span>Level 2 = {{ clueTestPercentUseful(2) | number: '1.2-2' }}% ({{ clueTestUsefulCount(2) }}/{{ clueTestCount(2) }})</span>
+            <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+          </ng-container>
+          <ng-container *ngIf="clueTestCount(3) > 0">
+            <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+            <span>Level 3 = {{ clueTestPercentUseful(3) | number: '1.2-2' }}% ({{ clueTestUsefulCount(3) }}/{{ clueTestCount(3) }})</span>
+            <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
           </ng-container>
         </div>
+      </div>
+
+      <ng-container *ngFor="let clueTest of clueTests">
+        <div>
+          <div class="clue-test" [ngClass]="'clue-level-' + clueTest.level">{{ clueTest.clue }} <span class="clue-test-matches">{{ clueTest.matches }}</span>
+          </div>
+        </div>
       </ng-container>
-
     </div>
-
-    <div class="clear-both"></div>
-
-    <div class="team-code" [style.color]="team">{{ team }} Team Code is {{ teamCode }}</div>
 
   </ng-container>
 
-</ng-container>
+  <ng-container *ngIf="team">
+
+    <ng-container *ngIf="!user">
+
+      <div class="funny-or-serious invisible">
+        <div class="input-group mb-3">
+          <input type="checkbox" [ngModel]="isSian" (ngModelChange)="toggleLook()">
+          <span class="toggle-look" (click)="toggleLook()">Toggle look</span>
+        </div>
+      </div>
+
+      <div [ngClass]="isSian ? 'funny' : 'serious'">
+
+        <div class="team-text" [style.color]="team">{{ team | titlecase }} Team HQ</div>
+
+        <form class="login-form" [formGroup]="loginForm">
+
+          <div class="login-text">
+            <img *ngIf="isSian" src="/assets/sian-ap.gif">
+            <img *ngIf="!isSian" src="/assets/dan-ap.png">
+          </div>
+
+          <div class="input-group mb-3">
+            <input type="text" class="form-control" placeholder="Username" spellcheck="false" formControlName="username">
+          </div>
+
+          <div class="input-group mb-3">
+            <input type="password" class="form-control" placeholder="Password" spellcheck="false" formControlName="password">
+          </div>
+
+          <button *ngIf="isSian" type="submit" class="btn btn-warning" [disabled]="loginForm.invalid" (click)="login()">ENTER</button>
+          <button *ngIf="!isSian" type="submit" class="btn btn-light" [disabled]="loginForm.invalid" (click)="login()">Login</button>
+
+          <div *ngIf="failedLoginCount > 0" class="failed-login-count">
+            <div>You have failed login {{ failedLoginCount }} times</div>
+            <div *ngIf="failedLoginCount === 2" class="badge">If you fail to login again you will be arrested for a security breach</div>
+          </div>
+
+        </form>
+      </div>
+
+    </ng-container>
+
+    <ng-container *ngIf="user">
+
+      <ng-container *ngIf="user.team !== team">
+        <div class="unauthorised-login">
+          <div>Warning this login is unauthorised</div>
+          <div>You are hacking into the {{ team }} teams computer</div>
+          <div>You will be arrested if you do not logout within {{ unauthorisedTimer }} seconds</div>
+        </div>
+      </ng-container>
+
+      <div class="logged-in" [ngClass]="isSian ? 'funny' : 'serious'">
+        <div class="user-card" [style.backgroundColor]="user.team">
+          <div class="smaller">Agent ID = {{ user.agentId }}=</div>
+          <div class="smaller">Dept ID = {{ user.deptId.replace('-', ':') }}</div>
+          <div>{{ user.career | titlecase }} {{ user.displayName }}</div>
+          <div class="smaller">{{ user.team | titlecase }} Team</div>
+        </div>
+
+        <div class="enter-code">
+          Enter a 4 digit code
+          <div class="enter-code-input">
+            <div class="input-group mt-3">
+              <input type="text" pattern="[0-9]{4}" maxlength="4" class="form-control" [(ngModel)]="code" placeholder="4 digit code"
+                     (keyup.enter)="submitCode()">
+              <div class="input-group-append">
+                <span (click)="submitCode()" class="input-group-text submit-button">Submit</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div [class.invisible]="!clue" class="clue">
+          <div class="clue-inner" [class.arrest]="clue?.includes('ARREST')" [class.warn]="clue === 'Invalid code'">
+            <span>&nbsp;&nbsp;&nbsp;{{ clue || 'empty' }}&nbsp;&nbsp;&nbsp;</span>
+          </div>
+        </div>
+
+        <ng-container *ngIf="user.career === 'forensics'">
+
+          <div class="enter-forensics">
+            Describe the item you found and wish to put under the microscope <span class="example">e.g. cup, balloon, giraffe</span>
+          </div>
+          <div class="enter-forensics-input">
+            <div class="input-group mt-3">
+              <input type="text" class="form-control" [(ngModel)]="forensics" placeholder="Specimen" (keyup.enter)="submitForensics()">
+              <div class="input-group-append">
+                <span (click)="submitForensics()" class="input-group-text submit-button">Submit</span>
+              </div>
+            </div>
+          </div>
+
+          <div [class.invisible]="!forensicsClue" class="forensics-clue">
+            <div class="forensics-clue-inner" [class.arrest]="forensicsClue?.includes('ARREST')" [class.warn]="forensicsClue?.startsWith('Could not extract')">
+              <span>&nbsp;&nbsp;&nbsp;{{ forensicsClue }}&nbsp;&nbsp;&nbsp;</span>
+            </div>
+          </div>
+
+        </ng-container>
+
+        <ng-container *ngIf="user.career === 'analyst'">
+
+          <div class="video-stuff">
+            <div class="grid">
+              <ng-container *ngFor="let video of videos">
+                <div>
+                  <div>
+                    <span class="video-name" [class.locked]="video.locked">{{ video.name }}</span>
+                    <ng-container *ngIf="video.locked">
+                      <div class="padlock"><i class="fa fa-lock" aria-hidden="true"></i></div>
+                    </ng-container>
+                  </div>
+                  <ng-container *ngIf="video.locked">
+                    <div class="video-overlay"></div>
+                    <!-- 560, 315 -->
+                    <div class="iframe-wrapper locked">
+                      <iframe width="420" height="236" [src]="video.url | safe" frameborder="0"
+                              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                    </div>
+                  </ng-container>
+                  <ng-container *ngIf="!video.locked">
+                    <div class="iframe-wrapper">
+                      <iframe width="420" height="236" [src]="video.url | safe" frameborder="0"
+                              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                    </div>
+                  </ng-container>
+                </div>
+              </ng-container>
+            </div>
+          </div>
+
+        </ng-container>
+
+        <ng-container *ngIf="user.career === 'interrogator'">
+          <div class="logs">
+            <div class="logs-info">
+              <div>Details of the last three 4 digit codes used on this computer will appear here</div>
+              <div>If these prove that other teams have accessed your computer, report it to officials so that appropriate arrests can be made</div>
+            </div>
+            <ng-container *ngIf="this.logs.length">
+
+              <table class="table table-dark table-striped">
+                <thead>
+                <tr>
+                  <th scope="col">Code</th>
+                  <th scope="col">User</th>
+                  <th scope="col">Team</th>
+                  <th scope="col">Alarm</th>
+                  <th scope="col">Clue</th>
+                  <th scope="col">
+                    <span class="invisible">Control</span>
+                  </th>
+                </tr>
+                </thead>
+                <tbody>
+
+                <ng-container *ngFor="let log of logs; index as idx">
+
+                  <ng-container *ngIf="idx < 3">
+
+                    <tr>
+                      <th scope="row">{{ log.code }}</th>
+                      <td [style.color]="log.anon ? '#AAA' : log.team">
+                        <ng-container *ngIf="!log.anon">{{ log.user }}</ng-container>
+                        <ng-container *ngIf="log.anon">anon</ng-container>
+                      </td>
+                      <td [style.color]="log.anon ? '#AAA' : log.team">
+                        <ng-container *ngIf="!log.anon">{{ log.team | titlecase }}</ng-container>
+                        <ng-container *ngIf="log.anon">anon</ng-container>
+                      </td>
+                      <td [style.color]="log.alarm ? '#008800' : '#880000'">
+                        <i *ngIf="log.alarm" class="fa fa-check" aria-hidden="true"></i>
+                        <i *ngIf="!log.alarm" class="fa fa-times" aria-hidden="true"></i>
+                      </td>
+                      <td [style.color]="log.clue ? '#008800' : '#880000'">
+                        <i *ngIf="log.clue" class="fa fa-check" aria-hidden="true"></i>
+                        <i *ngIf="!log.clue" class="fa fa-times" aria-hidden="true"></i>
+                      </td>
+                      <td>
+                        <div class="anonymous-button-wrapper">
+                          <button class="btn btn-light btn-sm anonymous-button" [disabled]="log.anon" (click)="makeAnonymous(idx)">
+                            <span *ngIf="!log.anon">Hide User</span>
+                            <span *ngIf="log.anon">Anon</span>
+                          </button>
+                        </div>
+                      </td>
+                    </tr>
+
+                  </ng-container>
+                </ng-container>
+
+
+                </tbody>
+              </table>
+
+            </ng-container>
+          </div>
+        </ng-container>
+
+      </div>
+
+      <div class="clear-both"></div>
+
+    </ng-container>
+
+  </ng-container>
+
+</div>
+
+<div *ngIf="blur" class="blur-penalty">
+  interference countdown - {{ blurCountDown }} seconds
+</div>
 
 <div *ngIf="showArrestFlash" class="alarm-full-screen">
   <div [class.invisible]="!arrestFlash">
@@ -283,4 +285,11 @@
       <div class="engineer">An engineer is on the way to fix it and will arrive in {{ DEFAULT_SMASH_TIME - smashSecs }} seconds</div>
     </div>
   </ng-container>
+</div>
+
+<div class="team-code" [style.color]="team">{{ team }} Team Code is {{ teamCode }}</div>
+
+<div class="logout-button">
+  <button *ngIf="isSian" type="button" class="btn btn-warning" (click)="logout()">Logout</button>
+  <button *ngIf="!isSian" type="button" class="btn btn-light" (click)="logout()">Logout</button>
 </div>

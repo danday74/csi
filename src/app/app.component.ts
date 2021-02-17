@@ -21,7 +21,8 @@ const getRandomInt = (min, max) => {
 
 export class AppComponent implements OnInit, AfterViewInit {
   DEFAULT_SMASH_TIME = 180;
-
+  DEFAULT_BLUR_TIME = 180;
+  blurCountDown;
   team = localStorage.getItem('team') ? localStorage.getItem('team') : null;
   isSian = localStorage.getItem('isSian') ? JSON.parse(localStorage.getItem('isSian')) : false;
   user = localStorage.getItem('user') ? JSON.parse(localStorage.getItem('user')) : null;
@@ -40,6 +41,8 @@ export class AppComponent implements OnInit, AfterViewInit {
   logs = localStorage.getItem('logs') ? JSON.parse(localStorage.getItem('logs')) : [];
   smashObj = localStorage.getItem('smash') ? JSON.parse(localStorage.getItem('smash')) : null;
   smashSecs: number;
+  blur: boolean;
+  blurInterval;
   videos = [
     {
       name: 'Video One',
@@ -114,6 +117,20 @@ export class AppComponent implements OnInit, AfterViewInit {
   }
 
   ngOnInit(): void {
+
+    const blurNow = new Date();
+    console.log(localStorage.getItem('blur'));
+    const blurDate = localStorage.getItem('blur') ? new Date(localStorage.getItem('blur')) : null;
+    if (blurDate) {
+      const blurDiffInSecs = this.DEFAULT_BLUR_TIME - differenceInSeconds(blurNow, blurDate);
+      console.log(blurDiffInSecs);
+      if (blurDiffInSecs > this.DEFAULT_BLUR_TIME) {
+        localStorage.removeItem('blur');
+      } else {
+        this.blurCountDown = blurDiffInSecs;
+        this.manageBlur();
+      }
+    }
 
     if (this.smashObj) {
       const now = new Date();
@@ -214,6 +231,10 @@ export class AppComponent implements OnInit, AfterViewInit {
         } else if (codeResponse.smash) {
           this.logs.unshift({code, user: this.user.displayName, team: this.user.team, alarm: false, clue: false, anon: false});
           this.initSmash();
+        } else if (codeResponse.blur) {
+          localStorage.setItem('blur', new Date().toString());
+          this.blurCountDown = this.DEFAULT_BLUR_TIME;
+          this.manageBlur();
         } else {
           this.clue = codeResponse.clue;
           this.logs.unshift({code, user: this.user.displayName, team: this.user.team, alarm: false, clue: true, anon: false});
@@ -345,6 +366,23 @@ export class AppComponent implements OnInit, AfterViewInit {
         localStorage.removeItem('smash');
         this.html.removeClass('show-smash-2');
         clearInterval(smashInterval);
+      }
+    }, 1000);
+  }
+
+  private manageBlur(): void {
+    clearInterval(this.blurInterval);
+    this.clue = 'There seems to be some interference with your equipment';
+    this.blur = true;
+    this.html.addClass('my-blur');
+    this.blurInterval = setInterval(() => {
+      this.blurCountDown--;
+      if (this.blurCountDown <= 0) {
+        this.blurCountDown = null;
+        clearInterval(this.blurInterval);
+        localStorage.removeItem('blur');
+        this.blur = false;
+        this.html.removeClass('my-blur');
       }
     }, 1000);
   }
