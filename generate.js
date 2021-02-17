@@ -10,13 +10,13 @@ const getArray = (weightedArray) => {
   }, []);
 }
 
-export const getRandomInt = (min, max) => {
+const getRandomInt = (min, max) => {
   return Math.floor(Math.random() * (max - min + 1) + min);
 }
 
-// const MODE = 'sample'
+const MODE = 'sample'
 // const MODE = 'take-one'
-const MODE = 'take-one-strict'
+// const MODE = 'take-one-strict'
 
 const generate = () => {
   let users = [
@@ -33,6 +33,7 @@ const generate = () => {
       weapon: '',
       pet: '',
       hobby: '',
+      fruit: '',
       banter: [],
       innocent: true
     },
@@ -48,6 +49,7 @@ const generate = () => {
       weapon: '',
       pet: '',
       hobby: '',
+      fruit: '',
       banter: [],
       innocent: true
     },
@@ -63,6 +65,7 @@ const generate = () => {
       weapon: '',
       pet: '',
       hobby: '',
+      fruit: '',
       banter: [],
       innocent: true
     },
@@ -79,6 +82,7 @@ const generate = () => {
       weapon: '',
       pet: '',
       hobby: 'kayaking',
+      fruit: '',
       banter: [],
       innocent: true
     },
@@ -94,6 +98,7 @@ const generate = () => {
       weapon: '',
       pet: '',
       hobby: '',
+      fruit: '',
       banter: [],
       innocent: true
     },
@@ -109,6 +114,7 @@ const generate = () => {
       weapon: '',
       pet: '',
       hobby: '',
+      fruit: '',
       banter: [],
       innocent: true
     },
@@ -125,6 +131,7 @@ const generate = () => {
       weapon: '',
       pet: '',
       hobby: '',
+      fruit: '',
       banter: [],
       innocent: true
     },
@@ -140,6 +147,7 @@ const generate = () => {
       weapon: '',
       pet: '',
       hobby: 'dirt biking',
+      fruit: '',
       banter: [],
       innocent: false
     },
@@ -155,6 +163,7 @@ const generate = () => {
       weapon: '',
       pet: '',
       hobby: '',
+      fruit: '',
       banter: [],
       innocent: true
     }
@@ -166,12 +175,12 @@ const generate = () => {
     {name: 'normal', weight: 5},
     {name: 'clumsy', weight: 1},
     {name: 'huggy', weight: 1},
-    {name: 'helpful', weight: 1},
+    {name: 'helpful', weight: 0},
     {name: 'nervous twitch', weight: 1},
-    {name: 'overly optimistic', weight: 1},
-    {name: 'joker', weight: 1},
+    {name: 'overly optimistic', weight: 0},
+    {name: 'joker', weight: 0},
     {name: 'narcoleptic', weight: 1},
-    {name: 'itchy', weight: 1},
+    {name: 'starer', weight: 1},
     {name: 'limp', weight: 1},
     {name: 'COVID-19', weight: 1}
   ]
@@ -196,6 +205,12 @@ const generate = () => {
     {name: 'fencing', weight: 1}
   ]
 
+  // const sampleFruits = [
+  //   {name: 'love', weight: 1},
+  //   {name: 'joy', weight: 1},
+  //   {name: 'peace', weight: 1}
+  // ]
+
   // TAKE ONE WEIGHTS
 
   // should total 16 = 18 - Graham's one - Elene's one
@@ -216,30 +231,38 @@ const generate = () => {
   // should total 9
   const takeOneWeapons = [
     {name: 'gun', weight: 5},
-    {name: 'catapult', weight: 3},
-    {name: 'boomerang', weight: 1}
+    {name: 'catapult', weight: 0},
+    {name: 'boomerang', weight: 4}
   ]
 
   // should total 9
   const takeOnePets = [
-    {name: 'cat', weight: 4},
-    {name: 'dog', weight: 3},
-    {name: 'rabbit', weight: 2},
+    {name: 'cat', weight: 5},
+    {name: 'dog', weight: 4},
+    {name: 'rabbit', weight: 0},
     {name: 'lizard', weight: 0}
   ]
 
   // should total 7 = 9 - Graham's one - Dean's one
   const takeOneHobbies = [
-    {name: 'climbing', weight: 3},
-    {name: 'dirt biking', weight: 0}, // +1
-    {name: 'kayaking', weight: 1}, // +1
-    {name: 'fencing', weight: 3}
+    {name: 'climbing', weight: 0},
+    {name: 'dirt biking', weight: 4}, // +1
+    {name: 'kayaking', weight: 3}, // +1
+    {name: 'fencing', weight: 0}
+  ]
+
+  // should total 9
+  const takeOneFruits = [
+    {name: 'love', weight: 3},
+    {name: 'joy', weight: 3},
+    {name: 'peace', weight: 3}
   ]
 
   const weightedCharacteristics = (MODE === 'sample') ? sampleCharacteristics : takeOneCharacteristics;
   const weightedWeapons = (MODE === 'sample') ? sampleWeapons : takeOneWeapons;
   const weightedPets = (MODE === 'sample') ? samplePets : takeOnePets;
   const weightedHobbies = (MODE === 'sample') ? sampleHobbies : takeOneHobbies;
+  const weightedFruits = takeOneFruits;
 
   const banters = [
     'holds a world record',
@@ -266,6 +289,7 @@ const generate = () => {
   const weapons = getArray(weightedWeapons)
   const pets = getArray(weightedPets)
   const hobbies = getArray(weightedHobbies)
+  const fruits = getArray(weightedFruits)
 
   users = users.map((user) => {
     const password = getRandomInt(0, 99999).toString().padStart(5, '0');
@@ -324,6 +348,17 @@ const generate = () => {
       }
     }
 
+    if (!user.fruit) {
+      // if (MODE === 'sample') {
+      //   user.fruit = _.sample(fruits)
+      // } else {
+      const idx = getRandomInt(0, fruits.length - 1)
+      const fruit = fruits.splice(idx, 1)[0]
+      if (fruit == null) throw Error('not enough fruits')
+      user.fruit = fruit
+      // }
+    }
+
     while (user.banter.length < 2) {
       const idx = getRandomInt(0, banters.length - 1)
       const banter = banters.splice(idx, 1)[0]
@@ -337,9 +372,18 @@ const generate = () => {
   if (MODE === 'take-one-strict' && weapons.length !== 0) throw Error(`strict weapons error length is ${weapons.length}`)
   if (MODE === 'take-one-strict' && pets.length !== 0) throw Error(`strict pets error length is ${pets.length}`)
   if (MODE === 'take-one-strict' && hobbies.length !== 0) throw Error(`strict hobbies error length is ${hobbies.length}`)
+  if (MODE === 'take-one-strict' && fruits.length !== 0) throw Error(`strict fruits error length is ${fruits.length}`)
   if (MODE === 'take-one-strict' && banters.length !== 0) throw Error(`strict banters error length is ${banters.length}`)
 
   console.log(users)
+
+  const allCharacteristics = sampleCharacteristics.filter(x => x.weight > 0).map(x => x.name)
+  const unusedCharacteristics = []
+  allCharacteristics.forEach((char) => {
+    const user = _.find(users, (usr) => usr.characteristics.includes(char))
+    if (!user) unusedCharacteristics.push(char)
+  })
+  console.log('unusedCharacteristics', unusedCharacteristics)
 
   fs.writeFileSync('src/app/users.ts', `/* tslint:disable */\nexport const users = ${JSON.stringify(users)};\n`)
 }

@@ -47,6 +47,7 @@ export const getRandomClue = memoize((code: string, worth: number): { clue: stri
       clues.push(`fights with a ${user.weapon}`);
       clues.push(`has a pet ${user.pet}`);
       clues.push(`loves to go ${user.hobby}`);
+      clues.push(`has the fruit ${user.fruit}`);
       const banter = sample(user.banter);
       clues.push(banter);
 
@@ -76,6 +77,9 @@ export const getRandomClue = memoize((code: string, worth: number): { clue: stri
           match = match && usr.hobby === user.hobby;
         }
         if (indices.includes(7)) {
+          match = match && usr.fruit === user.fruit;
+        }
+        if (indices.includes(8)) {
           match = match && usr.banter.includes(banter);
         }
         return match;

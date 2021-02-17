@@ -271,12 +271,12 @@ export class AppComponent implements OnInit, AfterViewInit {
   }
 
   getClueTest(level: number): void {
-    // for (let i = 0; i < 1000; i++) {
-    const rnd = getRandomInt(1111111111, 9999999999).toString();
-    const clue = getRandomClue(rnd, level);
-    this.clueTests.push(clue);
+    for (let i = 0; i < 1000; i++) {
+      const rnd = getRandomInt(1111111111, 9999999999).toString();
+      const clue = getRandomClue(rnd, level);
+      this.clueTests.push(clue);
     // console.log(clue);
-    // }
+    }
   }
 
   clearClueTest(): void {
