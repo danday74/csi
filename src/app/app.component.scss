@@ -404,3 +404,12 @@
     padding-bottom: 1px;
   }
 }
+
+.surveillance-button-wrapper {
+  position: absolute;
+  top: 337px;
+  right: 200px;
+  .surveillance-button {
+    min-width: 120px;
+  }
+}

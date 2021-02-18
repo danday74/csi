@@ -16,6 +16,10 @@ html.my-blur {
   .unauthorised-login {
     filter: blur(3px);
   }
+
+  .surveillance-button-wrapper {
+    filter: blur(3px);
+  }
 }
 
 //@keyframes blurry {

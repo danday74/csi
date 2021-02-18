@@ -6,6 +6,15 @@
   </div>
 </ng-container>
 
+<ng-container *ngIf="user?.career === 'analyst'">
+  <div class="surveillance-button-wrapper">
+    <button class="btn btn-light surveillance-button" (click)="toggleSurveillance()">
+      <span *ngIf="surveillance">Videos</span>
+      <span *ngIf="!surveillance">Surveillance</span>
+    </button>
+  </div>
+</ng-container>
+
 <div class="my-main-app" [class.my-blur]="blur">
 
   <ng-container *ngIf="!team">
@@ -156,34 +165,41 @@
 
         <ng-container *ngIf="user.career === 'analyst'">
 
-          <div class="video-stuff">
-            <div class="grid">
-              <ng-container *ngFor="let video of videos">
-                <div>
+          <ng-container *ngIf="surveillance">
+            hello
+          </ng-container>
+
+          <ng-container *ngIf="!surveillance">
+
+            <div class="video-stuff">
+              <div class="grid">
+                <ng-container *ngFor="let video of videos">
                   <div>
-                    <span class="video-name" [class.locked]="video.locked">{{ video.name }}</span>
+                    <div>
+                      <span class="video-name" [class.locked]="video.locked">{{ video.name }}</span>
+                      <ng-container *ngIf="video.locked">
+                        <div class="padlock"><i class="fa fa-lock" aria-hidden="true"></i></div>
+                      </ng-container>
+                    </div>
                     <ng-container *ngIf="video.locked">
-                      <div class="padlock"><i class="fa fa-lock" aria-hidden="true"></i></div>
+                      <div class="video-overlay"></div>
+                      <!-- 560, 315 -->
+                      <div class="iframe-wrapper locked">
+                        <iframe width="420" height="236" [src]="video.url | safe" frameborder="0"
+                                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                      </div>
+                    </ng-container>
+                    <ng-container *ngIf="!video.locked">
+                      <div class="iframe-wrapper">
+                        <iframe width="420" height="236" [src]="video.url | safe" frameborder="0"
+                                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                      </div>
                     </ng-container>
                   </div>
-                  <ng-container *ngIf="video.locked">
-                    <div class="video-overlay"></div>
-                    <!-- 560, 315 -->
-                    <div class="iframe-wrapper locked">
-                      <iframe width="420" height="236" [src]="video.url | safe" frameborder="0"
-                              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-                    </div>
-                  </ng-container>
-                  <ng-container *ngIf="!video.locked">
-                    <div class="iframe-wrapper">
-                      <iframe width="420" height="236" [src]="video.url | safe" frameborder="0"
-                              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-                    </div>
-                  </ng-container>
-                </div>
-              </ng-container>
+                </ng-container>
+              </div>
             </div>
-          </div>
+          </ng-container>
 
         </ng-container>
 

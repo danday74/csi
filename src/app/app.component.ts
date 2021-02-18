@@ -20,6 +20,7 @@ const getRandomInt = (min, max) => {
 })
 
 export class AppComponent implements OnInit, AfterViewInit {
+  surveillance = localStorage.getItem('surveillance') ? JSON.parse(localStorage.getItem('surveillance')) : false;
   DEFAULT_SMASH_TIME = 180;
   DEFAULT_BLUR_TIME = 180;
   blurCountDown;
@@ -400,5 +401,10 @@ export class AppComponent implements OnInit, AfterViewInit {
         this.html.removeClass('my-blur');
       }
     }, 1000);
+  }
+
+  toggleSurveillance(): void {
+    this.surveillance = !this.surveillance;
+    localStorage.setItem('surveillance', JSON.stringify(this.surveillance));
   }
 }
