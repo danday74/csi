@@ -21,7 +21,7 @@ const getRandomInt = (min, max) => {
 
 export class AppComponent implements OnInit, AfterViewInit {
   DEFAULT_SMASH_TIME = 180;
-  DEFAULT_BLUR_TIME = 180;
+  DEFAULT_BLUR_TIME = 10;
   blurCountDown;
   team = localStorage.getItem('team') ? localStorage.getItem('team') : null;
   isSian = localStorage.getItem('isSian') ? JSON.parse(localStorage.getItem('isSian')) : false;
@@ -234,6 +234,12 @@ export class AppComponent implements OnInit, AfterViewInit {
         } else if (codeResponse.blur) {
           localStorage.setItem('blur', new Date().toString());
           this.blurCountDown = this.DEFAULT_BLUR_TIME;
+          const audio = new Audio('/assets/power-down.mp3');
+          try {
+            audio.play().then();
+          } catch (e) {
+            console.log('Power down failed to play');
+          }
           this.manageBlur();
         } else {
           this.clue = codeResponse.clue;
@@ -377,6 +383,14 @@ export class AppComponent implements OnInit, AfterViewInit {
     this.html.addClass('my-blur');
     this.blurInterval = setInterval(() => {
       this.blurCountDown--;
+      if (this.blurCountDown === 3) {
+        const audio = new Audio('/assets/power-up.mp3');
+        try {
+          audio.play().then();
+        } catch (e) {
+          console.log('Power up failed to play');
+        }
+      }
       if (this.blurCountDown <= 0) {
         this.blurCountDown = null;
         clearInterval(this.blurInterval);

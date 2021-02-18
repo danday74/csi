@@ -1,5 +1,7 @@
-* Attempt to hide user can fail - maybe code will cause failure
 * Codes to unlock videos
 * Timed clues
+* Surveillance
+* Interference broken when unauthorised message appears at top
 
-Forensics: bible wiper
+Forensics: bible wiper music giraffefix
+
