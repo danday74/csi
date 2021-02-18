@@ -21,7 +21,7 @@ const getRandomInt = (min, max) => {
 
 export class AppComponent implements OnInit, AfterViewInit {
   DEFAULT_SMASH_TIME = 180;
-  DEFAULT_BLUR_TIME = 10;
+  DEFAULT_BLUR_TIME = 180;
   blurCountDown;
   team = localStorage.getItem('team') ? localStorage.getItem('team') : null;
   isSian = localStorage.getItem('isSian') ? JSON.parse(localStorage.getItem('isSian')) : false;

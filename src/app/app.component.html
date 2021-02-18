@@ -1,3 +1,11 @@
+<ng-container *ngIf="user && user.team !== team">
+  <div class="unauthorised-login">
+    <div>Warning this login is unauthorised</div>
+    <div>You are hacking into the {{ team }} teams computer</div>
+    <div>You will be arrested if you do not logout within {{ unauthorisedTimer }} seconds</div>
+  </div>
+</ng-container>
+
 <div class="my-main-app" [class.my-blur]="blur">
 
   <ng-container *ngIf="!team">
@@ -96,14 +104,6 @@
     </ng-container>
 
     <ng-container *ngIf="user">
-
-      <ng-container *ngIf="user.team !== team">
-        <div class="unauthorised-login">
-          <div>Warning this login is unauthorised</div>
-          <div>You are hacking into the {{ team }} teams computer</div>
-          <div>You will be arrested if you do not logout within {{ unauthorisedTimer }} seconds</div>
-        </div>
-      </ng-container>
 
       <div class="logged-in" [ngClass]="isSian ? 'funny' : 'serious'">
         <div class="user-card" [style.backgroundColor]="user.team">
@@ -264,7 +264,8 @@
 </div>
 
 <div *ngIf="blur" class="blur-penalty">
-  interference countdown - {{ blurCountDown }} seconds
+  <div>interference ends in {{ blurCountDown }} seconds</div>
+  <div class="interference-small">you can still use your computer</div>
 </div>
 
 <div *ngIf="showArrestFlash" class="alarm-full-screen">
