@@ -232,6 +232,7 @@ export class AppComponent implements OnInit, AfterViewInit {
           this.logs.unshift({code, user: this.user.displayName, team: this.user.team, alarm: false, clue: false, anon: false});
           this.initSmash();
         } else if (codeResponse.blur) {
+          this.logs.unshift({code, user: this.user.displayName, team: this.user.team, alarm: false, clue: false, anon: false});
           localStorage.setItem('blur', new Date().toString());
           this.blurCountDown = this.DEFAULT_BLUR_TIME;
           const audio = new Audio('/assets/power-down.mp3');
