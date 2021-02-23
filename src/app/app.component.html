@@ -433,6 +433,22 @@
                       </div>
                     </ng-container>
                   </ng-container>
+                  <ng-container *ngSwitchCase="'arrest'">
+                    <div>It appears that <strong>{{ users[watchingIdx].displayName }}</strong> is currently in prison.</div>
+                    <div class="mt-2">
+                      The only way you can monitor them to get the information you need is to get arrested. Will you take one for the team?
+                    </div>
+                    <ng-container *ngIf="!survChallenges[watchingIdx].complete">
+                      <div class="arrest-me-wrapper">
+                        <button class="btn btn-light arrest-me" [style.backgroundColor]="users[watchingIdx].team" (click)="arrestMe()">Arrest Me</button>
+                      </div>
+                    </ng-container>
+                    <ng-container *ngIf="survChallenges[watchingIdx].complete">
+                      <div class="done-did">
+                        <i class="fa fa-check" aria-hidden="true"></i>
+                      </div>
+                    </ng-container>
+                  </ng-container>
                   <ng-container *ngSwitchCase="'quiz'">
                     <div><strong>{{ users[watchingIdx].displayName }}</strong> is totally oblivious to your surveillance.</div>
                     <div class="mt-2">You watch their activity for some time and everything points to the same conclusion. However, there are still some

@@ -125,9 +125,9 @@ export class AppComponent implements OnInit, AfterViewInit {
 
   ngOnInit(): void {
 
-    // click quiz none
-    const typeCounts = [0, 0, 0];
-    const types = ['click', 'quiz', 'none'];
+    // click quiz arrest none
+    const typeCounts = [2, 3, 2, -1];
+    const types = ['click', 'quiz', 'arrest', 'none'];
     const myQuizQuestions = cloneDeep(quizQandA);
     let myQuizIndices = myQuizQuestions.map((x, i) => i);
 
@@ -137,21 +137,21 @@ export class AppComponent implements OnInit, AfterViewInit {
         let type;
         let typeCount;
         do {
-          const rnd = getRandomInt(0, 2);
+          const rnd = getRandomInt(0, typeCounts.length - 1);
           type = types[rnd];
           typeCount = typeCounts[rnd];
-        } while (typeCount > 2);
+        } while (typeCount === 0);
 
         switch (type) {
           case 'click':
-            typeCounts[0]++;
+            typeCounts[0]--;
             return {
               type: 'click',
               count: getRandomInt(100, 999),
               complete: false
             };
           case 'quiz':
-            typeCounts[1]++;
+            typeCounts[1]--;
             console.log(myQuizIndices);
             const indices = [];
             do {
@@ -169,6 +169,12 @@ export class AppComponent implements OnInit, AfterViewInit {
               questions,
               answers,
               currentQuestion: 0,
+              complete: false
+            };
+          case 'arrest':
+            typeCounts[2]--;
+            return {
+              type: 'arrest',
               complete: false
             };
           case 'none':
@@ -436,6 +442,12 @@ export class AppComponent implements OnInit, AfterViewInit {
   watching(i: number): void {
     this.watchingIdx = i;
     localStorage.setItem('watching-idx', i.toString());
+  }
+
+  arrestMe(): void {
+    this.survChallenges[this.watchingIdx].complete = true;
+    localStorage.setItem('surv-challenges', JSON.stringify(this.survChallenges));
+    this.playAlarm('for sticking out their tongue at a policeman');
   }
 
   private unauthorised(): void {
