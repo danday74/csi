@@ -166,6 +166,39 @@ const generate = () => {
       fruit: '',
       banter: [],
       innocent: true
+    },
+    // GREY TEAM / OFFICIALS
+    {
+      name: 'dan',
+      displayName: 'Guard Ian',
+      pass: null,
+      team: 'grey',
+      career: null,
+      agentId: '10000-2',
+      deptId: 'JN3-16',
+      characteristics: [],
+      weapon: '',
+      pet: '',
+      hobby: '',
+      fruit: '',
+      banter: [],
+      innocent: true
+    },
+    {
+      name: 'sian',
+      displayName: 'Lou Tennant',
+      pass: null,
+      team: 'grey',
+      career: null,
+      agentId: '9999-1',
+      deptId: 'JN3-16',
+      characteristics: [],
+      weapon: '',
+      pet: '',
+      hobby: '',
+      fruit: '',
+      banter: [],
+      innocent: true
     }
   ]
 
