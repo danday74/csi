@@ -449,6 +449,53 @@
                       </div>
                     </ng-container>
                   </ng-container>
+                  <ng-container *ngSwitchCase="'sandwich'">
+                    <div>What a blessing! <strong>{{ users[watchingIdx].displayName }}</strong> asked you over for a sandwich. This will make monitoring a piece
+                      of cake. One snag. They are a terrible cook. The menu looks fairly disgusting:
+                    </div>
+                    <div class="sandwich-wrapper">
+                      <table>
+                        <tr>
+                          <td class="col1 th">Sandwich 1</td>
+                          <td class="col2 th">Sandwich 2</td>
+                          <td *ngIf="survChallenges[watchingIdx].menuOptionsCount > 2" class="col3 th">Sandwich 3</td>
+                        </tr>
+                        <tr>
+                          <td class="col1">{{ survChallenges[watchingIdx].menu[0][0] }}</td>
+                          <td class="col2">{{ survChallenges[watchingIdx].menu[1][0] }}</td>
+                          <td *ngIf="survChallenges[watchingIdx].menuOptionsCount > 2" class="col3">{{ survChallenges[watchingIdx].menu[2][0] }}</td>
+                        </tr>
+                        <tr>
+                          <td class="col1">{{ survChallenges[watchingIdx].menu[0][1] }}</td>
+                          <td class="col2">{{ survChallenges[watchingIdx].menu[1][1] }}</td>
+                          <td *ngIf="survChallenges[watchingIdx].menuOptionsCount > 2" class="col3">{{ survChallenges[watchingIdx].menu[2][1] }}</td>
+                        </tr>
+                        <tr>
+                          <td class="col1">{{ survChallenges[watchingIdx].menu[0][2] }}</td>
+                          <td class="col2">{{ survChallenges[watchingIdx].menu[1][2] }}</td>
+                          <td *ngIf="survChallenges[watchingIdx].menuOptionsCount > 2" class="col3">{{ survChallenges[watchingIdx].menu[2][2] }}</td>
+                        </tr>
+                      </table>
+                    </div>
+                    <ng-container *ngIf="!survChallenges[watchingIdx].complete">
+                      <div class="mt-3">Place your order from the menu with <strong>Guard Ian</strong> (a friend of {{ users[watchingIdx].displayName }}). Once
+                        eaten you will be given a 5 digit code which you can enter here.
+                      </div>
+                      <div class="input-group mt-3 mb-4">
+                        <input type="text" class="form-control" spellcheck="false" placeholder="5 digit code"
+                               (keyup.enter)="submitSandwich()" [(ngModel)]="survChallenges[watchingIdx].code5">
+                        <div class="input-group-append">
+                        <span class="input-group-text sandwich-submit" [class.disabled]="!survChallenges[watchingIdx].code5"
+                              (click)="submitSandwich()">Submit</span>
+                        </div>
+                      </div>
+                    </ng-container>
+                    <ng-container *ngIf="survChallenges[watchingIdx].complete">
+                      <div class="done-did">
+                        <i class="fa fa-check" aria-hidden="true"></i>
+                      </div>
+                    </ng-container>
+                  </ng-container>
                   <ng-container *ngSwitchCase="'quiz'">
                     <div><strong>{{ users[watchingIdx].displayName }}</strong> is totally oblivious to your surveillance.</div>
                     <div class="mt-2">You watch their activity for some time and everything points to the same conclusion. However, there are still some

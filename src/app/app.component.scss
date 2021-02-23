@@ -498,6 +498,29 @@
   margin-bottom: -10px;
 }
 
+.sandwich-submit {
+  cursor: pointer;
+  user-select: none;
+  &.disabled {
+    opacity: 0.5;
+  }
+}
+
+.sandwich-wrapper {
+  margin-top: 15px;
+  text-align: center;
+
+  table {
+    margin: 0 auto;
+    td {
+      padding: 0 20px;
+      &.th {
+        font-weight: bold;
+      }
+    }
+  }
+}
+
 .question-wrapper {
   margin-top: 10px;
   margin-bottom: 13px;

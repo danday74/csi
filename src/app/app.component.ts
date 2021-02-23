@@ -1,7 +1,7 @@
 import { AfterViewInit, Component, OnInit } from '@angular/core';
 import * as $ from 'jquery';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { cloneDeep, find, noop, sample } from 'lodash';
+import { cloneDeep, find, isEqual, noop, sample, uniq } from 'lodash';
 import { users } from './users';
 import { codes, getRandomClue } from './codes';
 import { forensicsList } from './forensics';
@@ -126,8 +126,8 @@ export class AppComponent implements OnInit, AfterViewInit {
   ngOnInit(): void {
 
     // click quiz arrest none
-    const typeCounts = [2, 3, 2, -1];
-    const types = ['click', 'quiz', 'arrest', 'none'];
+    const typeCounts = [3, 3, 2, 2];
+    const types = ['click', 'quiz', 'arrest', 'sandwich'];
     const myQuizQuestions = cloneDeep(quizQandA);
     let myQuizIndices = myQuizQuestions.map((x, i) => i);
 
@@ -152,7 +152,6 @@ export class AppComponent implements OnInit, AfterViewInit {
             };
           case 'quiz':
             typeCounts[1]--;
-            console.log(myQuizIndices);
             const indices = [];
             do {
               const yayIndex = sample(myQuizIndices);
@@ -177,9 +176,25 @@ export class AppComponent implements OnInit, AfterViewInit {
               type: 'arrest',
               complete: false
             };
-          case 'none':
+          case 'sandwich':
+            typeCounts[3]--;
+            const fillings = ['lettuce', 'tomato', 'jam', 'peanut butter', 'marmite', 'cheese', 'mayonnaise', 'tuna', 'onion', 'crisps'];
+            let fillings1;
+            let fillings2;
+            let fillings3;
+            do {
+              fillings1 = uniq([sample(fillings), sample(fillings), sample(fillings)]);
+              fillings2 = uniq([sample(fillings), sample(fillings), sample(fillings)]);
+              fillings3 = uniq([sample(fillings), sample(fillings), sample(fillings)]);
+            } while (isEqual(fillings1.sort(), fillings2.sort()) || isEqual(fillings1.sort(), fillings3.sort())
+            || isEqual(fillings2.sort(), fillings3.sort()) || fillings1.length !== 3 || fillings2.length !== 3 || fillings3.length !== 3);
+
             return {
-              type: 'none'
+              type: 'sandwich',
+              menu: [fillings1, fillings2, fillings3],
+              menuOptionsCount: getRandomInt(2, 3),
+              code5: null,
+              complete: false
             };
           default:
             throw Error('unknown challenge type');
@@ -448,6 +463,17 @@ export class AppComponent implements OnInit, AfterViewInit {
     this.survChallenges[this.watchingIdx].complete = true;
     localStorage.setItem('surv-challenges', JSON.stringify(this.survChallenges));
     this.playAlarm('for sticking out their tongue at a policeman');
+  }
+
+  submitSandwich(): void {
+    const code = this.survChallenges[this.watchingIdx].code5;
+    if (code) {
+      if (code === '86793') {
+        this.survChallenges[this.watchingIdx].complete = true;
+        localStorage.setItem('surv-challenges', JSON.stringify(this.survChallenges));
+      }
+    }
+    this.survChallenges[this.watchingIdx].code5 = null;
   }
 
   private unauthorised(): void {
