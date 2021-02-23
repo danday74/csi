@@ -16,9 +16,9 @@ const getRandomInt = (min, max) => {
   return Math.floor(Math.random() * (max - min + 1) + min);
 };
 
-// const MODE = 'sample';
+// const MODE = 'sample'; // dice
 // const MODE = 'take-one';
-const MODE = 'take-one-strict';
+const MODE = 'take-one-strict'; // hat
 
 const generate = () => {
   let users = [

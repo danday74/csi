@@ -292,7 +292,7 @@ export class AppComponent implements OnInit, AfterViewInit {
         ivo: 3,
         keziah: 3,
         maria: 4,
-        mary: 2,
+        mary: 3,
         peter: 2,
         winnie: 2
       };
