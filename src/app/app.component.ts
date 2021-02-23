@@ -126,7 +126,7 @@ export class AppComponent implements OnInit, AfterViewInit {
   ngOnInit(): void {
 
     // click quiz arrest none
-    const typeCounts = [3, 3, 2, 2];
+    const typeCounts = [3, 3, 2, 3];
     const types = ['click', 'quiz', 'arrest', 'sandwich'];
     const myQuizQuestions = cloneDeep(quizQandA);
     let myQuizIndices = myQuizQuestions.map((x, i) => i);
