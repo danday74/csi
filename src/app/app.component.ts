@@ -178,7 +178,7 @@ export class AppComponent implements OnInit, AfterViewInit {
             };
           case 'sandwich':
             typeCounts[3]--;
-            const fillings = ['lettuce', 'tomato', 'jam', 'peanut butter', 'marmite', 'cheese', 'mayonnaise', 'tuna', 'onion', 'crisps'];
+            const fillings = ['apple', 'cheese', 'crisps', 'cucumber', 'jam', 'lettuce', 'marmite', 'mayonnaise', 'onion', 'peanut butter', 'pickle', 'tomato', 'tuna'];
             let fillings1;
             let fillings2;
             let fillings3;
