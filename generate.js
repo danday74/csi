@@ -326,7 +326,7 @@ const generate = () => {
 
   users = users.map((user) => {
     const password = getRandomInt(0, 99999).toString().padStart(5, '0');
-    if (!user.pass) user.pass = password // all modes
+    if (user.pass === '') user.pass = password // all modes
 
     let bodgeCount = 0;
 
