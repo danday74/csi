@@ -479,13 +479,13 @@
                     </div>
                     <ng-container *ngIf="!survChallenges[watchingIdx].complete">
                       <div class="mt-3">Place your order from the menu with <strong>Guard Ian</strong> (a friend of {{ users[watchingIdx].displayName }}). Once
-                        eaten you will be given a 5 digit code which you can enter here.
+                        eaten you will be given a 6 digit code which you can enter here.
                       </div>
                       <div class="input-group mt-3 mb-4">
-                        <input type="text" class="form-control" spellcheck="false" placeholder="5 digit code"
-                               (keyup.enter)="submitSandwich()" [(ngModel)]="survChallenges[watchingIdx].code5">
+                        <input type="text" class="form-control" spellcheck="false" placeholder="6 digit code"
+                               (keyup.enter)="submitSandwich()" [(ngModel)]="survChallenges[watchingIdx].code6">
                         <div class="input-group-append">
-                        <span class="input-group-text sandwich-submit" [class.disabled]="!survChallenges[watchingIdx].code5"
+                        <span class="input-group-text sandwich-submit" [class.disabled]="!survChallenges[watchingIdx].code6"
                               (click)="submitSandwich()">Submit</span>
                         </div>
                       </div>

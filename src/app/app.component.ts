@@ -193,7 +193,7 @@ export class AppComponent implements OnInit, AfterViewInit {
               type: 'sandwich',
               menu: [fillings1, fillings2, fillings3],
               menuOptionsCount: getRandomInt(2, 3),
-              code5: null,
+              code6: null,
               complete: false
             };
           default:
@@ -466,14 +466,16 @@ export class AppComponent implements OnInit, AfterViewInit {
   }
 
   submitSandwich(): void {
-    const code = this.survChallenges[this.watchingIdx].code5;
+    const code = this.survChallenges[this.watchingIdx].code6;
+    const initials = users[this.watchingIdx].displayName.split(' ').map(x => x[0]);
+    const expectedCode = `${initials[0]}8679${initials[1]}`;
     if (code) {
-      if (code === '86793') {
+      if (code.toLowerCase() === expectedCode.toLowerCase()) {
         this.survChallenges[this.watchingIdx].complete = true;
         localStorage.setItem('surv-challenges', JSON.stringify(this.survChallenges));
       }
     }
-    this.survChallenges[this.watchingIdx].code5 = null;
+    this.survChallenges[this.watchingIdx].code6 = null;
   }
 
   private unauthorised(): void {
