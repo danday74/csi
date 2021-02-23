@@ -16,9 +16,9 @@ const getRandomInt = (min, max) => {
   return Math.floor(Math.random() * (max - min + 1) + min);
 };
 
-const MODE = 'sample';
+// const MODE = 'sample';
 // const MODE = 'take-one';
-// const MODE = 'take-one-strict';
+const MODE = 'take-one-strict';
 
 const generate = () => {
   let users = [
@@ -145,7 +145,7 @@ const generate = () => {
       career: 'analyst',
       agentId: '58436-48439',
       deptId: 'MK8-9',
-      characteristics: [],
+      characteristics: ['overly optimistic', 'starer'],
       weapon: '',
       pet: '',
       hobby: 'dirt biking',
@@ -207,17 +207,17 @@ const generate = () => {
   // SAMPLE WEIGHTS
 
   const sampleCharacteristics = [
-    {name: 'normal', weight: 5},
-    {name: 'clumsy', weight: 1},
-    {name: 'huggy', weight: 1},
-    {name: 'helpful', weight: 0},
-    {name: 'nervous twitch', weight: 1},
-    {name: 'overly optimistic', weight: 0},
-    {name: 'joker', weight: 0},
-    {name: 'narcoleptic', weight: 1},
-    {name: 'starer', weight: 1},
-    {name: 'limp', weight: 1},
-    {name: 'COVID-19', weight: 1}
+    {name: 'normal', weight: 10},
+    {name: 'clumsy', weight: 3}, // SOUND
+    {name: 'huggy', weight: 2},
+    {name: 'nervous twitch', weight: 2},
+    {name: 'overly optimistic', weight: 1}, // +1
+    {name: 'joker', weight: 2}, // +1 // SOUND
+    {name: 'narcoleptic', weight: 2}, // SOUND
+    {name: 'rich', weight: 2}, // +1 // SOUND
+    {name: 'starer', weight: 1}, // +1
+    {name: 'limp', weight: 2},
+    {name: 'COVID-19', weight: 3} // SOUND
   ];
 
   const sampleWeapons = [
@@ -248,19 +248,19 @@ const generate = () => {
 
   // TAKE ONE WEIGHTS
 
-  // should total 16 = 18 - Graham's one - Elene's one
+  // should total 18 = 22 - Graham's one - Elene's one - Dean's two
   const takeOneCharacteristics = [
-    {name: 'normal', weight: 4},
-    {name: 'clumsy', weight: 2},
+    {name: 'normal', weight: 6},
+    {name: 'clumsy', weight: 2}, // SOUND
     {name: 'huggy', weight: 1},
-    {name: 'helpful', weight: 0},
     {name: 'nervous twitch', weight: 1},
-    {name: 'overly optimistic', weight: 2},
-    {name: 'joker', weight: 0}, // +1
-    {name: 'narcoleptic', weight: 2},
-    {name: 'rich', weight: 1}, // +1
+    {name: 'overly optimistic', weight: 1}, // +1
+    {name: 'joker', weight: 1}, // +1 // SOUND
+    {name: 'narcoleptic', weight: 1}, // SOUND
+    {name: 'rich', weight: 1}, // +1 // SOUND
+    {name: 'starer', weight: 1}, // +1
     {name: 'limp', weight: 1},
-    {name: 'COVID-19', weight: 2}
+    {name: 'COVID-19', weight: 2} // SOUND
   ];
 
   // should total 9
