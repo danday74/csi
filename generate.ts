@@ -263,24 +263,24 @@ const generate = () => {
     {name: 'COVID-19', weight: 2} // SOUND
   ];
 
-  // should total 9
+  // should total 11
   const takeOneWeapons = [
     {name: 'gun', weight: 5},
-    {name: 'catapult', weight: 0},
-    {name: 'boomerang', weight: 4}
+    {name: 'catapult', weight: 4},
+    {name: 'boomerang', weight: 2}
   ];
 
-  // should total 9
+  // should total 10 = 11 - Ivo's dog
   const takeOnePets = [
-    {name: 'cat', weight: 5},
-    {name: 'dog', weight: 4},
-    {name: 'rabbit', weight: 0},
+    {name: 'cat', weight: 4},
+    {name: 'dog', weight: 4}, // +1
+    {name: 'rabbit', weight: 2},
     {name: 'lizard', weight: 0}
   ];
 
-  // should total 7 = 9 - Graham's one - Dean's one
+  // should total 9 = 11 - Graham's one - Dean's one
   const takeOneHobbies = [
-    {name: 'climbing', weight: 0},
+    {name: 'climbing', weight: 2},
     {name: 'dirt biking', weight: 4}, // +1
     {name: 'kayaking', weight: 3}, // +1
     {name: 'fencing', weight: 0}
