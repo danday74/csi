@@ -321,7 +321,11 @@ const generate = () => {
     'invented the COVID-19 vaccine',
     'has 7 slaves',
     'ran away from the Russian circus',
-    'can speak backwards'
+    'can speak backwards',
+    'killed a tiger with bare hands',
+    'owns a corner shop',
+    'won the London marathon',
+    'works for the Mafia'
   ];
 
   const characteristics = getArray(weightedCharacteristics);
