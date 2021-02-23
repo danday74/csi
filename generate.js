@@ -161,7 +161,7 @@ const generate = () => {
       deptId: 'MK8-9',
       characteristics: [],
       weapon: '',
-      pet: '',
+      pet: 'dog',
       hobby: '',
       fruit: '',
       banter: [],
