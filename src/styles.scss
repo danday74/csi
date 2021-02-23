@@ -20,6 +20,10 @@ html.my-blur {
   .surveillance-button-wrapper {
     filter: blur(3px);
   }
+
+  .photo-wrapper {
+    filter: blur(3px);
+  }
 }
 
 //@keyframes blurry {

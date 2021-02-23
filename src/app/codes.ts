@@ -93,8 +93,6 @@ export const getRandomClue = memoize((code: string, worth: number): { clue: stri
         localStorage.setItem('clues', JSON.stringify(storedClues));
       }
 
-      console.log(usrs.map(usr => usr.name));
-
       return {
         clue: result,
         matches: usrs.length,

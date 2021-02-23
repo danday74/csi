@@ -1,13 +1,15 @@
 import { AfterViewInit, Component, OnInit } from '@angular/core';
 import * as $ from 'jquery';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { find } from 'lodash';
+import { cloneDeep, find, noop, sample } from 'lodash';
 import { users } from './users';
 import { codes, getRandomClue } from './codes';
 import { forensicsList } from './forensics';
 import { differenceInSeconds } from 'date-fns';
+import { quizQandA } from './quiz-q-and-a';
 
 const DEFAULT_UNAUTHORISED_TIME_ALLOWANCE = 60;
+const QUESTION_COUNT_PER_CHALLENGE = 5;
 
 const getRandomInt = (min, max) => {
   return Math.floor(Math.random() * (max - min + 1) + min);
@@ -20,9 +22,12 @@ const getRandomInt = (min, max) => {
 })
 
 export class AppComponent implements OnInit, AfterViewInit {
+  watchingIdx = localStorage.getItem('watching-idx') ? parseInt(localStorage.getItem('watching-idx'), 10) : null;
+  survChallenges;
   surveillance = localStorage.getItem('surveillance') ? JSON.parse(localStorage.getItem('surveillance')) : false;
   DEFAULT_SMASH_TIME = 180;
   DEFAULT_BLUR_TIME = 180;
+  users = users;
   blurCountDown;
   team = localStorage.getItem('team') ? localStorage.getItem('team') : null;
   isSian = localStorage.getItem('isSian') ? JSON.parse(localStorage.getItem('isSian')) : false;
@@ -42,6 +47,7 @@ export class AppComponent implements OnInit, AfterViewInit {
   logs = localStorage.getItem('logs') ? JSON.parse(localStorage.getItem('logs')) : [];
   smashObj = localStorage.getItem('smash') ? JSON.parse(localStorage.getItem('smash')) : null;
   smashSecs: number;
+  answers = users.map(() => '');
   blur: boolean;
   blurInterval;
   videos = [
@@ -119,12 +125,67 @@ export class AppComponent implements OnInit, AfterViewInit {
 
   ngOnInit(): void {
 
+    // click quiz none
+    const typeCounts = [0, 0, 0];
+    const types = ['click', 'quiz', 'none'];
+    const myQuizQuestions = cloneDeep(quizQandA);
+    let myQuizIndices = myQuizQuestions.map((x, i) => i);
+
+    this.survChallenges = localStorage.getItem('surv-challenges') ? JSON.parse(localStorage.getItem('surv-challenges')) : null;
+    if (this.survChallenges == null) {
+      this.survChallenges = users.map(() => {
+        let type;
+        let typeCount;
+        do {
+          const rnd = getRandomInt(0, 2);
+          type = types[rnd];
+          typeCount = typeCounts[rnd];
+        } while (typeCount > 2);
+
+        switch (type) {
+          case 'click':
+            typeCounts[0]++;
+            return {
+              type: 'click',
+              count: getRandomInt(100, 999),
+              complete: false
+            };
+          case 'quiz':
+            typeCounts[1]++;
+            console.log(myQuizIndices);
+            const indices = [];
+            do {
+              const yayIndex = sample(myQuizIndices);
+              if (!indices.includes(yayIndex)) {
+                indices.push(yayIndex);
+              }
+            } while (indices.length < QUESTION_COUNT_PER_CHALLENGE);
+            myQuizIndices = myQuizIndices.filter((idx) => !indices.includes(idx));
+
+            const questions = indices.map((i) => myQuizQuestions[i].q);
+            const answers = indices.map((i) => myQuizQuestions[i].a);
+            return {
+              type: 'quiz',
+              questions,
+              answers,
+              currentQuestion: 0,
+              complete: false
+            };
+          case 'none':
+            return {
+              type: 'none'
+            };
+          default:
+            throw Error('unknown challenge type');
+        }
+      });
+      localStorage.setItem('surv-challenges', JSON.stringify(this.survChallenges));
+    }
+
     const blurNow = new Date();
-    console.log(localStorage.getItem('blur'));
     const blurDate = localStorage.getItem('blur') ? new Date(localStorage.getItem('blur')) : null;
     if (blurDate) {
       const blurDiffInSecs = this.DEFAULT_BLUR_TIME - differenceInSeconds(blurNow, blurDate);
-      console.log(blurDiffInSecs);
       if (blurDiffInSecs > this.DEFAULT_BLUR_TIME) {
         localStorage.removeItem('blur');
       } else {
@@ -189,6 +250,8 @@ export class AppComponent implements OnInit, AfterViewInit {
         this.playAlarm('for a security breach');
       }
     } else {
+      this.surveillance = false;
+      localStorage.setItem('surveillance', JSON.stringify(this.surveillance));
       this.code = null;
       this.clue = null;
       this.forensics = null;
@@ -199,6 +262,35 @@ export class AppComponent implements OnInit, AfterViewInit {
       this.unauthorisedTimer = DEFAULT_UNAUTHORISED_TIME_ALLOWANCE;
       if (this.user.team !== this.team) {
         this.unauthorisedInterval = setInterval(this.unauthorised, 1000);
+      }
+
+      const audioCounts = {
+        dean: 5,
+        elene: 2,
+        graham: 2,
+        ivo: 3,
+        keziah: 3,
+        maria: 4,
+        mary: 2,
+        peter: 2,
+        winnie: 2
+      };
+      const charsWithSound = ['clumsy', 'COVID-19', 'joker', 'narcoleptic', 'rich'];
+      const sounds = [];
+      for (let i = 0; i < audioCounts[user.name]; i++) {
+        sounds.push(`/assets/login-sounds/user/${user.name}${i + 1}.mp3`);
+      }
+      user.characteristics.forEach((char) => {
+        if (charsWithSound.includes(char)) {
+          sounds.push(`/assets/login-sounds/char/${char}.mp3`);
+        }
+      });
+
+      const audio = new Audio(sample(sounds));
+      try {
+        audio.play().then();
+      } catch (e) {
+        console.log('Login sound failed to play');
       }
     }
     localStorage.setItem('failed', JSON.stringify(this.failedLoginCount));
@@ -283,12 +375,67 @@ export class AppComponent implements OnInit, AfterViewInit {
       const rnd = getRandomInt(1111111111, 9999999999).toString();
       const clue = getRandomClue(rnd, level);
       this.clueTests.push(clue);
-    // console.log(clue);
+      // console.log(clue);
     }
   }
 
   clearClueTest(): void {
     this.clueTests = [];
+  }
+
+  toggleSurveillance(): void {
+    this.surveillance = !this.surveillance;
+    localStorage.setItem('surveillance', JSON.stringify(this.surveillance));
+  }
+
+  challengeClick(i: number): void {
+    const challenge = this.survChallenges[i];
+    challenge.count--;
+    if (challenge.count <= 0) {
+      challenge.complete = true;
+    }
+    localStorage.setItem('surv-challenges', JSON.stringify(this.survChallenges));
+  }
+
+  challengeQuiz(i: number): void {
+    const ans = this.answers[this.watchingIdx];
+    const challenge = this.survChallenges[i];
+    const currentQuestion = challenge.currentQuestion;
+    let correct = true;
+    challenge.answers[currentQuestion].forEach((pAns) => {
+      if (!ans.toLowerCase().includes(pAns.toLowerCase())) {
+        correct = false;
+      }
+    });
+    if (correct) {
+      if (currentQuestion === QUESTION_COUNT_PER_CHALLENGE - 1) {
+        challenge.complete = true;
+      } else {
+        challenge.currentQuestion++;
+      }
+      localStorage.setItem('surv-challenges', JSON.stringify(this.survChallenges));
+    } else {
+      this.playAlarm('for giving false information (or atrocious spelling)');
+    }
+    this.answers[this.watchingIdx] = null;
+  }
+
+  playSound(value: string): void {
+    const audio = new Audio(`/assets/login-sounds/user/${value}.mp3`);
+    try {
+      audio.play().then().catch(() => noop());
+    } catch (e) {
+    }
+    const audio2 = new Audio(`/assets/login-sounds/char/${value}.mp3`);
+    try {
+      audio2.play().then().catch(() => noop());
+    } catch (e) {
+    }
+  }
+
+  watching(i: number): void {
+    this.watchingIdx = i;
+    localStorage.setItem('watching-idx', i.toString());
   }
 
   private unauthorised(): void {
@@ -302,7 +449,6 @@ export class AppComponent implements OnInit, AfterViewInit {
   private playAlarm(arrestFlashMessage = null): void {
     this.arrestFlashDisplayName = this.user?.displayName;
     this.arrestFlashMessage = arrestFlashMessage;
-    console.log('person to arrest', this.arrestFlashDisplayName);
     const audio = new Audio('/assets/alarm.mp3');
     try {
       audio.play().then();
@@ -401,10 +547,5 @@ export class AppComponent implements OnInit, AfterViewInit {
         this.html.removeClass('my-blur');
       }
     }, 1000);
-  }
-
-  toggleSurveillance(): void {
-    this.surveillance = !this.surveillance;
-    localStorage.setItem('surveillance', JSON.stringify(this.surveillance));
   }
 }

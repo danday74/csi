@@ -6,18 +6,29 @@
   </div>
 </ng-container>
 
-<ng-container *ngIf="user?.career === 'analyst'">
+<ng-container *ngIf="user && user.team === team">
   <div class="surveillance-button-wrapper">
-    <button class="btn btn-light surveillance-button" (click)="toggleSurveillance()">
-      <span *ngIf="surveillance">Videos</span>
-      <span *ngIf="!surveillance">Surveillance</span>
-    </button>
+    <button class="btn btn-light surveillance-button" (click)="toggleSurveillance()">Surveillance <span>{{ surveillance ? 'Off' : 'On' }}</span></button>
+  </div>
+</ng-container>
+
+<ng-container *ngIf="user">
+  <div class="photo-wrapper">
+    <img [src]="'/assets/photos/' + user.name + '.png'">
   </div>
 </ng-container>
 
 <div class="my-main-app" [class.my-blur]="blur">
 
   <ng-container *ngIf="!team">
+
+    <div class="sound-test">
+      Login Sound Test
+      <div>
+        <input #sounder spellcheck="false" (keyup.enter)="playSound(sounder.value)">
+        <button class="btn btn-light btn-sm" (click)="playSound(sounder.value)">Play</button>
+      </div>
+    </div>
 
     <div class="team-selector">
       <div class="which-team-will-be-using">Which team will be using this computer?</div>
@@ -30,13 +41,13 @@
 
       <div class="clue-tests">
         <div class="clue-tests-heading">Clue Tests</div>
-        <btn class="btn btn-light btn-lg" (click)="getClueTest(1)">Level 1</btn>
+        <button class="btn btn-light btn-lg" (click)="getClueTest(1)">Level 1</button>
         <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
-        <btn class="btn btn-light btn-lg" (click)="getClueTest(2)">Level 2</btn>
+        <button class="btn btn-light btn-lg" (click)="getClueTest(2)">Level 2</button>
         <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
-        <btn class="btn btn-light btn-lg" (click)="getClueTest(3)">Level 3</btn>
+        <button class="btn btn-light btn-lg" (click)="getClueTest(3)">Level 3</button>
         <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
-        <btn class="btn btn-light btn-lg" (click)="clearClueTest()">Clear</btn>
+        <button class="btn btn-light btn-lg" (click)="clearClueTest()">Clear</button>
       </div>
 
       <div class="clue-test-averages">
@@ -122,51 +133,60 @@
           <div class="smaller">{{ user.team | titlecase }} Team</div>
         </div>
 
-        <div class="enter-code">
-          Enter a 4 digit code
-          <div class="enter-code-input">
-            <div class="input-group mt-3">
-              <input type="text" pattern="[0-9]{4}" maxlength="4" class="form-control" [(ngModel)]="code" placeholder="4 digit code"
-                     (keyup.enter)="submitCode()">
-              <div class="input-group-append">
-                <span (click)="submitCode()" class="input-group-text submit-button">Submit</span>
+        <ng-container *ngIf="!surveillance">
+          <div class="enter-code">
+            Enter a 4 digit code
+            <div class="enter-code-input">
+              <div class="input-group mt-3">
+                <input type="text" pattern="[0-9]{4}" maxlength="4" class="form-control" [(ngModel)]="code" placeholder="4 digit code"
+                       (keyup.enter)="submitCode()">
+                <div class="input-group-append">
+                  <span (click)="submitCode()" class="input-group-text submit-button">Submit</span>
+                </div>
               </div>
             </div>
           </div>
-        </div>
 
-        <div [class.invisible]="!clue" class="clue">
-          <div class="clue-inner" [class.arrest]="clue?.includes('ARREST')" [class.warn]="clue === 'Invalid code'">
-            <span>&nbsp;&nbsp;&nbsp;{{ clue || 'empty' }}&nbsp;&nbsp;&nbsp;</span>
+          <div [class.invisible]="!clue" class="clue">
+            <div class="clue-inner" [class.arrest]="clue?.includes('ARREST')" [class.warn]="clue === 'Invalid code'">
+              <span>&nbsp;&nbsp;&nbsp;{{ clue || 'empty' }}&nbsp;&nbsp;&nbsp;</span>
+            </div>
           </div>
-        </div>
+        </ng-container>
 
         <ng-container *ngIf="user.career === 'forensics'">
 
-          <div class="enter-forensics">
-            Describe the item you found and wish to put under the microscope <span class="example">e.g. cup, balloon, giraffe</span>
-          </div>
-          <div class="enter-forensics-input">
-            <div class="input-group mt-3">
-              <input type="text" class="form-control" [(ngModel)]="forensics" placeholder="Specimen" (keyup.enter)="submitForensics()">
-              <div class="input-group-append">
-                <span (click)="submitForensics()" class="input-group-text submit-button">Submit</span>
+          <ng-container *ngIf="surveillance">
+            <ng-container *ngTemplateOutlet="surveillanceTemplate"></ng-container>
+          </ng-container>
+
+          <ng-container *ngIf="!surveillance">
+            <div class="enter-forensics">
+              Describe the item you found and wish to put under the microscope <span class="example">e.g. cup, balloon, giraffe</span>
+            </div>
+            <div class="enter-forensics-input">
+              <div class="input-group mt-3">
+                <input type="text" class="form-control" [(ngModel)]="forensics" placeholder="Specimen" (keyup.enter)="submitForensics()">
+                <div class="input-group-append">
+                  <span (click)="submitForensics()" class="input-group-text submit-button">Submit</span>
+                </div>
               </div>
             </div>
-          </div>
 
-          <div [class.invisible]="!forensicsClue" class="forensics-clue">
-            <div class="forensics-clue-inner" [class.arrest]="forensicsClue?.includes('ARREST')" [class.warn]="forensicsClue?.startsWith('Could not extract')">
-              <span>&nbsp;&nbsp;&nbsp;{{ forensicsClue }}&nbsp;&nbsp;&nbsp;</span>
+            <div [class.invisible]="!forensicsClue" class="forensics-clue">
+              <div class="forensics-clue-inner" [class.arrest]="forensicsClue?.includes('ARREST')"
+                   [class.warn]="forensicsClue?.startsWith('Could not extract')">
+                <span>&nbsp;&nbsp;&nbsp;{{ forensicsClue }}&nbsp;&nbsp;&nbsp;</span>
+              </div>
             </div>
-          </div>
+          </ng-container>
 
         </ng-container>
 
         <ng-container *ngIf="user.career === 'analyst'">
 
           <ng-container *ngIf="surveillance">
-            hello
+            <ng-container *ngTemplateOutlet="surveillanceTemplate"></ng-container>
           </ng-container>
 
           <ng-container *ngIf="!surveillance">
@@ -204,69 +224,77 @@
         </ng-container>
 
         <ng-container *ngIf="user.career === 'interrogator'">
-          <div class="logs">
-            <div class="logs-info">
-              <div>Details of the last three 4 digit codes used on this computer will appear here</div>
-              <div>If these prove that other teams have accessed your computer, report it to officials so that appropriate arrests can be made</div>
-            </div>
-            <ng-container *ngIf="this.logs.length">
 
-              <table class="table table-dark table-striped">
-                <thead>
-                <tr>
-                  <th scope="col">Code</th>
-                  <th scope="col">User</th>
-                  <th scope="col">Team</th>
-                  <th scope="col">Alarm</th>
-                  <th scope="col">Clue</th>
-                  <th scope="col">
-                    <span class="invisible">Control</span>
-                  </th>
-                </tr>
-                </thead>
-                <tbody>
+          <ng-container *ngIf="surveillance">
+            <ng-container *ngTemplateOutlet="surveillanceTemplate"></ng-container>
+          </ng-container>
 
-                <ng-container *ngFor="let log of logs; index as idx">
+          <ng-container *ngIf="!surveillance">
 
-                  <ng-container *ngIf="idx < 3">
+            <div class="logs">
+              <div class="logs-info">
+                <div>Details of the last three 4 digit codes used on this computer will appear here</div>
+                <div>If these prove that other teams have accessed your computer, report it to officials so that appropriate arrests can be made</div>
+              </div>
+              <ng-container *ngIf="this.logs.length">
 
-                    <tr>
-                      <th scope="row">{{ log.code }}</th>
-                      <td [style.color]="log.anon ? '#AAA' : log.team">
-                        <ng-container *ngIf="!log.anon">{{ log.user }}</ng-container>
-                        <ng-container *ngIf="log.anon">anon</ng-container>
-                      </td>
-                      <td [style.color]="log.anon ? '#AAA' : log.team">
-                        <ng-container *ngIf="!log.anon">{{ log.team | titlecase }}</ng-container>
-                        <ng-container *ngIf="log.anon">anon</ng-container>
-                      </td>
-                      <td [style.color]="log.alarm ? '#008800' : '#880000'">
-                        <i *ngIf="log.alarm" class="fa fa-check" aria-hidden="true"></i>
-                        <i *ngIf="!log.alarm" class="fa fa-times" aria-hidden="true"></i>
-                      </td>
-                      <td [style.color]="log.clue ? '#008800' : '#880000'">
-                        <i *ngIf="log.clue" class="fa fa-check" aria-hidden="true"></i>
-                        <i *ngIf="!log.clue" class="fa fa-times" aria-hidden="true"></i>
-                      </td>
-                      <td>
-                        <div class="anonymous-button-wrapper">
-                          <button class="btn btn-light btn-sm anonymous-button" [disabled]="log.anon" (click)="makeAnonymous(idx)">
-                            <span *ngIf="!log.anon">Hide User</span>
-                            <span *ngIf="log.anon">Anon</span>
-                          </button>
-                        </div>
-                      </td>
-                    </tr>
+                <table class="table table-dark table-striped">
+                  <thead>
+                  <tr>
+                    <th scope="col">Code</th>
+                    <th scope="col">User</th>
+                    <th scope="col">Team</th>
+                    <th scope="col">Alarm</th>
+                    <th scope="col">Clue</th>
+                    <th scope="col">
+                      <span class="invisible">Control</span>
+                    </th>
+                  </tr>
+                  </thead>
+                  <tbody>
 
+                  <ng-container *ngFor="let log of logs; index as idx">
+
+                    <ng-container *ngIf="idx < 3">
+
+                      <tr>
+                        <th scope="row">{{ log.code }}</th>
+                        <td [style.color]="log.anon ? '#AAA' : log.team">
+                          <ng-container *ngIf="!log.anon">{{ log.user }}</ng-container>
+                          <ng-container *ngIf="log.anon">anon</ng-container>
+                        </td>
+                        <td [style.color]="log.anon ? '#AAA' : log.team">
+                          <ng-container *ngIf="!log.anon">{{ log.team | titlecase }}</ng-container>
+                          <ng-container *ngIf="log.anon">anon</ng-container>
+                        </td>
+                        <td [style.color]="log.alarm ? '#008800' : '#880000'">
+                          <i *ngIf="log.alarm" class="fa fa-check" aria-hidden="true"></i>
+                          <i *ngIf="!log.alarm" class="fa fa-times" aria-hidden="true"></i>
+                        </td>
+                        <td [style.color]="log.clue ? '#008800' : '#880000'">
+                          <i *ngIf="log.clue" class="fa fa-check" aria-hidden="true"></i>
+                          <i *ngIf="!log.clue" class="fa fa-times" aria-hidden="true"></i>
+                        </td>
+                        <td>
+                          <div class="anonymous-button-wrapper">
+                            <button class="btn btn-light btn-sm anonymous-button" [disabled]="log.anon" (click)="makeAnonymous(idx)">
+                              <span *ngIf="!log.anon">Hide User</span>
+                              <span *ngIf="log.anon">Anon</span>
+                            </button>
+                          </div>
+                        </td>
+                      </tr>
+
+                    </ng-container>
                   </ng-container>
-                </ng-container>
 
 
-                </tbody>
-              </table>
+                  </tbody>
+                </table>
 
-            </ng-container>
-          </div>
+              </ng-container>
+            </div>
+          </ng-container>
         </ng-container>
 
       </div>
@@ -304,9 +332,143 @@
   </ng-container>
 </div>
 
-<div class="team-code" [style.color]="team">{{ team }} Team Code is {{ teamCode }}</div>
+<div *ngIf="user" class="team-code" [style.color]="team">{{ team }} Team Code is {{ teamCode }}</div>
 
-<div class="logout-button">
+<div *ngIf="user" class="logout-button">
   <button *ngIf="isSian" type="button" class="btn btn-warning" (click)="logout()">Logout</button>
   <button *ngIf="!isSian" type="button" class="btn btn-light" (click)="logout()">Logout</button>
 </div>
+
+<ng-template #surveillanceTemplate>
+
+  <div class="surv-intro-wrapper">
+    <div class="surv-intro">We need more information to help us solve clues</div>
+    <div class="surv-intro">We will watch our suspects closely to help us find which fruit each person has</div>
+    <div class="surv-intro">3 have love, 3 have joy and 3 have peace</div>
+    <div class="surv-intro">Note that surveillance on this computer can only be accessed by your team</div>
+  </div>
+
+  <div class="surv-wrapper">
+    <div class="row">
+
+      <div class="col-8">
+        <div class="surv-grid">
+          <div *ngFor="let user of users; index as i" class="user" [class.active]="i === watchingIdx">
+            <div class="header" [style.backgroundColor]="user.team" (click)="watching(i)">
+              <div>{{ user.displayName }}</div>
+            </div>
+            <div class="body" (click)="watching(i)">
+              <ng-container *ngIf="!survChallenges[i].complete">
+                <ng-container *ngIf="i !== watchingIdx">
+                  <div class="watch-button">
+                    <i class="fa fa-eye-slash" aria-hidden="true"></i>
+                    <span class="eye-gap"></span>
+                    <i class="fa fa-eye-slash" aria-hidden="true"></i>
+                  </div>
+                </ng-container>
+                <ng-container *ngIf="i === watchingIdx">
+                  <div class="watch-button" (click)="watching(i)">
+                    <i class="fa fa-eye" aria-hidden="true"></i>
+                    <span class="eye-gap"></span>
+                    <i class="fa fa-eye" aria-hidden="true"></i>
+                  </div>
+                </ng-container>
+              </ng-container>
+              <ng-container *ngIf="survChallenges[i].complete">
+                <div class="fruit-for-me">
+                  fruit is {{ user.fruit }}
+                </div>
+              </ng-container>
+              <!--              <ng-container *ngIf="!survChallenges[i].complete">-->
+              <!--                <ng-container *ngIf="survChallenges[i].type === 'click'">-->
+              <!--                  <button class="btn btn-light btn-sm btn-clicker" (click)="challengeClick(i)">click me {{ survChallenges[i].count }} times</button>-->
+              <!--                </ng-container>-->
+              <!--                <ng-container *ngIf="survChallenges[i].type === 'quiz'">-->
+              <!--                  <span>{{ survChallenges[i].question }}</span>-->
+              <!--                  <input [ngModel]="answers[i]" (ngModelChange)="challengeQuiz($event, i)">-->
+              <!--                </ng-container>-->
+              <!--              </ng-container>-->
+              <!--              <ng-container *ngIf="survChallenges[i].complete">-->
+              <!--                <div class="fruity">fruit is {{ user.fruit }}</div>-->
+              <!--              </ng-container>-->
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-4">
+        <div class="annoying">
+          <div class="image-surv-wrapper">
+            <ng-container *ngIf="watchingIdx != null">
+              <img [src]="'/assets/photos/' + users[watchingIdx].name + '.png'">
+            </ng-container>
+          </div>
+          <div class="surv-info">
+            <ng-container *ngIf="watchingIdx == null">
+              <div class="surveillance-target">
+                Who will your team place under surveillance?
+                <div class="click-target">
+                  Click your target
+                </div>
+              </div>
+            </ng-container>
+            <ng-container *ngIf="watchingIdx != null">
+              <div class="surveillance-header" [style.backgroundColor]="users[watchingIdx].team">
+                {{ users[watchingIdx].displayName }}
+              </div>
+              <div class="surveillance-body">
+                <ng-container [ngSwitch]="survChallenges[watchingIdx].type">
+                  <ng-container *ngSwitchCase="'click'">
+                    <div>You keep a close eye on <strong>{{ users[watchingIdx].displayName }}</strong> but they notice your activity.</div>
+                    <div class="mt-2">They approach you to talk it over. They come across as rather pleasant and say they will tell you anything if you press
+                      the right buttons.
+                    </div>
+                    <ng-container *ngIf="survChallenges[watchingIdx].count > 0">
+                      <div class="clicker-cool-button" [style.backgroundColor]="users[watchingIdx].team" (click)="challengeClick(watchingIdx)">
+                        {{ survChallenges[watchingIdx].count }}
+                      </div>
+                    </ng-container>
+                    <ng-container *ngIf="survChallenges[watchingIdx].count <= 0">
+                      <div class="done-did">
+                        <i class="fa fa-check" aria-hidden="true"></i>
+                      </div>
+                    </ng-container>
+                  </ng-container>
+                  <ng-container *ngSwitchCase="'quiz'">
+                    <div><strong>{{ users[watchingIdx].displayName }}</strong> is totally oblivious to your surveillance.</div>
+                    <div class="mt-2">You watch their activity for some time and everything points to the same conclusion. However, there are still some
+                      questions that need answers.
+                    </div>
+                    <ng-container *ngIf="!survChallenges[watchingIdx].complete">
+                      <div class="question-counter">Question {{ survChallenges[watchingIdx].currentQuestion + 1 }}
+                        of {{ survChallenges[watchingIdx].questions.length }}</div>
+                      <div class="question-wrapper">{{ survChallenges[watchingIdx].questions[survChallenges[watchingIdx].currentQuestion] }}</div>
+                      <div class="input-group">
+                        <input class="form-control" placeholder="Answer / answers" spellcheck="false" [(ngModel)]="answers[watchingIdx]"
+                               (keyup.enter)="challengeQuiz(watchingIdx)">
+                        <div class="input-group-append">
+                          <span class="input-group-text challenge-quiz-submit" [class.disabled]="!answers[watchingIdx]" (click)="challengeQuiz(watchingIdx)">Submit</span>
+                        </div>
+                      </div>
+                      <div class="question-warning mt-3 mb-4">
+                        <i class="fa fa-exclamation-triangle"></i>&nbsp;&nbsp;<span
+                        class="question-warning-text">You will be arrested if you get it wrong!</span>
+                      </div>
+                    </ng-container>
+                    <ng-container *ngIf="survChallenges[watchingIdx].complete">
+                      <div class="done-did">
+                        <i class="fa fa-check" aria-hidden="true"></i>
+                      </div>
+                    </ng-container>
+                  </ng-container>
+                  <ng-container *ngSwitchDefault>
+                    None
+                  </ng-container>
+                </ng-container>
+              </div>
+            </ng-container>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</ng-template>
