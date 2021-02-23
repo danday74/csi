@@ -1,22 +1,24 @@
-const fs = require('fs')
+// @ts-ignore
 const _ = require('lodash');
+// @ts-ignore
+const fs = require('fs');
 
 const getArray = (weightedArray) => {
   return weightedArray.reduce((acc, characteristic) => {
     for (let i = 0; i < characteristic.weight; i++) {
-      acc.push(characteristic.name)
+      acc.push(characteristic.name);
     }
     return acc;
   }, []);
-}
+};
 
 const getRandomInt = (min, max) => {
   return Math.floor(Math.random() * (max - min + 1) + min);
-}
+};
 
-const MODE = 'sample'
-// const MODE = 'take-one'
-// const MODE = 'take-one-strict'
+const MODE = 'sample';
+// const MODE = 'take-one';
+// const MODE = 'take-one-strict';
 
 const generate = () => {
   let users = [
@@ -200,7 +202,7 @@ const generate = () => {
       banter: [],
       innocent: true
     }
-  ]
+  ];
 
   // SAMPLE WEIGHTS
 
@@ -216,27 +218,27 @@ const generate = () => {
     {name: 'starer', weight: 1},
     {name: 'limp', weight: 1},
     {name: 'COVID-19', weight: 1}
-  ]
+  ];
 
   const sampleWeapons = [
     {name: 'gun', weight: 2},
     {name: 'catapult', weight: 2},
     {name: 'boomerang', weight: 1}
-  ]
+  ];
 
   const samplePets = [
     {name: 'cat', weight: 3},
     {name: 'dog', weight: 3},
     {name: 'rabbit', weight: 2},
     {name: 'lizard', weight: 1}
-  ]
+  ];
 
   const sampleHobbies = [
     {name: 'climbing', weight: 3},
     {name: 'dirt biking', weight: 2},
     {name: 'kayaking', weight: 1},
     {name: 'fencing', weight: 1}
-  ]
+  ];
 
   // const sampleFruits = [
   //   {name: 'love', weight: 1},
@@ -259,14 +261,14 @@ const generate = () => {
     {name: 'rich', weight: 1}, // +1
     {name: 'limp', weight: 1},
     {name: 'COVID-19', weight: 2}
-  ]
+  ];
 
   // should total 9
   const takeOneWeapons = [
     {name: 'gun', weight: 5},
     {name: 'catapult', weight: 0},
     {name: 'boomerang', weight: 4}
-  ]
+  ];
 
   // should total 9
   const takeOnePets = [
@@ -274,7 +276,7 @@ const generate = () => {
     {name: 'dog', weight: 4},
     {name: 'rabbit', weight: 0},
     {name: 'lizard', weight: 0}
-  ]
+  ];
 
   // should total 7 = 9 - Graham's one - Dean's one
   const takeOneHobbies = [
@@ -282,18 +284,22 @@ const generate = () => {
     {name: 'dirt biking', weight: 4}, // +1
     {name: 'kayaking', weight: 3}, // +1
     {name: 'fencing', weight: 0}
-  ]
+  ];
 
-  // should total 9
+  // should total 11
   const takeOneFruits = [
-    {name: 'love', weight: 3},
+    {name: 'love', weight: 4},
     {name: 'joy', weight: 3},
-    {name: 'peace', weight: 3}
-  ]
+    {name: 'peace', weight: 4}
+  ];
 
+  // @ts-ignore
   const weightedCharacteristics = (MODE === 'sample') ? sampleCharacteristics : takeOneCharacteristics;
+  // @ts-ignore
   const weightedWeapons = (MODE === 'sample') ? sampleWeapons : takeOneWeapons;
+  // @ts-ignore
   const weightedPets = (MODE === 'sample') ? samplePets : takeOnePets;
+  // @ts-ignore
   const weightedHobbies = (MODE === 'sample') ? sampleHobbies : takeOneHobbies;
   const weightedFruits = takeOneFruits;
 
@@ -316,68 +322,84 @@ const generate = () => {
     'has 7 slaves',
     'ran away from the Russian circus',
     'can speak backwards'
-  ]
+  ];
 
-  const characteristics = getArray(weightedCharacteristics)
-  const weapons = getArray(weightedWeapons)
-  const pets = getArray(weightedPets)
-  const hobbies = getArray(weightedHobbies)
-  const fruits = getArray(weightedFruits)
+  const characteristics = getArray(weightedCharacteristics);
+  const weapons = getArray(weightedWeapons);
+  const pets = getArray(weightedPets);
+  const hobbies = getArray(weightedHobbies);
+  const fruits = getArray(weightedFruits);
 
   users = users.map((user) => {
     const password = getRandomInt(0, 99999).toString().padStart(5, '0');
-    if (user.pass === '') user.pass = password // all modes
+    if (user.pass === '') {
+      user.pass = password;
+    } // all modes
 
     let bodgeCount = 0;
 
     while (user.characteristics.length < 2) {
+      // @ts-ignore
       if (MODE === 'sample') {
-        user.characteristics.push(_.sample(characteristics))
-        user.characteristics = _.uniq(user.characteristics)
+        user.characteristics.push(_.sample(characteristics));
+        user.characteristics = _.uniq(user.characteristics);
       } else {
-        if (characteristics.length === 0) throw Error('not enough characteristics')
-        const idx = getRandomInt(0, characteristics.length - 1)
+        if (characteristics.length === 0) {
+          throw Error('not enough characteristics');
+        }
+        const idx = getRandomInt(0, characteristics.length - 1);
         if (!user.characteristics.includes(characteristics[idx])) {
           bodgeCount = 0;
-          const characteristic = characteristics.splice(idx, 1)[0]
-          user.characteristics.push(characteristic)
+          const characteristic = characteristics.splice(idx, 1)[0];
+          user.characteristics.push(characteristic);
         } else {
           bodgeCount++;
-          if (bodgeCount === 100) throw Error('too many bodges')
+          if (bodgeCount === 100) {
+            throw Error('too many bodges');
+          }
         }
       }
     }
 
     if (!user.weapon) {
+      // @ts-ignore
       if (MODE === 'sample') {
-        user.weapon = _.sample(weapons)
+        user.weapon = _.sample(weapons);
       } else {
-        const idx = getRandomInt(0, weapons.length - 1)
-        const weapon = weapons.splice(idx, 1)[0]
-        if (weapon == null) throw Error('not enough weapons')
-        user.weapon = weapon
+        const idx = getRandomInt(0, weapons.length - 1);
+        const weapon = weapons.splice(idx, 1)[0];
+        if (weapon == null) {
+          throw Error('not enough weapons');
+        }
+        user.weapon = weapon;
       }
     }
 
     if (!user.pet) {
+      // @ts-ignore
       if (MODE === 'sample') {
-        user.pet = _.sample(pets)
+        user.pet = _.sample(pets);
       } else {
-        const idx = getRandomInt(0, pets.length - 1)
-        const pet = pets.splice(idx, 1)[0]
-        if (pet == null) throw Error('not enough pets')
-        user.pet = pet
+        const idx = getRandomInt(0, pets.length - 1);
+        const pet = pets.splice(idx, 1)[0];
+        if (pet == null) {
+          throw Error('not enough pets');
+        }
+        user.pet = pet;
       }
     }
 
     if (!user.hobby) {
+      // @ts-ignore
       if (MODE === 'sample') {
-        user.hobby = _.sample(hobbies)
+        user.hobby = _.sample(hobbies);
       } else {
-        const idx = getRandomInt(0, hobbies.length - 1)
-        const hobby = hobbies.splice(idx, 1)[0]
-        if (hobby == null) throw Error('not enough hobbies')
-        user.hobby = hobby
+        const idx = getRandomInt(0, hobbies.length - 1);
+        const hobby = hobbies.splice(idx, 1)[0];
+        if (hobby == null) {
+          throw Error('not enough hobbies');
+        }
+        user.hobby = hobby;
       }
     }
 
@@ -385,50 +407,74 @@ const generate = () => {
       // if (MODE === 'sample') {
       //   user.fruit = _.sample(fruits)
       // } else {
-      const idx = getRandomInt(0, fruits.length - 1)
-      const fruit = fruits.splice(idx, 1)[0]
-      if (fruit == null) throw Error('not enough fruits')
-      user.fruit = fruit
+      const idx = getRandomInt(0, fruits.length - 1);
+      const fruit = fruits.splice(idx, 1)[0];
+      if (fruit == null) {
+        throw Error('not enough fruits');
+      }
+      user.fruit = fruit;
       // }
     }
 
     while (user.banter.length < 2) {
-      const idx = getRandomInt(0, banters.length - 1)
-      const banter = banters.splice(idx, 1)[0]
-      if (banter == null) throw Error('need more banters')
-      user.banter.push(banter)
+      const idx = getRandomInt(0, banters.length - 1);
+      const banter = banters.splice(idx, 1)[0];
+      if (banter == null) {
+        throw Error('need more banters');
+      }
+      user.banter.push(banter);
     }
-    return user
-  })
+    return user;
+  });
 
-  if (MODE === 'take-one-strict' && characteristics.length !== 0) throw Error(`strict characteristics error length is ${characteristics.length}`)
-  if (MODE === 'take-one-strict' && weapons.length !== 0) throw Error(`strict weapons error length is ${weapons.length}`)
-  if (MODE === 'take-one-strict' && pets.length !== 0) throw Error(`strict pets error length is ${pets.length}`)
-  if (MODE === 'take-one-strict' && hobbies.length !== 0) throw Error(`strict hobbies error length is ${hobbies.length}`)
-  if (MODE === 'take-one-strict' && fruits.length !== 0) throw Error(`strict fruits error length is ${fruits.length}`)
-  if (MODE === 'take-one-strict' && banters.length !== 0) throw Error(`strict banters error length is ${banters.length}`)
+  // @ts-ignore
+  if (MODE === 'take-one-strict' && characteristics.length !== 0) {
+    throw Error(`strict characteristics error length is ${characteristics.length}`);
+  }
+  // @ts-ignore
+  if (MODE === 'take-one-strict' && weapons.length !== 0) {
+    throw Error(`strict weapons error length is ${weapons.length}`);
+  }
+  // @ts-ignore
+  if (MODE === 'take-one-strict' && pets.length !== 0) {
+    throw Error(`strict pets error length is ${pets.length}`);
+  }
+  // @ts-ignore
+  if (MODE === 'take-one-strict' && hobbies.length !== 0) {
+    throw Error(`strict hobbies error length is ${hobbies.length}`);
+  }
+  // @ts-ignore
+  if (MODE === 'take-one-strict' && fruits.length !== 0) {
+    throw Error(`strict fruits error length is ${fruits.length}`);
+  }
+  // @ts-ignore
+  if (MODE === 'take-one-strict' && banters.length !== 0) {
+    throw Error(`strict banters error length is ${banters.length}`);
+  }
 
-  console.log(users)
+  console.log(users);
 
-  const allCharacteristics = sampleCharacteristics.filter(x => x.weight > 0).map(x => x.name)
-  const unusedCharacteristics = []
+  const allCharacteristics = sampleCharacteristics.filter(x => x.weight > 0).map(x => x.name);
+  const unusedCharacteristics = [];
   allCharacteristics.forEach((char) => {
-    const user = _.find(users, (usr) => usr.characteristics.includes(char))
-    if (!user) unusedCharacteristics.push(char)
-  })
-  console.log('unusedCharacteristics', unusedCharacteristics)
+    const user = _.find(users, (usr) => usr.characteristics.includes(char));
+    if (!user) {
+      unusedCharacteristics.push(char);
+    }
+  });
+  console.log('unusedCharacteristics', unusedCharacteristics);
 
-  fs.writeFileSync('src/app/users.ts', `/* tslint:disable */\nexport const users = ${JSON.stringify(users)};\n`)
-}
+  fs.writeFileSync('src/app/users.ts', `/* tslint:disable */\nexport const users = ${JSON.stringify(users)};\n`);
+};
 
 let attempts = 0;
 let success = false;
 while (attempts < 9 && success === false) {
-  attempts++
+  attempts++;
   try {
-    generate()
-    success = true
+    generate();
+    success = true;
   } catch (err) {
-    console.log(`attempt ${attempts} - ${err.message}`)
+    console.log(`attempt ${attempts} - ${err.message}`);
   }
 }
