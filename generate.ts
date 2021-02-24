@@ -413,9 +413,9 @@ const generate = () => {
 
   // should total 9 = 11 - Graham's one - Dean's one
   const takeOneHobbies = [
-    {name: 'climbing', weight: 3},
-    {name: 'dirt biking', weight: 3}, // +1
-    {name: 'kayaking', weight: 3}, // +1
+    {name: 'climbing', weight: 0},
+    {name: 'dirt biking', weight: 5}, // +1
+    {name: 'kayaking', weight: 4}, // +1
     {name: 'fencing', weight: 0}
   ];
 
