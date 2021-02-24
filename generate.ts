@@ -609,7 +609,7 @@ const percents: number[] = [];
 let attempts = 0;
 let success = false;
 let consecutiveFailures = 0;
-const ATTEMPT_COUNT = 50;
+const ATTEMPT_COUNT = 100;
 
 while (attempts < ATTEMPT_COUNT) {
   try {
