@@ -10,6 +10,8 @@ const fs = require('fs');
 // const MODE = 'take-one';
 const MODE = 'take-one-strict'; // hat
 
+let wroteToFile = false;
+
 const getRandomIndices = (worth: number, clues: Array<string>): Array<number> => {
   const arr = [];
   while (arr.length < worth) {
@@ -311,7 +313,7 @@ const generate = () => {
       career: 'official',
       agentId: '10000-2',
       deptId: 'JN3-16',
-      characteristics: [],
+      characteristics: ['normal'],
       weapon: '',
       pet: '',
       hobby: '',
@@ -381,9 +383,9 @@ const generate = () => {
 
   // TAKE ONE WEIGHTS
 
-  // should total 18 = 22 - Graham's one - Elene's one - Dean's two
+  // should total 17 = 22 - Graham's one - Elene's one - Dan's one - Dean's two
   const takeOneCharacteristics = [
-    {name: 'normal', weight: 6},
+    {name: 'normal', weight: 5}, // +1
     {name: 'clumsy', weight: 2}, // SOUND
     {name: 'huggy', weight: 1},
     {name: 'nervous twitch', weight: 1},
@@ -603,6 +605,7 @@ const generate = () => {
   console.log('Writing users file');
 
   fs.writeFileSync('src/app/users.ts', `/* tslint:disable */\nexport const users = ${JSON.stringify(users)};\n`);
+  wroteToFile = true;
 };
 
 const percents: number[] = [];
@@ -613,11 +616,10 @@ const ATTEMPT_COUNT = 100;
 
 while (attempts < ATTEMPT_COUNT) {
   try {
-    if (!users) {
+    if (!wroteToFile) {
       generate();
     }
     success = true;
-    consecutiveFailures = 0;
     const clueTests = getClueTests(2);
     const pu = clueTestPercentUseful(2, clueTests);
     // const percentUseful = clueTestPercentUseful(2, clueTests).toFixed(2);
@@ -625,10 +627,11 @@ while (attempts < ATTEMPT_COUNT) {
     // console.log(`attempt ${attempts + 1} - ${percentUseful}%`);
     // console.log();
     attempts++;
+    consecutiveFailures = 0;
   } catch (err) {
     consecutiveFailures++;
     if (consecutiveFailures > 10) {
-      throw Error('bah its broken - ' + err.message);
+      throw Error(err);
     }
     // console.log(`attempt ${attempts} - ${err.message}`);
   }
