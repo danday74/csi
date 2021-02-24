@@ -620,7 +620,7 @@ while (attempts < ATTEMPT_COUNT) {
     consecutiveFailures = 0;
     const clueTests = getClueTests(2);
     const pu = clueTestPercentUseful(2, clueTests);
-    const percentUseful = clueTestPercentUseful(2, clueTests).toFixed(2);
+    // const percentUseful = clueTestPercentUseful(2, clueTests).toFixed(2);
     percents.push(pu);
     // console.log(`attempt ${attempts + 1} - ${percentUseful}%`);
     // console.log();
@@ -636,5 +636,6 @@ while (attempts < ATTEMPT_COUNT) {
 console.log(ATTEMPT_COUNT + ' Attempts');
 console.log();
 console.log('MIN', _.min(percents).toFixed(2));
+// noinspection TypeScriptValidateJSTypes
 console.log('AVG', _.mean(percents).toFixed(2));
 console.log('MAX', _.max(percents).toFixed(2));
