@@ -634,6 +634,7 @@ while (attempts < ATTEMPT_COUNT) {
   }
 }
 console.log(ATTEMPT_COUNT + ' Attempts');
+console.log();
 console.log('MIN', _.min(percents).toFixed(2));
 console.log('AVG', _.mean(percents).toFixed(2));
 console.log('MAX', _.max(percents).toFixed(2));
