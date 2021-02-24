@@ -117,7 +117,7 @@ const validateDeptIdCode = (team, code, myTeam, verse): IClue => {
 };
 
 const validateTeamCode = (team, user, code, myTeam): IClue => {
-  const clue = `${capitalize(myTeam)} team clue - ` + getRandomClue(code, 2).clue;
+  const clue = `${capitalize(myTeam)} team code - ` + getRandomClue(code, 2).clue;
   const alarm = team !== myTeam && user.team !== myTeam;
   return {
     clue,
@@ -169,7 +169,7 @@ const validateBlur = (): IClue => {
   };
 };
 
-export const codes: Array<{code: string, validate: (team: string, user: any) => IClue}> = [
+export const codes: Array<{ code: string, validate: (team: string, user: any) => IClue }> = [
   // team codes * 3 - alarm if not on red team and not on red computer
   {
     code: '1402',
@@ -264,7 +264,8 @@ export const codes: Array<{code: string, validate: (team: string, user: any) => 
 const added = {
   3276: false,
   5819: false,
-  9997: false
+  9997: false,
+  9998: false // special code for grey team agent id
 };
 
 users.forEach(myUser => {
@@ -277,7 +278,7 @@ users.forEach(myUser => {
         code: agentSum.toString(),
         validate(team: string, user: any): any {
           const clue = getRandomClue(this.code, 2).clue;
-          const alarm = myUser.career !== user.career;
+          const alarm = (myUser.career !== user.career) && this.code !== '9998';
           return {
             clue,
             alarm,
