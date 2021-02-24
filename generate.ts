@@ -600,22 +600,40 @@ const generate = () => {
     }
   });
   console.log('unusedCharacteristics', unusedCharacteristics);
+  console.log('Writing users file');
 
   fs.writeFileSync('src/app/users.ts', `/* tslint:disable */\nexport const users = ${JSON.stringify(users)};\n`);
 };
 
+const percents: number[] = [];
 let attempts = 0;
 let success = false;
-while (attempts < 9) {
+let consecutiveFailures = 0;
+const ATTEMPT_COUNT = 50;
+
+while (attempts < ATTEMPT_COUNT) {
   try {
-    generate();
+    if (!users) {
+      generate();
+    }
     success = true;
+    consecutiveFailures = 0;
     const clueTests = getClueTests(2);
+    const pu = clueTestPercentUseful(2, clueTests);
     const percentUseful = clueTestPercentUseful(2, clueTests).toFixed(2);
-    console.log(`attempt ${attempts + 1} - ${percentUseful}%`);
-    console.log();
+    percents.push(pu);
+    // console.log(`attempt ${attempts + 1} - ${percentUseful}%`);
+    // console.log();
     attempts++;
   } catch (err) {
+    consecutiveFailures++;
+    if (consecutiveFailures > 10) {
+      throw Error('bah its broken - ' + err.message);
+    }
     // console.log(`attempt ${attempts} - ${err.message}`);
   }
 }
+console.log(ATTEMPT_COUNT + ' Attempts');
+console.log('MIN', _.min(percents).toFixed(2));
+console.log('AVG', _.mean(percents).toFixed(2));
+console.log('MAX', _.max(percents).toFixed(2));
