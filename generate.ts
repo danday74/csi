@@ -1,7 +1,137 @@
 // @ts-ignore
+// import { users } from './src/app/users';
+let users;
 const _ = require('lodash');
+const replaceLast = require('replace-last');
 // @ts-ignore
 const fs = require('fs');
+
+const getRandomIndices = (worth: number, clues: Array<string>): Array<number> => {
+  const arr = [];
+  while (arr.length < worth) {
+    const r = Math.floor(Math.random() * clues.length);
+    if (arr.indexOf(r) === -1) {
+      arr.push(r);
+    }
+  }
+  return arr;
+};
+
+// worth 1-8 returns that much data
+// worth 9 returns name
+const getRandomClue = _.memoize((code: string, worth: number): { clue: string, matches: number, level: number } => {
+
+  const storedClues = {};
+  const storedClue = storedClues[code];
+  if (storedClue) {
+    return storedClue;
+  } else {
+    const innocentUsers = _.filter(users, {innocent: true});
+    const user = _.sample(innocentUsers);
+    if (worth === 9) {
+      const result = `${user.displayName} has an alibi and is innocent`;
+      if (code.length === 4) {
+        storedClues[code] = result;
+      }
+      return {
+        clue: result,
+        matches: 1,
+        level: worth
+      };
+    } else if (worth >= 0 && worth <= 8) {
+      const clues = [];
+      clues.push(`is on the ${user.team} team`);
+      clues.push(`has the career ${user.career}`);
+      const characteristic1 = user.characteristics[0];
+      clues.push(`has the ${characteristic1} characteristic`);
+      const characteristic2 = user.characteristics[1];
+      clues.push(`has the ${characteristic2} characteristic`);
+      clues.push(`fights with a ${user.weapon}`);
+      clues.push(`has a pet ${user.pet}`);
+      clues.push(`loves to go ${user.hobby}`);
+      clues.push(`has the fruit ${user.fruit}`);
+      const banter = _.sample(user.banter);
+      clues.push(banter);
+
+      const indices = getRandomIndices(worth, clues);
+      // IMPORTANT MUST MATCH THE ORDER OF CLUES ABOVE
+      const usrs = users.filter((usr) => {
+        let match = true;
+        if (indices.includes(0)) {
+          match = match && usr.team === user.team;
+        }
+        if (indices.includes(1)) {
+          match = match && usr.career === user.career;
+        }
+        if (indices.includes(2)) {
+          match = match && usr.characteristics.includes(characteristic1);
+        }
+        if (indices.includes(3)) {
+          match = match && usr.characteristics.includes(characteristic2);
+        }
+        if (indices.includes(4)) {
+          match = match && usr.weapon === user.weapon;
+        }
+        if (indices.includes(5)) {
+          match = match && usr.pet === user.pet;
+        }
+        if (indices.includes(6)) {
+          match = match && usr.hobby === user.hobby;
+        }
+        if (indices.includes(7)) {
+          match = match && usr.fruit === user.fruit;
+        }
+        if (indices.includes(8)) {
+          match = match && usr.banter.includes(banter);
+        }
+        return match;
+      });
+
+      const results = indices.map((idx) => clues[idx]);
+      let result = 'An innocent person ' + results.join(', ');
+      result = replaceLast(result, ',', ' and');
+      if (code.length === 4) {
+        storedClues[code] = result;
+      }
+
+      return {
+        clue: result,
+        matches: usrs.length,
+        level: worth
+      };
+    }
+  }
+  return null;
+});
+
+const clueTestCount = (level, clueTests: any[]): number => {
+  const clues = clueTests.filter(clue => clue.level === level);
+  return clues.length;
+};
+
+const clueTestUsefulCount = (level, clueTests): number => {
+  const clues = clueTests.filter(clue => clue.level === level && clue.matches === 1);
+  return clues.length;
+};
+
+const clueTestPercentUseful = (level, clueTests): number => {
+  const count = clueTestCount(level, clueTests);
+  if (count === 0) {
+    return 0;
+  }
+  const usefulCount = clueTestUsefulCount(level, clueTests);
+  return 100 / count * usefulCount;
+};
+
+const getClueTests = (level: number): any[] => {
+  const clueTests = [];
+  for (let i = 0; i < 5000; i++) {
+    const rnd = getRandomInt(1111111111, 9999999999).toString();
+    const clue = getRandomClue(rnd, level);
+    clueTests.push(clue);
+  }
+  return clueTests;
+};
 
 const getArray = (weightedArray) => {
   return weightedArray.reduce((acc, characteristic) => {
@@ -21,7 +151,7 @@ const getRandomInt = (min, max) => {
 const MODE = 'take-one-strict'; // hat
 
 const generate = () => {
-  let users = [
+  users = [
     // RED TEAM
     {
       name: 'elene',
@@ -272,16 +402,16 @@ const generate = () => {
 
   // should total 10 = 11 - Ivo's dog
   const takeOnePets = [
-    {name: 'cat', weight: 4},
-    {name: 'dog', weight: 4}, // +1
-    {name: 'rabbit', weight: 2},
+    {name: 'cat', weight: 5},
+    {name: 'dog', weight: 5}, // +1
+    {name: 'rabbit', weight: 0},
     {name: 'lizard', weight: 0}
   ];
 
   // should total 9 = 11 - Graham's one - Dean's one
   const takeOneHobbies = [
-    {name: 'climbing', weight: 2},
-    {name: 'dirt biking', weight: 4}, // +1
+    {name: 'climbing', weight: 3},
+    {name: 'dirt biking', weight: 3}, // +1
     {name: 'kayaking', weight: 3}, // +1
     {name: 'fencing', weight: 0}
   ];
@@ -456,7 +586,7 @@ const generate = () => {
     throw Error(`strict banters error length is ${banters.length}`);
   }
 
-  console.log(users);
+  // console.log(users);
 
   const allCharacteristics = sampleCharacteristics.filter(x => x.weight > 0).map(x => x.name);
   const unusedCharacteristics = [];
@@ -473,12 +603,16 @@ const generate = () => {
 
 let attempts = 0;
 let success = false;
-while (attempts < 9 && success === false) {
-  attempts++;
+while (attempts < 9) {
   try {
     generate();
     success = true;
+    const clueTests = getClueTests(2);
+    const percentUseful = clueTestPercentUseful(2, clueTests).toFixed(2);
+    console.log(`attempt ${attempts + 1} - ${percentUseful}%`);
+    console.log();
+    attempts++;
   } catch (err) {
-    console.log(`attempt ${attempts} - ${err.message}`);
+    // console.log(`attempt ${attempts} - ${err.message}`);
   }
 }

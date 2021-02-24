@@ -14,7 +14,7 @@ const getRandomIndices = (worth: number, clues: Array<string>): Array<number> =>
   return arr;
 };
 
-// worth 1-7 returns that much data
+// worth 1-8 returns that much data
 // worth 9 returns name
 export const getRandomClue = memoize((code: string, worth: number): { clue: string, matches: number, level: number } => {
 
