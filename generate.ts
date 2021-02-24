@@ -6,6 +6,13 @@ const replaceLast = require('replace-last');
 // @ts-ignore
 const fs = require('fs');
 
+// const MODE = 'sample'; // dice
+// const MODE = 'take-one';
+const MODE = 'take-one-strict'; // hat
+
+console.log('MODE = ' + (MODE.startsWith('take-one') ? 'HAT' : 'DICE'));
+console.log();
+
 const getRandomIndices = (worth: number, clues: Array<string>): Array<number> => {
   const arr = [];
   while (arr.length < worth) {
@@ -145,13 +152,6 @@ const getArray = (weightedArray) => {
 const getRandomInt = (min, max) => {
   return Math.floor(Math.random() * (max - min + 1) + min);
 };
-
-// const MODE = 'sample'; // dice
-// const MODE = 'take-one';
-const MODE = 'take-one-strict'; // hat
-
-console.log('MODE = ' + (MODE.startsWith('take-one') ? 'HAT' : 'DICE'));
-console.log();
 
 const generate = () => {
   users = [
