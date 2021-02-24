@@ -150,6 +150,9 @@ const getRandomInt = (min, max) => {
 // const MODE = 'take-one';
 const MODE = 'take-one-strict'; // hat
 
+console.log('MODE = ' + (MODE.startsWith('take-one') ? 'HAT' : 'DICE'));
+console.log();
+
 const generate = () => {
   users = [
     // RED TEAM
