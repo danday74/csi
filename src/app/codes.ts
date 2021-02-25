@@ -179,6 +179,10 @@ const validateAlarm = (alarmMessage: string): IClue => {
   };
 };
 
+const validateAlarmGuess = (): IClue => {
+  return validateAlarm('for hacking because they randomly guessed a code');
+};
+
 const validateClue = (code: string, level: number): IClue => {
   const clue = getRandomClue(code, level).clue;
   return {
@@ -297,7 +301,7 @@ export const codes: Array<{ code: string, validate: (team: string, user: any) =>
   {
     code: '4910',
     validate(): IClue {
-      const clue = getRandomClue(this.code, 9);
+      const clue = getRandomClue(this.code, 9).clue;
       return {
         clue: 'Hoping to learn something new, you turn the brain wiper on yourself and fire. Your brain is wiped (although no-one can tell the difference) and your vision goes blurry. A side effect of using the brain wiper is that it has imparted some new knowledge to you. You somehow just know that ' + clue + '.',
         alarm: false,
@@ -352,17 +356,133 @@ export const codes: Array<{ code: string, validate: (team: string, user: any) =>
       return validateAlarm('for using a red herring code (the fish in the photo was a red herring)');
     }
   },
-  // guess punishments
+  // guesses
+  {
+    code: '0000',
+    validate(): IClue {
+      const clue = getRandomClue(this.code, 2).clue;
+      return {
+        clue: 'Works every time - ' + clue,
+        alarm: false,
+        alarmMessage: null,
+        smash: false,
+        blur: false
+      };
+    }
+  },
+  {
+    code: '0634',
+    validate(): IClue {
+      const clue = getRandomClue(this.code, 2).clue;
+      return {
+        clue: 'Works every time - ' + clue,
+        alarm: false,
+        alarmMessage: null,
+        smash: false,
+        blur: false
+      };
+    }
+  },
   {
     code: '1111',
     validate(): IClue {
-      return validateSmash();
+      return validateAlarmGuess();
     }
   },
   {
     code: '2222',
     validate(): IClue {
-      return validateBlur();
+      return validateAlarmGuess();
+    }
+  },
+  {
+    code: '3333',
+    validate(): IClue {
+      return validateAlarmGuess();
+    }
+  },
+  {
+    code: '4444',
+    validate(): IClue {
+      return validateAlarmGuess();
+    }
+  },
+  {
+    code: '5555',
+    validate(): IClue {
+      return validateAlarmGuess();
+    }
+  },
+  {
+    code: '6666',
+    validate(): IClue {
+      return validateAlarmGuess();
+    }
+  },
+  {
+    code: '7777',
+    validate(): IClue {
+      return validateAlarmGuess();
+    }
+  },
+  {
+    code: '8888',
+    validate(): IClue {
+      return validateAlarmGuess();
+    }
+  },
+  {
+    code: '9999',
+    validate(): IClue {
+      return validateAlarmGuess();
+    }
+  },
+  {
+    code: '1000',
+    validate(): IClue {
+      return validateAlarmGuess();
+    }
+  },
+  {
+    code: '2000',
+    validate(): IClue {
+      return validateAlarmGuess();
+    }
+  },
+  {
+    code: '3000',
+    validate(): IClue {
+      return validateAlarmGuess();
+    }
+  },
+  {
+    code: '6000',
+    validate(): IClue {
+      return validateAlarmGuess();
+    }
+  },
+  {
+    code: '7000',
+    validate(): IClue {
+      return validateAlarmGuess();
+    }
+  },
+  {
+    code: '8000',
+    validate(): IClue {
+      return validateAlarmGuess();
+    }
+  },
+  {
+    code: '9000',
+    validate(): IClue {
+      return validateAlarmGuess();
+    }
+  },
+  {
+    code: '1234',
+    validate(): IClue {
+      return validateAlarmGuess();
     }
   }
 ];
