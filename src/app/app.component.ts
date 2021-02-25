@@ -355,7 +355,7 @@ export class AppComponent implements OnInit, AfterViewInit {
           } catch (e) {
             console.log('Power down failed to play');
           }
-          this.manageBlur();
+          this.manageBlur(codeResponse.clue);
         } else {
           this.clue = codeResponse.clue;
           this.logs.unshift({code, user: this.user.displayName, team: this.user.team, alarm: false, clue: true, anon: false});
@@ -564,9 +564,9 @@ export class AppComponent implements OnInit, AfterViewInit {
     }, 1000);
   }
 
-  private manageBlur(): void {
+  private manageBlur(blurMessage: string = null): void {
     clearInterval(this.blurInterval);
-    this.clue = 'There seems to be some interference with your equipment';
+    this.clue = blurMessage || 'There seems to be some interference with your equipment';
     this.blur = true;
     this.html.addClass('my-blur');
     this.blurInterval = setInterval(() => {

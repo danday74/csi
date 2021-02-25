@@ -128,9 +128,9 @@ const validateTeamCode = (team, user, code, myTeam): IClue => {
   };
 };
 
-const validateGift = (code, gift): IClue => {
+const validateBox = (box: number): IClue => {
   return {
-    clue: `Say the code ${code} to an official and they will give you ${gift}`,
+    clue: `You have the key to open box ${box}`,
     alarm: false,
     alarmMessage: null,
     smash: false,
@@ -169,92 +169,199 @@ const validateBlur = (): IClue => {
   };
 };
 
+const validateAlarm = (alarmMessage: string): IClue => {
+  return {
+    clue: null,
+    alarm: true,
+    alarmMessage,
+    smash: false,
+    blur: false
+  };
+};
+
+const validateClue = (code: string, level: number): IClue => {
+  const clue = getRandomClue(code, level).clue;
+  return {
+    clue,
+    alarm: false,
+    alarmMessage: null,
+    smash: false,
+    blur: false
+  };
+};
+
 export const codes: Array<{ code: string, validate: (team: string, user: any) => IClue }> = [
   // team codes * 3 - alarm if not on red team and not on red computer
   {
     code: '1402',
-    validate(team: string, user: any): any {
+    validate(team: string, user: any): IClue {
       return validateTeamCode(team, user, this.code, 'red');
     }
   },
   {
     code: '1643',
-    validate(team: string, user: any): any {
+    validate(team: string, user: any): IClue {
       return validateTeamCode(team, user, this.code, 'green');
     }
   },
   {
     code: '3692',
-    validate(team: string, user: any): any {
+    validate(team: string, user: any): IClue {
       return validateTeamCode(team, user, this.code, 'blue');
     }
   },
   // department id codes * 3 - no alarm
   {
     code: '5000',
-    validate(team: string): any {
+    validate(team: string): IClue {
       return validateDeptIdCode(team, this.code, 'red', 'Luke 9:14');
     }
   },
   {
     code: '1365',
-    validate(team: string): any {
+    validate(team: string): IClue {
       return validateDeptIdCode(team, this.code, 'green', 'Numbers 3:50');
     }
   },
   {
     code: '4000',
-    validate(team: string): any {
+    validate(team: string): IClue {
       return validateDeptIdCode(team, this.code, 'blue', 'Mark 8:9');
     }
   },
-  // get out of jail free * 3 - no alarm
+  // starter pack box keys - no alarm
   {
     code: '8563',
-    validate(): any {
-      return validateGift(this.code, 'a get out of jail free card');
+    validate(): IClue {
+      return validateBox(3);
     }
   },
   {
     code: '8764',
-    validate(): any {
-      return validateGift(this.code, 'a get out of jail free card');
+    validate(): IClue {
+      return validateBox(11);
     }
   },
   {
     code: '3265',
-    validate(): any {
-      return validateGift(this.code, 'a get out of jail free card');
+    validate(): IClue {
+      return validateBox(9);
     }
   },
   // team specific red herring * 3 - alarm if not on red team
   {
     code: '0645',
-    validate(team: string, user: any): any {
+    validate(team: string, user: any): IClue {
       return validateTeamSpecificRedHerring(user, 'red');
     }
   },
   {
     code: '8562',
-    validate(team: string, user: any): any {
+    validate(team: string, user: any): IClue {
       return validateTeamSpecificRedHerring(user, 'green');
     }
   },
   {
     code: '1654',
-    validate(team: string, user: any): any {
+    validate(team: string, user: any): IClue {
       return validateTeamSpecificRedHerring(user, 'blue');
     }
   },
+  // forensics - bible
+  {
+    code: '7337',
+    validate(): IClue {
+      return validateClue(this.code, 2);
+    }
+  },
+  {
+    code: '5962',
+    validate(): IClue {
+      return validateClue(this.code, 2);
+    }
+  },
+  {
+    code: '7632',
+    validate(): IClue {
+      return validateBox(8);
+    }
+  },
+  // forensics - scrap
+  {
+    code: '1974',
+    validate(): IClue {
+      return validateClue(this.code, 2);
+    }
+  },
+  // forensics - wiper
+  {
+    code: '4910',
+    validate(): IClue {
+      const clue = getRandomClue(this.code, 9);
+      return {
+        clue: 'Hoping to learn something new, you turn the brain wiper on yourself and fire. Your brain is wiped (although no-one can tell the difference) and your vision goes blurry. A side effect of using the brain wiper is that it has imparted some new knowledge to you. You somehow just know that ' + clue + '.',
+        alarm: false,
+        alarmMessage: null,
+        smash: false,
+        blur: true
+      };
+    }
+  },
+  // box codes
+  {
+    code: '8532', // box 3
+    validate(): IClue {
+      return validateClue(this.code, 2);
+    }
+  },
+  {
+    code: '8480', // box 8
+    validate(): IClue {
+      return validateClue(this.code, 9);
+    }
+  },
+  {
+    code: '9190', // box 9
+    validate(): IClue {
+      return validateClue(this.code, 2);
+    }
+  },
+  {
+    code: '8491', // box 11
+    validate(): IClue {
+      return validateClue(this.code, 2);
+    }
+  },
+  // scb
+  {
+    code: '3221',
+    validate(): IClue {
+      return validateClue(this.code, 2);
+    }
+  },
+  {
+    code: '4865',
+    validate(): IClue {
+      return validateClue(this.code, 2);
+    }
+  },
+  // photos
+  {
+    code: '7531',
+    validate(): IClue {
+      return validateAlarm('for using a red herring code (the fish in the photo was a red herring)');
+    }
+  },
+  // guess punishments
   {
     code: '1111',
-    validate(): any {
+    validate(): IClue {
       return validateSmash();
     }
   },
   {
     code: '2222',
-    validate(): any {
+    validate(): IClue {
       return validateBlur();
     }
   }

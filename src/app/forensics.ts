@@ -17,7 +17,7 @@ export const forensicsList: Array<{ code: string, validate: (team: string, user:
     code: 'balloon',
     validate(team: string, user: any): IClue {
       return {
-        clue: 'Did you really find a balloon?',
+        clue: 'I think you are just saying that because its an example',
         alarm: false,
         alarmMessage: null,
         smash: false,
@@ -26,12 +26,12 @@ export const forensicsList: Array<{ code: string, validate: (team: string, user:
     }
   },
   {
-    code: 'giraffe',
+    code: 'hippo',
     validate(team: string, user: any): IClue {
       return {
         clue: null,
         alarm: true,
-        alarmMessage: 'for pretending you found a giraffe',
+        alarmMessage: 'for pretending you found a hippo',
         smash: false,
         blur: false
       };
@@ -41,7 +41,19 @@ export const forensicsList: Array<{ code: string, validate: (team: string, user:
     code: 'bible',
     validate(team: string, user: any): IClue {
       return {
-        clue: 'Of course! You examine the bible and find a clue at VERSE REFERENCE',
+        clue: 'You study a replica of the stolen golden bible. The first thing you notice is that chapter and verse references are unusual. For instance, instead of Nehemiah 7:67 it references NE7-67 or NE7:67. You also notice other peculiarities. For example, in Genesis 5, Jared\'s final age has a 5 handwritten in front of it. As you are reading, a scrap of paper and a key tagged 7632 fall to the floor.',
+        alarm: false,
+        alarmMessage: null,
+        smash: false,
+        blur: false
+      };
+    }
+  },
+  {
+    code: 'scrap',
+    validate(team: string, user: any): IClue {
+      return {
+        clue: 'The scrap reads "Give me 4, no less, no more - 444 is too wee - 44444 is poor - I know your thoughts, don\'t knock on that door - Instead, use a guardian\'s year of birth". Seems like total nonsense. Must have been written by a madman!',
         alarm: false,
         alarmMessage: null,
         smash: false,
@@ -53,7 +65,7 @@ export const forensicsList: Array<{ code: string, validate: (team: string, user:
     code: 'wiper',
     validate(team: string, user: any): IClue {
       return {
-        clue: 'Of course! You examine the brain wiper 2000 and find a clue',
+        clue: 'You examine the brain wiper. The pin code to fire it is 4910. There is a warning written, beware not only will this wipe your brain but your vision may be impaired for a time. You wrestle with the idea of firing it at yourself, possibly not the best idea ever.',
         alarm: false,
         alarmMessage: null,
         smash: false,
