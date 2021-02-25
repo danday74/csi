@@ -1,6 +1,7 @@
 // @ts-ignore
 // import { users } from './src/app/users';
 let users;
+// @ts-ignore
 const _ = require('lodash');
 const replaceLast = require('replace-last');
 // @ts-ignore

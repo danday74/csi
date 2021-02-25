@@ -9,7 +9,9 @@
     "lint": "ng lint",
     "e2e": "ng e2e",
     "generate": "ts-node generate.ts",
-    "generate.ts": "ts-node generate.ts"
+    "generate.ts": "ts-node generate.ts",
+    "runs": "ts-node runs.ts",
+    "runs.ts": "ts-node runs.ts"
   },
   "private": true,
   "dependencies": {

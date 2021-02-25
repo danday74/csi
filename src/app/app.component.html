@@ -149,7 +149,7 @@
 
           <div [class.invisible]="!clue" class="clue">
             <div class="clue-inner" [class.arrest]="clue?.includes('ARREST')" [class.warn]="clue === 'Invalid code'">
-              <span>&nbsp;&nbsp;&nbsp;{{ clue || 'empty' }}&nbsp;&nbsp;&nbsp;</span>
+              <span>{{ clue || 'empty' }}</span>
             </div>
           </div>
         </ng-container>
@@ -162,7 +162,7 @@
 
           <ng-container *ngIf="!surveillance">
             <div class="enter-forensics">
-              Describe the item you found and wish to put under the microscope <span class="example">e.g. cup, balloon, giraffe</span>
+              Describe the item you found and wish to put under the microscope <span class="example">e.g. cup, balloon, hippo</span>
             </div>
             <div class="enter-forensics-input">
               <div class="input-group mt-3">
@@ -176,7 +176,7 @@
             <div [class.invisible]="!forensicsClue" class="forensics-clue">
               <div class="forensics-clue-inner" [class.arrest]="forensicsClue?.includes('ARREST')"
                    [class.warn]="forensicsClue?.startsWith('Could not extract')">
-                <span>&nbsp;&nbsp;&nbsp;{{ forensicsClue }}&nbsp;&nbsp;&nbsp;</span>
+                <span>{{ forensicsClue }}</span>
               </div>
             </div>
           </ng-container>
