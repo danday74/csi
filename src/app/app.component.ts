@@ -1,12 +1,13 @@
 import { AfterViewInit, Component, OnInit } from '@angular/core';
 import * as $ from 'jquery';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { cloneDeep, find, isEqual, noop, sample, uniq } from 'lodash';
+import { cloneDeep, find, isEqual, sample, uniq } from 'lodash';
 import { users } from './users';
 import { codes, getRandomClue } from './codes';
 import { forensicsList } from './forensics';
 import { differenceInSeconds } from 'date-fns';
 import { quizQandA } from './quiz-q-and-a';
+import { charSounds, userSounds } from './audios';
 
 const DEFAULT_UNAUTHORISED_TIME_ALLOWANCE = 60;
 const QUESTION_COUNT_PER_CHALLENGE = 5;
@@ -442,15 +443,9 @@ export class AppComponent implements OnInit, AfterViewInit {
   }
 
   playSound(value: string): void {
-    const audio = new Audio(`/assets/login-sounds/user/${value}.mp3`);
-    try {
-      audio.play().then().catch(() => noop());
-    } catch (e) {
-    }
-    const audio2 = new Audio(`/assets/login-sounds/char/${value}.mp3`);
-    try {
-      audio2.play().then().catch(() => noop());
-    } catch (e) {
+    const audio = userSounds[value] || charSounds[value];
+    if (audio) {
+      audio.play().then();
     }
   }
 
