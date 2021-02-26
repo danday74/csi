@@ -128,9 +128,9 @@ const validateTeamCode = (team, user, code, myTeam): IClue => {
   };
 };
 
-const validateBox = (box: number): IClue => {
+const validateBox = (code: number): IClue => {
   return {
-    clue: `You have the key to open box ${box}`,
+    clue: `You have found a key! Ask Lou Tennant for it quoting code ${code} and you shall receive (unless someone else beat you to it)`,
     alarm: false,
     alarmMessage: null,
     smash: false,
@@ -237,19 +237,19 @@ export const codes: Array<{ code: string, validate: (team: string, user: any) =>
   {
     code: '8563',
     validate(): IClue {
-      return validateBox(3);
+      return validateBox(this.code);
     }
   },
   {
     code: '8764',
     validate(): IClue {
-      return validateBox(11);
+      return validateBox(this.code);
     }
   },
   {
     code: '3265',
     validate(): IClue {
-      return validateBox(9);
+      return validateBox(this.code);
     }
   },
   // team specific red herring * 3 - alarm if not on red team
@@ -287,7 +287,7 @@ export const codes: Array<{ code: string, validate: (team: string, user: any) =>
   {
     code: '7632',
     validate(): IClue {
-      return validateBox(8);
+      return validateBox(this.code);
     }
   },
   // forensics - scrap
