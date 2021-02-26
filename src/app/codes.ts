@@ -484,6 +484,42 @@ export const codes: Array<{ code: string, validate: (team: string, user: any) =>
     validate(): IClue {
       return validateAlarmGuess();
     }
+  },
+  {
+    code: '2345',
+    validate(): IClue {
+      return validateAlarmGuess();
+    }
+  },
+  {
+    code: '3456',
+    validate(): IClue {
+      return validateAlarmGuess();
+    }
+  },
+  {
+    code: '4567',
+    validate(): IClue {
+      return validateAlarmGuess();
+    }
+  },
+  {
+    code: '5678',
+    validate(): IClue {
+      return validateAlarmGuess();
+    }
+  },
+  {
+    code: '6789',
+    validate(): IClue {
+      return validateAlarmGuess();
+    }
+  },
+  {
+    code: '7890',
+    validate(): IClue {
+      return validateAlarmGuess();
+    }
   }
 ];
 
