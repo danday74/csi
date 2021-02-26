@@ -286,7 +286,7 @@ export class AppComponent implements OnInit, AfterViewInit {
       }
 
       const audioCounts = {
-        dean: 5,
+        dean: 6,
         elene: 2,
         graham: 2,
         ivo: 3,
