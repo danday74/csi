@@ -350,11 +350,21 @@
 
 <ng-template #surveillanceTemplate>
 
-  <div class="surv-intro-wrapper">
-    <div class="surv-intro">We need more information to help us solve clues</div>
-    <div class="surv-intro">We will watch our suspects closely to help us find which fruit each person has</div>
-    <div class="surv-intro">4 have love, 3 have joy and 4 have peace</div>
-    <div class="surv-intro">Note that surveillance on this computer can only be accessed by your team</div>
+  <div class="row">
+    <div class="col-3">
+      <div class="surv-prize">
+        Completed {{ completedCount }} of {{ users.length }}
+      </div>
+    </div>
+
+    <div class="col-5">
+      <div class="surv-intro-wrapper">
+        <div class="surv-intro">We need more information to help us solve clues</div>
+        <div class="surv-intro">We will watch our suspects closely to help us find which fruit each person has</div>
+        <div class="surv-intro">4 have love, 3 have joy and 4 have peace</div>
+        <div class="surv-intro">Note that surveillance on this computer can only be accessed by your team</div>
+      </div>
+    </div>
   </div>
 
   <div class="surv-wrapper">

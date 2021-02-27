@@ -105,6 +105,11 @@ export class AppComponent implements OnInit, AfterViewInit {
     }, 500);
   }
 
+  get completedCount(): number {
+    const items = this.survChallenges.filter(survChallenge => survChallenge.complete === true);
+    return items.length;
+  }
+
   get username(): string {
     const username = this.loginForm.get('username').value.toLowerCase();
     return username.trim();

@@ -426,6 +426,14 @@
   }
 }
 
+.surv-prize {
+  text-align: left;
+  text-indent: 100px;
+  padding-top: 80px;
+  color: #999;
+  font-size: 1.3rem;
+}
+
 .surv-intro-wrapper {
   padding-top: 54px;
 
@@ -782,6 +790,7 @@
 .explore-submit {
   cursor: pointer;
   user-select: none;
+
   &.disabled {
     opacity: 0.5;
   }
