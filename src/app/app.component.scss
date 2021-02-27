@@ -366,7 +366,7 @@
   .arrest-small {
     font-size: 28px;
     position: relative;
-    top: -40px;
+    top: -60px;
   }
 }
 
@@ -682,5 +682,25 @@
     top: -2px;
     padding-top: 2px;
     padding-bottom: 3px;
+  }
+}
+
+.wrong-code-count-warning {
+  position: absolute;
+  margin: 135px auto 0;
+  width: 800px;
+  color: #FFC107;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  left: calc(50% - 400px);
+  font-size: 18px;
+  opacity: 0.9;
+
+  i {
+    font-size: 1.7rem;
+    margin-right: 7px;
+    position: relative;
+    top: 1px;
   }
 }

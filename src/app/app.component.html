@@ -6,6 +6,13 @@
   </div>
 </ng-container>
 
+<ng-container *ngIf="user && wrongCodeCount === WRONG_CODES_REQUIRED_FOR_ARREST - 1">
+  <div class="wrong-code-count-warning">
+    <i class="fa fa-exclamation-triangle"></i>
+    <span>too many invalid codes, better get it right this time</span>
+  </div>
+</ng-container>
+
 <ng-container *ngIf="user && user.team === team">
   <div class="surveillance-button-wrapper">
     <button class="btn btn-light surveillance-button" (click)="toggleSurveillance()">Surveillance <span>{{ surveillance ? 'Off' : 'On' }}</span></button>
@@ -163,7 +170,8 @@
           <ng-container *ngIf="!surveillance">
             <div class="enter-forensics">
               <div>Describe the item you found and wish to put under the microscope <span class="example">e.g. cup, balloon, hippo</span></div>
-              <div class="small-print">Samples will always give a result but other items found or those seen in crime scene photos, videos, etc. may work too</div>
+              <div class="small-print">Samples will always give a result but other items found or those seen in crime scene photos, videos, etc. may work too
+              </div>
             </div>
             <div class="enter-forensics-input">
               <div class="input-group mt-3">

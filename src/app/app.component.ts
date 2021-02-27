@@ -23,11 +23,13 @@ const getRandomInt = (min, max) => {
 })
 
 export class AppComponent implements OnInit, AfterViewInit {
+  WRONG_CODES_REQUIRED_FOR_ARREST = 3;
   watchingIdx = localStorage.getItem('watching-idx') ? parseInt(localStorage.getItem('watching-idx'), 10) : null;
   survChallenges;
   surveillance = localStorage.getItem('surveillance') ? JSON.parse(localStorage.getItem('surveillance')) : false;
   DEFAULT_SMASH_TIME = 180;
   DEFAULT_BLUR_TIME = 180;
+  wrongCodeCount = localStorage.getItem('wrong-code-count') ? JSON.parse(localStorage.getItem('wrong-code-count')) : false;
   users = users;
   blurCountDown;
   team = localStorage.getItem('team') ? localStorage.getItem('team') : null;
@@ -316,14 +318,19 @@ export class AppComponent implements OnInit, AfterViewInit {
   }
 
   submitCode(): void {
-    if (this.code.length === 4) {
+    if (/^[0-9]{4}$/.test(this.code)) {
       const code = this.code;
-      this.code = '';
       const codeObj = find(codes, {code});
       if (!codeObj) {
         this.clue = 'Invalid code';
         this.logs.unshift({code, user: this.user.displayName, team: this.user.team, alarm: false, clue: false, anon: false});
+        this.wrongCodeCount++;
+        if (this.wrongCodeCount === this.WRONG_CODES_REQUIRED_FOR_ARREST) {
+          this.wrongCodeCount = 0;
+          this.playAlarm('for hacking because of too many consecutive invalid codes');
+        }
       } else {
+        this.wrongCodeCount = 0;
         const codeResponse = codeObj.validate(this.team, this.user);
         if (codeResponse.alarm) {
           this.clue = codeResponse.alarmMessage ? 'YOU ARE UNDER ARREST ' + codeResponse.alarmMessage : 'YOU ARE UNDER ARREST';
@@ -344,7 +351,9 @@ export class AppComponent implements OnInit, AfterViewInit {
         }
       }
       localStorage.setItem('logs', JSON.stringify(this.logs));
+      localStorage.setItem('wrong-code-count', this.wrongCodeCount);
     }
+    this.code = '';
   }
 
   submitForensics(): void {
