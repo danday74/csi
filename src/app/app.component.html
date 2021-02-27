@@ -352,8 +352,12 @@
 
   <div class="row">
     <div class="col-3">
-      <div class="surv-prize">
-        Completed {{ completedCount }} of {{ users.length }}
+      <div class="surv-prize" [class.completed]="completedCount === users.length">
+        <ng-container *ngIf="completedCount < users.length">Completed {{ completedCount }} of {{ users.length }}</ng-container>
+        <ng-container *ngIf="completedCount === users.length">
+          <i class="fa fa-trophy" aria-hidden="true"></i>
+          <span class="trophy-text">You win a prize - checkout {{ survPrizeCodes[team] }}</span>
+        </ng-container>
       </div>
     </div>
 

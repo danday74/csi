@@ -23,6 +23,11 @@ const getRandomInt = (min, max) => {
 })
 
 export class AppComponent implements OnInit, AfterViewInit {
+  survPrizeCodes = {
+    red: '5489',
+    green: '1292',
+    blue: '6472'
+  };
   exploreCode = '';
   puzzleAnswers = {
     lhs: '',
@@ -42,6 +47,7 @@ export class AppComponent implements OnInit, AfterViewInit {
       rhs: '8062'
     }
   };
+  wonSurvTrophy = false;
   WRONG_CODES_REQUIRED_FOR_ARREST = 3;
   watchingIdx = localStorage.getItem('watching-idx') ? parseInt(localStorage.getItem('watching-idx'), 10) : null;
   survChallenges;
@@ -107,6 +113,10 @@ export class AppComponent implements OnInit, AfterViewInit {
 
   get completedCount(): number {
     const items = this.survChallenges.filter(survChallenge => survChallenge.complete === true);
+    if (!this.wonSurvTrophy && items.length === this.users.length) {
+      playSound(soundEffects.fanfare);
+      this.wonSurvTrophy = true;
+    }
     return items.length;
   }
 

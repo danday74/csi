@@ -33,7 +33,8 @@ export const soundEffects = {
   powerUp: new Audio('/assets/power-up.mp3'),
   alarm: new Audio('/assets/alarm.mp3'),
   smash: new Audio('/assets/smash.mp3'),
-  wrench: new Audio('/assets/wrench.mp3')
+  wrench: new Audio('/assets/wrench.mp3'),
+  fanfare: new Audio('/assets/fanfare.mp3')
 };
 
 export const playSound = (audio) => {
