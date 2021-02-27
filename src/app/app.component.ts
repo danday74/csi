@@ -23,6 +23,11 @@ const getRandomInt = (min, max) => {
 })
 
 export class AppComponent implements OnInit, AfterViewInit {
+  streakAwardCodes = {
+    streak3: '4399',
+    streak7: '2489',
+    streak12: '0073'
+  };
   survPrizeCodes = {
     red: '5489',
     green: '1292',
@@ -49,6 +54,8 @@ export class AppComponent implements OnInit, AfterViewInit {
   };
   wonSurvTrophy = false;
   WRONG_CODES_REQUIRED_FOR_ARREST = 3;
+  streak = localStorage.getItem('streak') ? parseInt(localStorage.getItem('streak'), 10) : 0;
+  streakCodes = localStorage.getItem('streak-codes') ? JSON.parse(localStorage.getItem('streak-codes')) : [];
   watchingIdx = localStorage.getItem('watching-idx') ? parseInt(localStorage.getItem('watching-idx'), 10) : null;
   survChallenges;
   surveillance = localStorage.getItem('surveillance') ? JSON.parse(localStorage.getItem('surveillance')) : false;
@@ -378,6 +385,7 @@ export class AppComponent implements OnInit, AfterViewInit {
         this.clue = 'Invalid code';
         this.logs.unshift({code, user: this.user.displayName, team: this.user.team, alarm: false, clue: false, anon: false});
         this.wrongCodeCount++;
+        this.streak = 0;
         if (this.wrongCodeCount === this.WRONG_CODES_REQUIRED_FOR_ARREST) {
           this.wrongCodeCount = 0;
           this.playAlarm('for hacking because of too many consecutive invalid codes');
@@ -385,11 +393,14 @@ export class AppComponent implements OnInit, AfterViewInit {
       } else {
         this.wrongCodeCount = 0;
         const codeResponse = codeObj.validate(this.team, this.user);
+        console.log(codeResponse);
         if (codeResponse.alarm) {
+          this.streak = 0;
           this.clue = codeResponse.alarmMessage ? 'YOU ARE UNDER ARREST ' + codeResponse.alarmMessage : 'YOU ARE UNDER ARREST';
           this.logs.unshift({code, user: this.user.displayName, team: this.user.team, alarm: true, clue: false, anon: false});
           this.playAlarm(codeResponse.alarmMessage);
         } else if (codeResponse.smash) {
+          this.streak = 0;
           this.logs.unshift({code, user: this.user.displayName, team: this.user.team, alarm: false, clue: false, anon: false});
           this.initSmash();
         } else if (codeResponse.blur) {
@@ -398,13 +409,23 @@ export class AppComponent implements OnInit, AfterViewInit {
           this.blurCountDown = this.DEFAULT_BLUR_TIME;
           playSound(soundEffects.powerDown);
           this.manageBlur(codeResponse.clue);
+          if (codeResponse.clue && !this.streakCodes.includes(code)) {
+            this.streak++;
+            this.streakCodes.push(code);
+          }
         } else {
+          if (!this.streakCodes.includes(code)) {
+            this.streak++;
+            this.streakCodes.push(code);
+          }
           this.clue = codeResponse.clue;
           this.logs.unshift({code, user: this.user.displayName, team: this.user.team, alarm: false, clue: true, anon: false});
         }
       }
       localStorage.setItem('logs', JSON.stringify(this.logs));
       localStorage.setItem('wrong-code-count', this.wrongCodeCount);
+      localStorage.setItem('streak', this.streak.toString());
+      localStorage.setItem('streak-codes', JSON.stringify(this.streakCodes));
     }
     this.code = '';
   }

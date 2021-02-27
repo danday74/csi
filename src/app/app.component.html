@@ -6,6 +6,12 @@
   </div>
 </ng-container>
 
+<ng-container *ngIf="user && streakAwardCodes['streak' + streak]">
+  <div class="streaker">
+    Reward code for streak of {{ streak }} is {{ streakAwardCodes['streak' + streak] }}
+  </div>
+</ng-container>
+
 <ng-container *ngIf="user && wrongCodeCount === WRONG_CODES_REQUIRED_FOR_ARREST - 1">
   <div class="wrong-code-count-warning">
     <i class="fa fa-exclamation-triangle"></i>
@@ -143,6 +149,10 @@
         <ng-container *ngIf="!surveillance">
           <div class="enter-code">
             Enter a 4 digit code
+            <span [class.streakAward]="!!streakAwardCodes['streak' + streak]" title="Streak">
+              <i class="fa fa-bolt" aria-hidden="true"></i>
+              {{ streak }}
+            </span>
             <div class="enter-code-input">
               <div class="input-group mt-3">
                 <input type="text" pattern="[0-9]{4}" maxlength="4" class="form-control" [(ngModel)]="code" placeholder="4 digit code"
