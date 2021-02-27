@@ -27,3 +27,19 @@ export const charSounds = {
   narcoleptic: new Audio(`/assets/login-sounds/char/narcoleptic.mp3`),
   rich: new Audio(`/assets/login-sounds/char/rich.mp3`)
 };
+
+export const soundEffects = {
+  powerDown: new Audio('/assets/power-down.mp3'),
+  powerUp: new Audio('/assets/power-up.mp3'),
+  alarm: new Audio('/assets/alarm.mp3'),
+  smash: new Audio('/assets/smash.mp3'),
+  wrench: new Audio('/assets/wrench.mp3')
+};
+
+export const playSound = (audio) => {
+  try {
+    audio.play().then();
+  } catch (e) {
+    console.log('Sound failed to play');
+  }
+};

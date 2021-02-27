@@ -1,13 +1,13 @@
 import { AfterViewInit, Component, OnInit } from '@angular/core';
 import * as $ from 'jquery';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { cloneDeep, find, isEqual, sample, uniq } from 'lodash';
+import { cloneDeep, find, isEqual, reduce, sample, uniq } from 'lodash';
 import { users } from './users';
 import { codes, getRandomClue } from './codes';
 import { forensicsList } from './forensics';
 import { differenceInSeconds } from 'date-fns';
 import { quizQandA } from './quiz-q-and-a';
-import { charSounds, userSounds } from './audios';
+import { charSounds, playSound, soundEffects, userSounds } from './audios';
 
 const DEFAULT_UNAUTHORISED_TIME_ALLOWANCE = 60;
 const QUESTION_COUNT_PER_CHALLENGE = 5;
@@ -286,34 +286,20 @@ export class AppComponent implements OnInit, AfterViewInit {
         this.unauthorisedInterval = setInterval(this.unauthorised, 1000);
       }
 
-      const audioCounts = {
-        dean: 6,
-        elene: 2,
-        graham: 2,
-        ivo: 3,
-        keziah: 3,
-        maria: 4,
-        mary: 3,
-        peter: 2,
-        winnie: 2
-      };
-      const charsWithSound = ['clumsy', 'COVID-19', 'joker', 'narcoleptic', 'rich'];
-      const sounds = [];
-      for (let i = 0; i < audioCounts[user.name]; i++) {
-        sounds.push(`/assets/login-sounds/user/${user.name}${i + 1}.mp3`);
-      }
-      user.characteristics.forEach((char) => {
-        if (charsWithSound.includes(char)) {
-          sounds.push(`/assets/login-sounds/char/${char}.mp3`);
+      const myUserSounds = reduce(userSounds, (acc, v, k) => {
+        if (k.startsWith(user.name)) {
+          acc.push(v);
         }
-      });
-
-      const audio = new Audio(sample(sounds));
-      try {
-        audio.play().then();
-      } catch (e) {
-        console.log('Login sound failed to play');
-      }
+        return acc;
+      }, []);
+      const myCharSounds = reduce(charSounds, (acc, v, k) => {
+        if (user.characteristics.includes(k)) {
+          acc.push(v);
+        }
+        return acc;
+      }, []);
+      const audio = sample([...myUserSounds, ...myCharSounds]);
+      playSound(audio);
     }
     localStorage.setItem('failed', JSON.stringify(this.failedLoginCount));
   }
@@ -350,12 +336,7 @@ export class AppComponent implements OnInit, AfterViewInit {
           this.logs.unshift({code, user: this.user.displayName, team: this.user.team, alarm: false, clue: false, anon: false});
           localStorage.setItem('blur', new Date().toString());
           this.blurCountDown = this.DEFAULT_BLUR_TIME;
-          const audio = new Audio('/assets/power-down.mp3');
-          try {
-            audio.play().then();
-          } catch (e) {
-            console.log('Power down failed to play');
-          }
+          playSound(soundEffects.powerDown);
           this.manageBlur(codeResponse.clue);
         } else {
           this.clue = codeResponse.clue;
@@ -445,7 +426,7 @@ export class AppComponent implements OnInit, AfterViewInit {
   playSound(value: string): void {
     const audio = userSounds[value] || charSounds[value];
     if (audio) {
-      audio.play().then();
+      playSound(audio);
     }
   }
 
@@ -484,12 +465,7 @@ export class AppComponent implements OnInit, AfterViewInit {
   private playAlarm(arrestFlashMessage = null): void {
     this.arrestFlashDisplayName = this.user?.displayName;
     this.arrestFlashMessage = arrestFlashMessage;
-    const audio = new Audio('/assets/alarm.mp3');
-    try {
-      audio.play().then();
-    } catch (e) {
-      console.log('Alarm failed to play');
-    }
+    playSound(soundEffects.alarm);
     this.showArrestFlash = true;
     this.logout();
     setTimeout(() => {
@@ -514,12 +490,7 @@ export class AppComponent implements OnInit, AfterViewInit {
     localStorage.setItem('smash', JSON.stringify(smashObj));
     this.logout();
 
-    const audio = new Audio('/assets/smash.mp3');
-    try {
-      audio.play().then();
-    } catch (e) {
-      console.log('Smash failed to play');
-    }
+    playSound(soundEffects.smash);
 
     setTimeout(() => {
       this.manageSmash(new Date());
@@ -543,12 +514,7 @@ export class AppComponent implements OnInit, AfterViewInit {
       this.smashSecs = diffInSecs2;
 
       if (diffInSecs2 === this.DEFAULT_SMASH_TIME - 3) {
-        const audio = new Audio('/assets/wrench.mp3');
-        try {
-          audio.play().then();
-        } catch (e) {
-          console.log('Wrench failed to play');
-        }
+        playSound(soundEffects.wrench);
       }
 
       if (diffInSecs2 > this.DEFAULT_SMASH_TIME) {
@@ -567,12 +533,7 @@ export class AppComponent implements OnInit, AfterViewInit {
     this.blurInterval = setInterval(() => {
       this.blurCountDown--;
       if (this.blurCountDown === 3) {
-        const audio = new Audio('/assets/power-up.mp3');
-        try {
-          audio.play().then();
-        } catch (e) {
-          console.log('Power up failed to play');
-        }
+        playSound(soundEffects.powerUp);
       }
       if (this.blurCountDown <= 0) {
         this.blurCountDown = null;
