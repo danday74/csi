@@ -494,7 +494,7 @@
   font-size: 14px;
   color: #999;
   margin: 20px 20px 22px;
-  min-height: 280px;
+  min-height: 310px;
 }
 
 .done-did {
@@ -703,4 +703,69 @@
     position: relative;
     top: 1px;
   }
+}
+
+.puzzle-pieces {
+  text-align: center;
+  margin-top: -20px;
+  margin-bottom: -8px;
+  user-select: none;
+
+  .puzzle-numbers {
+    position: relative;
+    top: 79px;
+    color: #222;
+    font-weight: bold;
+    font-size: 1.1rem;
+    z-index: 1;
+  }
+
+  .puzzle-number-1 {
+    position: relative;
+    left: -71px;
+  }
+
+  .puzzle-number-2 {
+    position: relative;
+    left: 56px;
+  }
+
+  .puzzle-piece-lhs {
+    transform: rotate(-90deg);
+    position: relative;
+    left: -12px;
+  }
+
+  .puzzle-piece-rhs {
+    transform: rotate(-90deg);
+  }
+}
+
+.puzzle-answers {
+  margin-top: 20px;
+  margin-bottom: 0;
+  display: flex;
+
+  input {
+    margin-bottom: 0;
+  }
+
+  .lhs {
+    margin-right: 30px;
+  }
+
+  span {
+    cursor: pointer;
+    user-select: none;
+  }
+
+  span.disabled {
+    opacity: 0.5;
+  }
+}
+
+.done-did-puzzle {
+  margin-top: -96px;
+  position: relative;
+  left: 10px;
 }

@@ -23,6 +23,24 @@ const getRandomInt = (min, max) => {
 })
 
 export class AppComponent implements OnInit, AfterViewInit {
+  puzzleAnswers = {
+    lhs: '',
+    rhs: ''
+  };
+  correctPuzzleAnswers = {
+    red: {
+      lhs: '8062',
+      rhs: '4596'
+    },
+    green: {
+      lhs: '4596',
+      rhs: '2529'
+    },
+    blue: {
+      lhs: '2529',
+      rhs: '8062'
+    }
+  };
   WRONG_CODES_REQUIRED_FOR_ARREST = 3;
   watchingIdx = localStorage.getItem('watching-idx') ? parseInt(localStorage.getItem('watching-idx'), 10) : null;
   survChallenges;
@@ -129,8 +147,8 @@ export class AppComponent implements OnInit, AfterViewInit {
   ngOnInit(): void {
 
     // click quiz arrest none
-    const typeCounts = [3, 3, 2, 3];
-    const types = ['click', 'quiz', 'arrest', 'sandwich'];
+    const typeCounts = [3, 3, 2, 2, 1];
+    const types = ['click', 'quiz', 'arrest', 'sandwich', 'puzzle'];
     const myQuizQuestions = cloneDeep(quizQandA);
     let myQuizIndices = myQuizQuestions.map((x, i) => i);
 
@@ -197,6 +215,14 @@ export class AppComponent implements OnInit, AfterViewInit {
               menu: [fillings1, fillings2, fillings3],
               menuOptionsCount: getRandomInt(2, 3),
               code6: null,
+              complete: false
+            };
+          case 'puzzle':
+            typeCounts[4]--;
+            return {
+              type: 'puzzle',
+              lhsComplete: false,
+              rhsComplete: false,
               complete: false
             };
           default:
@@ -461,6 +487,36 @@ export class AppComponent implements OnInit, AfterViewInit {
       }
     }
     this.survChallenges[this.watchingIdx].code6 = null;
+  }
+
+  submitPuzzleAnswer(side: string): void {
+
+    const expectedLhsAnswer = this.correctPuzzleAnswers[this.team].lhs;
+    const expectedRhsAnswer = this.correctPuzzleAnswers[this.team].rhs;
+
+    // tslint:disable-next-line:max-line-length
+    if ((side === 'lhs' && !this.survChallenges[this.watchingIdx].lhsComplete) || side === 'rhs' && !this.survChallenges[this.watchingIdx].rhsComplete) {
+
+      if (side === 'lhs') {
+        const actualLhsAnswer = this.puzzleAnswers.lhs;
+        if (actualLhsAnswer === expectedLhsAnswer) {
+          this.survChallenges[this.watchingIdx].lhsComplete = true;
+        }
+        this.puzzleAnswers.lhs = '';
+      }
+      if (side === 'rhs') {
+        const actualRhsAnswer = this.puzzleAnswers.rhs;
+        if (actualRhsAnswer === expectedRhsAnswer) {
+          this.survChallenges[this.watchingIdx].rhsComplete = true;
+        }
+        this.puzzleAnswers.rhs = '';
+      }
+      if (this.survChallenges[this.watchingIdx].lhsComplete && this.survChallenges[this.watchingIdx].rhsComplete) {
+        this.survChallenges[this.watchingIdx].complete = true;
+      }
+
+      localStorage.setItem('surv-challenges', JSON.stringify(this.survChallenges));
+    }
   }
 
   private unauthorised(): void {

@@ -510,6 +510,82 @@
                       </div>
                     </ng-container>
                   </ng-container>
+                  <ng-container *ngSwitchCase="'puzzle'">
+                    <div>
+                      You observe <strong>{{ users[watchingIdx].displayName }}</strong> with your x-ray goggles since they rarely venture outside.
+                      They seem to have an unhealthy obsession with cryptic mysteries.
+                    </div>
+                    <div class="mt-3">
+                      The puzzle they are working on now is named <strong>friend our foe</strong>.
+                      Maybe we can solve it for them and win their respect.
+                      Surely <strong>{{ users[watchingIdx].displayName }}</strong> will then tell us their fruit. I wonder who has the other pieces?
+                    </div>
+                    <div class="puzzle-pieces">
+                      <ng-container *ngIf="team === 'red'">
+                        <div class="puzzle-numbers">
+                          <span
+                            class="puzzle-number puzzle-number-1">{{ survChallenges[watchingIdx].lhsComplete ? this.correctPuzzleAnswers[this.team].lhs : '8X6X' }}</span>
+                          <span
+                            class="puzzle-number puzzle-number-2">{{ survChallenges[watchingIdx].rhsComplete ? this.correctPuzzleAnswers[this.team].rhs : 'X5X6' }}</span>
+                        </div>
+                        <div>
+                          <img class="puzzle-piece-lhs" src="/assets/puzzle/po.png">
+                          <img class="puzzle-piece-rhs" src="/assets/puzzle/yi.png">
+                        </div>
+                      </ng-container>
+                      <ng-container *ngIf="team === 'green'">
+                        <div class="puzzle-numbers">
+                          <span
+                            class="puzzle-number puzzle-number-1">{{ survChallenges[watchingIdx].lhsComplete ? this.correctPuzzleAnswers[this.team].lhs : '4X9X' }}</span>
+                          <span
+                            class="puzzle-number puzzle-number-2">{{ survChallenges[watchingIdx].rhsComplete ? this.correctPuzzleAnswers[this.team].rhs : 'X5X9' }}</span>
+                        </div>
+                        <div>
+                          <img class="puzzle-piece-lhs" src="/assets/puzzle/yo.png">
+                          <img class="puzzle-piece-rhs" src="/assets/puzzle/oi.png">
+                        </div>
+                      </ng-container>
+                      <ng-container *ngIf="team === 'blue'">
+                        <div class="puzzle-numbers">
+                          <span
+                            class="puzzle-number puzzle-number-1">{{ survChallenges[watchingIdx].lhsComplete ? this.correctPuzzleAnswers[this.team].lhs : '2X2X' }}</span>
+                          <span
+                            class="puzzle-number puzzle-number-2">{{ survChallenges[watchingIdx].rhsComplete ? this.correctPuzzleAnswers[this.team].rhs : 'X0X2' }}</span>
+                        </div>
+                        <div>
+                          <img class="puzzle-piece-lhs" src="/assets/puzzle/oo.png">
+                          <img class="puzzle-piece-rhs" src="/assets/puzzle/pi.png">
+                        </div>
+                      </ng-container>
+                    </div>
+                    <ng-container *ngIf="!survChallenges[watchingIdx].complete">
+                      <div class="puzzle-answers">
+                        <div class="lhs">
+                          <div class="input-group">
+                            <input class="form-control" [placeholder]="survChallenges[watchingIdx].lhsComplete ? 'Done' : 'Answer'" maxlength="4" [disabled]="survChallenges[watchingIdx].lhsComplete"
+                                   [(ngModel)]="puzzleAnswers.lhs" (keyup.enter)="submitPuzzleAnswer('lhs')">
+                            <div class="input-group-append">
+                              <span class="input-group-text" [class.disabled]="!puzzleAnswers.lhs || survChallenges[watchingIdx].lhsComplete" (click)="submitPuzzleAnswer('lhs')">Go</span>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="rhs">
+                          <div class="input-group">
+                            <input class="form-control" [placeholder]="survChallenges[watchingIdx].rhsComplete ? 'Done' : 'Answer'" maxlength="4" [disabled]="survChallenges[watchingIdx].rhsComplete"
+                                   [(ngModel)]="puzzleAnswers.rhs" (keyup.enter)="submitPuzzleAnswer('rhs')">
+                            <div class="input-group-append">
+                              <span class="input-group-text" [class.disabled]="!puzzleAnswers.rhs || survChallenges[watchingIdx].rhsComplete" (click)="submitPuzzleAnswer('rhs')">Go</span>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </ng-container>
+                    <ng-container *ngIf="survChallenges[watchingIdx].complete">
+                      <div class="done-did done-did-puzzle">
+                        <i class="fa fa-check" aria-hidden="true"></i>
+                      </div>
+                    </ng-container>
+                  </ng-container>
                   <ng-container *ngSwitchCase="'quiz'">
                     <div><strong>{{ users[watchingIdx].displayName }}</strong> is totally oblivious to your surveillance.</div>
                     <div class="mt-2">You watch their activity for some time and everything points to the same conclusion. However, there are still some
