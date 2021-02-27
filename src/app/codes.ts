@@ -149,25 +149,25 @@ const validateTeamSpecificRedHerring = (user, myTeam): IClue => {
   };
 };
 
-const validateSmash = (): IClue => {
-  return {
-    clue: null,
-    alarm: false,
-    alarmMessage: null,
-    smash: true,
-    blur: false
-  };
-};
-
-const validateBlur = (): IClue => {
-  return {
-    clue: null,
-    alarm: false,
-    alarmMessage: null,
-    smash: false,
-    blur: true
-  };
-};
+// const validateSmash = (): IClue => {
+//   return {
+//     clue: null,
+//     alarm: false,
+//     alarmMessage: null,
+//     smash: true,
+//     blur: false
+//   };
+// };
+//
+// const validateBlur = (): IClue => {
+//   return {
+//     clue: null,
+//     alarm: false,
+//     alarmMessage: null,
+//     smash: false,
+//     blur: true
+//   };
+// };
 
 const validateAlarm = (alarmMessage: string): IClue => {
   return {
