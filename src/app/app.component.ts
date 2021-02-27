@@ -23,6 +23,7 @@ const getRandomInt = (min, max) => {
 })
 
 export class AppComponent implements OnInit, AfterViewInit {
+  exploreCode = '';
   puzzleAnswers = {
     lhs: '',
     rhs: ''
@@ -93,6 +94,8 @@ export class AppComponent implements OnInit, AfterViewInit {
     password: new FormControl('', Validators.required)
   });
 
+  private exploreLocations = ['inside the Elstead bus shelter (near Hookley Lane)', 'the bench outside the Elstead Spar (near Stacey\'s Farm Road)', 'the big sandbank at Woodside Farm river meadow'];
+
   private html = $('html');
 
   constructor() {
@@ -147,8 +150,8 @@ export class AppComponent implements OnInit, AfterViewInit {
   ngOnInit(): void {
 
     // click quiz arrest none
-    const typeCounts = [3, 3, 2, 2, 1];
-    const types = ['click', 'quiz', 'arrest', 'sandwich', 'puzzle'];
+    const typeCounts = [2, 3, 2, 2, 1, 1];
+    const types = ['click', 'quiz', 'arrest', 'sandwich', 'puzzle', 'explore'];
     const myQuizQuestions = cloneDeep(quizQandA);
     let myQuizIndices = myQuizQuestions.map((x, i) => i);
 
@@ -223,6 +226,15 @@ export class AppComponent implements OnInit, AfterViewInit {
               type: 'puzzle',
               lhsComplete: false,
               rhsComplete: false,
+              complete: false
+            };
+          case 'explore':
+            typeCounts[5]--;
+            const location = sample(this.exploreLocations);
+            this.exploreLocations = this.exploreLocations.filter((xpLocation) => location !== xpLocation);
+            return {
+              type: 'explore',
+              location,
               complete: false
             };
           default:
@@ -517,6 +529,14 @@ export class AppComponent implements OnInit, AfterViewInit {
 
       localStorage.setItem('surv-challenges', JSON.stringify(this.survChallenges));
     }
+  }
+
+  submitExploreCode(): void {
+    if (this.exploreCode === '9029') {
+      this.survChallenges[this.watchingIdx].complete = true;
+      localStorage.setItem('surv-challenges', JSON.stringify(this.survChallenges));
+    }
+    this.exploreCode = '';
   }
 
   private unauthorised(): void {

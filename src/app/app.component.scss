@@ -711,6 +711,11 @@
   margin-bottom: -8px;
   user-select: none;
 
+  img {
+    height: 133px;
+    width: 133px
+  }
+
   .puzzle-numbers {
     position: relative;
     top: 79px;
@@ -768,4 +773,16 @@
   margin-top: -96px;
   position: relative;
   left: 10px;
+}
+
+.explore-bottom {
+  margin-top: 20px;
+}
+
+.explore-submit {
+  cursor: pointer;
+  user-select: none;
+  &.disabled {
+    opacity: 0.5;
+  }
 }

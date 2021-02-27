@@ -562,19 +562,23 @@
                       <div class="puzzle-answers">
                         <div class="lhs">
                           <div class="input-group">
-                            <input class="form-control" [placeholder]="survChallenges[watchingIdx].lhsComplete ? 'Done' : 'Answer'" maxlength="4" [disabled]="survChallenges[watchingIdx].lhsComplete"
+                            <input class="form-control" [placeholder]="survChallenges[watchingIdx].lhsComplete ? 'Done' : 'Answer'" maxlength="4"
+                                   [disabled]="survChallenges[watchingIdx].lhsComplete"
                                    [(ngModel)]="puzzleAnswers.lhs" (keyup.enter)="submitPuzzleAnswer('lhs')">
                             <div class="input-group-append">
-                              <span class="input-group-text" [class.disabled]="!puzzleAnswers.lhs || survChallenges[watchingIdx].lhsComplete" (click)="submitPuzzleAnswer('lhs')">Go</span>
+                              <span class="input-group-text" [class.disabled]="!puzzleAnswers.lhs || survChallenges[watchingIdx].lhsComplete"
+                                    (click)="submitPuzzleAnswer('lhs')">Go</span>
                             </div>
                           </div>
                         </div>
                         <div class="rhs">
                           <div class="input-group">
-                            <input class="form-control" [placeholder]="survChallenges[watchingIdx].rhsComplete ? 'Done' : 'Answer'" maxlength="4" [disabled]="survChallenges[watchingIdx].rhsComplete"
+                            <input class="form-control" [placeholder]="survChallenges[watchingIdx].rhsComplete ? 'Done' : 'Answer'" maxlength="4"
+                                   [disabled]="survChallenges[watchingIdx].rhsComplete"
                                    [(ngModel)]="puzzleAnswers.rhs" (keyup.enter)="submitPuzzleAnswer('rhs')">
                             <div class="input-group-append">
-                              <span class="input-group-text" [class.disabled]="!puzzleAnswers.rhs || survChallenges[watchingIdx].rhsComplete" (click)="submitPuzzleAnswer('rhs')">Go</span>
+                              <span class="input-group-text" [class.disabled]="!puzzleAnswers.rhs || survChallenges[watchingIdx].rhsComplete"
+                                    (click)="submitPuzzleAnswer('rhs')">Go</span>
                             </div>
                           </div>
                         </div>
@@ -585,6 +589,44 @@
                         <i class="fa fa-check" aria-hidden="true"></i>
                       </div>
                     </ng-container>
+                  </ng-container>
+                  <ng-container *ngSwitchCase="'explore'">
+                    <div *ngIf="users[watchingIdx].team === team">
+                      <div>Your ally and friend <strong>{{ users[watchingIdx].displayName }}</strong> has detected unusual activity
+                        at <strong>{{ survChallenges[watchingIdx].location }}</strong>.
+                      </div>
+                      <div class="mt-2">
+                        She is very concerned about the amount of activity and insists that it is only safe for your whole team to check it out together.
+                        She has a strong hunch that you will find a clue. You will also see her fruit in the process.
+                      </div>
+                    </div>
+                    <div *ngIf="users[watchingIdx].team !== team">
+                      <div>
+                        Your arch enemy <strong>{{ users[watchingIdx].displayName }}</strong> is always on the move and we should monitor his activity.
+                        Recent reports suggest that he recently visited <strong>{{ survChallenges[watchingIdx].location }}</strong>.
+                      </div>
+                      <div class="mt-2">
+                        Following such a dangerous person is a risky move, too risky for just one of us. If we go, our whole team must go.
+                        Whilst <strong>{{ users[watchingIdx].displayName }}</strong> is unlikely to still be there, he&apos;s undoubtedly left behind a clue.
+                      </div>
+                    </div>
+                    <div>
+                      <div class="explore-bottom">
+                        <ng-container *ngIf="!survChallenges[watchingIdx].complete">
+                          <div class="input-group">
+                            <input class="form-control" maxlength="4" placeholder="4 digit code" [(ngModel)]="exploreCode" (keyup.enter)="submitExploreCode()">
+                            <div class="input-group-append">
+                              <span class="input-group-text explore-submit" [class.disabled]="!exploreCode" (click)="submitExploreCode()">Submit</span>
+                            </div>
+                          </div>
+                        </ng-container>
+                        <ng-container *ngIf="survChallenges[watchingIdx].complete">
+                          <div class="done-did">
+                            <i class="fa fa-check" aria-hidden="true"></i>
+                          </div>
+                        </ng-container>
+                      </div>
+                    </div>
                   </ng-container>
                   <ng-container *ngSwitchCase="'quiz'">
                     <div><strong>{{ users[watchingIdx].displayName }}</strong> is totally oblivious to your surveillance.</div>
