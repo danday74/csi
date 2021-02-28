@@ -93,12 +93,12 @@ export class AppComponent implements OnInit, AfterViewInit {
     },
     {
       name: 'Video Two',
-      url: 'https://youtube.com/embed/WyxXGdG3-Io',
+      url: 'https://youtube.com/embed/FMj23Ec_fS4',
       locked: true
     },
     {
       name: 'Video Three',
-      url: 'https://youtube.com/embed/ZGpn7srqtvs',
+      url: 'https://youtube.com/embed/Uv6i5ItakfY',
       locked: true
     }
   ];
