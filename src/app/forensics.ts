@@ -77,7 +77,7 @@ export const forensicsList: Array<{ code: string, validate: (team: string, user:
   {
     code: 'fiji',
     validate(team: string, user: any): IClue {
-      const randomClue = getRandomClue('fiji', 3);
+      const randomClue = getRandomClue(this.code, 3);
       return {
         clue: `You examine Lou Tennant\'s plane ticket from Fiji. It checks out. It provides a useful clue. ${randomClue.clue}`,
         alarm: false,
@@ -100,10 +100,24 @@ export const forensicsList: Array<{ code: string, validate: (team: string, user:
     }
   },
   {
-    code: 'france',
+    code: 'gem',
     validate(team: string, user: any): IClue {
+      const randomClue = getRandomClue(this.code, 3);
       return {
-        clue: 'You try to examine France but it just won\'t fit under the microscope',
+        clue: `You look at the replica gems embedded in the replica bible. The size and weight of the gems says a lot about the kind of person who might steal the bible. ${randomClue.clue}`,
+        alarm: false,
+        alarmMessage: null,
+        smash: false,
+        blur: false
+      };
+    }
+  },
+  {
+    code: 'scissors',
+    validate(team: string, user: any): IClue {
+      const randomClue = getRandomClue(this.code, 2);
+      return {
+        clue: randomClue.clue,
         alarm: false,
         alarmMessage: null,
         smash: false,
