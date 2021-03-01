@@ -1,3 +1,4 @@
+import { getRandomClue } from './codes';
 import { IClue } from './interfaces/i-clue';
 
 export const forensicsList: Array<{ code: string, validate: (team: string, user: any) => IClue }> = [
@@ -66,6 +67,19 @@ export const forensicsList: Array<{ code: string, validate: (team: string, user:
     validate(team: string, user: any): IClue {
       return {
         clue: 'You examine the brain wiper. The pin code to fire it is 4910. There is a warning written, beware not only will this wipe your brain but your vision may be impaired for a time. You wrestle with the idea of firing it at yourself, possibly not the best idea ever.',
+        alarm: false,
+        alarmMessage: null,
+        smash: false,
+        blur: false
+      };
+    }
+  },
+  {
+    code: 'fiji',
+    validate(team: string, user: any): IClue {
+      const randomClue = getRandomClue('fiji', 3);
+      return {
+        clue: `You examine Lou Tennant\'s plane ticket from Fiji. It checks out. It provides a useful clue. ${randomClue.clue}.`,
         alarm: false,
         alarmMessage: null,
         smash: false,

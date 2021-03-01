@@ -3,6 +3,10 @@ import { capitalize, filter, find, isEqual, memoize, sample, uniqBy } from 'loda
 import * as replaceLast from 'replace-last/index';
 import { IClue } from './interfaces/i-clue';
 
+const isNumeric = (value): boolean => {
+  return /^-?\d+$/.test(value);
+};
+
 const getRandomIndices = (worth: number, clues: Array<string>): Array<number> => {
   const arr = [];
   while (arr.length < worth) {
@@ -21,13 +25,17 @@ export const getRandomClue = memoize((code: string, worth: number): { clue: stri
   const storedClues = JSON.parse(localStorage.getItem('clues')) || {};
   const storedClue = storedClues[code];
   if (storedClue) {
-    return storedClue;
+    return {
+      clue: storedClue,
+      matches: null,
+      level: worth
+    };
   } else {
     const innocentUsers = filter(users, {innocent: true});
     const user = sample(innocentUsers);
     if (worth === 9) {
       const result = `${user.displayName} has an alibi and is innocent`;
-      if (code.length === 4) {
+      if (code.length === 4 || !isNumeric(code)) {
         storedClues[code] = result;
         localStorage.setItem('clues', JSON.stringify(storedClues));
       }
@@ -88,7 +96,7 @@ export const getRandomClue = memoize((code: string, worth: number): { clue: stri
       const results = indices.map((idx) => clues[idx]);
       let result = 'An innocent person ' + results.join(', ');
       result = replaceLast(result, ',', ' and');
-      if (code.length === 4) {
+      if (code.length === 4 || !isNumeric(code)) {
         storedClues[code] = result;
         localStorage.setItem('clues', JSON.stringify(storedClues));
       }
@@ -104,7 +112,8 @@ export const getRandomClue = memoize((code: string, worth: number): { clue: stri
 });
 
 const validateDeptIdCode = (team, code, myTeam, verse): IClue => {
-  const clueRightComputer = `${verse} is correct well done - ` + getRandomClue(code, 9).clue;
+  const randomClue = getRandomClue(code, 9).clue;
+  const clueRightComputer = `${verse} is correct well done - ` + randomClue;
   const clueWrongComputer = `${verse} is correct well done, but you must login on the ${myTeam} computer to use this code`;
   const clue = team === myTeam ? clueRightComputer : clueWrongComputer;
   return {
