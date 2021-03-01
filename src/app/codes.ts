@@ -396,6 +396,13 @@ export const codes: Array<{ code: string, validate: (team: string, user: any) =>
       return validateClue(this.code, 2);
     }
   },
+  // blue rectangle
+  {
+    code: '5184',
+    validate(): IClue {
+      return validateClue(this.code, 2);
+    }
+  },
   // guesses
   {
     code: '0000',
