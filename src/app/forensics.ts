@@ -79,7 +79,7 @@ export const forensicsList: Array<{ code: string, validate: (team: string, user:
     validate(team: string, user: any): IClue {
       const randomClue = getRandomClue('fiji', 3);
       return {
-        clue: `You examine Lou Tennant\'s plane ticket from Fiji. It checks out. It provides a useful clue. ${randomClue.clue}.`,
+        clue: `You examine Lou Tennant\'s plane ticket from Fiji. It checks out. It provides a useful clue. ${randomClue.clue}`,
         alarm: false,
         alarmMessage: null,
         smash: false,
