@@ -60,7 +60,7 @@ export class AppComponent implements OnInit, AfterViewInit {
   survChallenges;
   surveillance = localStorage.getItem('surveillance') ? JSON.parse(localStorage.getItem('surveillance')) : false;
   DEFAULT_SMASH_TIME = 180;
-  DEFAULT_BLUR_TIME = 180;
+  DEFAULT_BLUR_TIME = 300;
   wrongCodeCount = localStorage.getItem('wrong-code-count') ? JSON.parse(localStorage.getItem('wrong-code-count')) : false;
   users = users;
   blurCountDown;

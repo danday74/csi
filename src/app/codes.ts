@@ -150,7 +150,7 @@ const validateBox = (code: number): IClue => {
 const validateTeamSpecificRedHerring = (user, myTeam): IClue => {
   const alarm = user.team !== myTeam;
   return {
-    clue: 'This code is a red herring, if any other team uses it then they will get arrested',
+    clue: 'This code is a red herring, if it is used on any other teams computer then the person who entered it will get arrested',
     alarm,
     alarmMessage: 'for using a red herring code',
     smash: false,
@@ -158,25 +158,28 @@ const validateTeamSpecificRedHerring = (user, myTeam): IClue => {
   };
 };
 
-// const validateSmash = (): IClue => {
-//   return {
-//     clue: null,
-//     alarm: false,
-//     alarmMessage: null,
-//     smash: true,
-//     blur: false
-//   };
-// };
-//
-// const validateBlur = (): IClue => {
-//   return {
-//     clue: null,
-//     alarm: false,
-//     alarmMessage: null,
-//     smash: false,
-//     blur: true
-//   };
-// };
+const validateSmash = (user, myTeam): IClue => {
+  const smash = user.team !== myTeam;
+  return {
+    clue: 'When used on another teams computer, this code will break their computer for 3 minutes. When entered it will log the user out immediately. The next person to touch it breaks it. Sit back and wait!',
+    alarm: false,
+    alarmMessage: null,
+    smash,
+    blur: false
+  };
+};
+
+const validateBlur = (user, myTeam): IClue => {
+  const blur = user.team !== myTeam;
+  const clue = blur ? null : 'When used on another teams computer, this code will cause interference for 5 minutes, rendering the computer almost unusable';
+  return {
+    clue,
+    alarm: false,
+    alarmMessage: null,
+    smash: false,
+    blur
+  };
+};
 
 const validateAlarm = (alarmMessage: string): IClue => {
   return {
@@ -322,7 +325,7 @@ export const codes: Array<{ code: string, validate: (team: string, user: any) =>
   },
   // box codes
   {
-    code: '8532', // box 3
+    code: '8532', // box 3, 9, 11
     validate(): IClue {
       return validateClue(this.code, 2);
     }
@@ -334,15 +337,9 @@ export const codes: Array<{ code: string, validate: (team: string, user: any) =>
     }
   },
   {
-    code: '9190', // box 9
+    code: '4008', // box 1, 6, 15
     validate(): IClue {
-      return validateClue(this.code, 2);
-    }
-  },
-  {
-    code: '8491', // box 11
-    validate(): IClue {
-      return validateClue(this.code, 2);
+      return validateClue(this.code, 9);
     }
   },
   // scb
@@ -401,6 +398,63 @@ export const codes: Array<{ code: string, validate: (team: string, user: any) =>
     code: '5184',
     validate(): IClue {
       return validateClue(this.code, 2);
+    }
+  },
+  // surveillance complete
+  {
+    code: '5489',
+    validate(): IClue {
+      return validateBox(this.code);
+    }
+  },
+  {
+    code: '1292',
+    validate(): IClue {
+      return validateBox(this.code);
+    }
+  },
+  {
+    code: '6472',
+    validate(): IClue {
+      return validateBox(this.code);
+    }
+  },
+  // sabotage codes
+  {
+    code: '6833',
+    validate(team: string, user: any): IClue {
+      return validateSmash(user, 'red');
+    }
+  },
+  {
+    code: '6656',
+    validate(team: string, user: any): IClue {
+      return validateSmash(user, 'green');
+    }
+  },
+  {
+    code: '6827',
+    validate(team: string, user: any): IClue {
+      return validateSmash(user, 'blue');
+    }
+  },
+  // interference codes
+  {
+    code: '8404',
+    validate(team: string, user: any): IClue {
+      return validateBlur(user, 'red');
+    }
+  },
+  {
+    code: '9664',
+    validate(team: string, user: any): IClue {
+      return validateBlur(user, 'green');
+    }
+  },
+  {
+    code: '4599',
+    validate(team: string, user: any): IClue {
+      return validateBlur(user, 'blue');
     }
   },
   // guesses
