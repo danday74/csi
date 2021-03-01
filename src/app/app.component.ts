@@ -87,17 +87,17 @@ export class AppComponent implements OnInit, AfterViewInit {
   blurInterval;
   videos = [
     {
-      name: 'Video One',
-      url: 'https://youtube.com/embed/1IAhDGYlpqY',
-      locked: true
+      name: 'CSI Game Introduction & Rules',
+      url: 'https://youtube.com/embed/RN3bH8bggFc',
+      locked: false
     },
     {
-      name: 'Video Two',
+      name: 'CSI Game Video Kids',
       url: 'https://youtube.com/embed/FMj23Ec_fS4',
       locked: true
     },
     {
-      name: 'Video Three',
+      name: 'The Package',
       url: 'https://youtube.com/embed/Uv6i5ItakfY',
       locked: true
     }

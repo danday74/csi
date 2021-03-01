@@ -318,9 +318,13 @@
 .video-name {
   margin-bottom: 10px;
   display: inline-block;
+  font-size: 1.3rem;
+  font-weight: bold;
+  font-family: cursive;
+  color: #999;
 
   &.locked {
-    color: #777;
+    color: #444;
   }
 }
 
