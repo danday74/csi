@@ -86,5 +86,29 @@ export const forensicsList: Array<{ code: string, validate: (team: string, user:
         blur: false
       };
     }
+  },
+  {
+    code: 'france',
+    validate(team: string, user: any): IClue {
+      return {
+        clue: 'You try to examine France but it just won\'t fit under the microscope',
+        alarm: false,
+        alarmMessage: null,
+        smash: false,
+        blur: false
+      };
+    }
+  },
+  {
+    code: 'france',
+    validate(team: string, user: any): IClue {
+      return {
+        clue: 'You try to examine France but it just won\'t fit under the microscope',
+        alarm: false,
+        alarmMessage: null,
+        smash: false,
+        blur: false
+      };
+    }
   }
 ];
