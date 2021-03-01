@@ -592,8 +592,6 @@ const generate = () => {
     throw Error(`strict banters error length is ${banters.length}`);
   }
 
-  // console.log(users);
-
   const allCharacteristics = sampleCharacteristics.filter(x => x.weight > 0).map(x => x.name);
   const unusedCharacteristics = [];
   allCharacteristics.forEach((char) => {
@@ -623,10 +621,7 @@ while (attempts < ATTEMPT_COUNT) {
     success = true;
     const clueTests = getClueTests(2);
     const pu = clueTestPercentUseful(2, clueTests);
-    // const percentUseful = clueTestPercentUseful(2, clueTests).toFixed(2);
     percents.push(pu);
-    // console.log(`attempt ${attempts + 1} - ${percentUseful}%`);
-    // console.log();
     attempts++;
     consecutiveFailures = 0;
   } catch (err) {
@@ -634,7 +629,6 @@ while (attempts < ATTEMPT_COUNT) {
     if (consecutiveFailures > 10) {
       throw Error(err);
     }
-    // console.log(`attempt ${attempts} - ${err.message}`);
   }
 }
 console.log(ATTEMPT_COUNT + ' Attempts');

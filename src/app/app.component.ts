@@ -393,7 +393,6 @@ export class AppComponent implements OnInit, AfterViewInit {
       } else {
         this.wrongCodeCount = 0;
         const codeResponse = codeObj.validate(this.team, this.user);
-        console.log(codeResponse);
         if (codeResponse.alarm) {
           this.streak = 0;
           this.clue = codeResponse.alarmMessage ? 'YOU ARE UNDER ARREST ' + codeResponse.alarmMessage : 'YOU ARE UNDER ARREST';
@@ -461,7 +460,6 @@ export class AppComponent implements OnInit, AfterViewInit {
       const rnd = getRandomInt(1111111111, 9999999999).toString();
       const clue = getRandomClue(rnd, level);
       this.clueTests.push(clue);
-      // console.log(clue);
     }
   }
 
