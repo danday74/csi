@@ -356,6 +356,37 @@ export const codes: Array<{ code: string, validate: (team: string, user: any) =>
       return validateAlarm('for using a red herring code (the fish in the photo was a red herring)');
     }
   },
+  // video 1
+  {
+    code: '3001',
+    validate(): IClue {
+      return validateClue(this.code, 1);
+    }
+  },
+  {
+    code: '4142',
+    validate(): IClue {
+      return validateClue(this.code, 9);
+    }
+  },
+  {
+    code: '1231',
+    validate(): IClue {
+      return validateClue(this.code, 3);
+    }
+  },
+  {
+    code: '9258',
+    validate(): IClue {
+      return validateClue(this.code, 1);
+    }
+  },
+  {
+    code: '8801',
+    validate(): IClue {
+      return validateClue(this.code, 2);
+    }
+  },
   // guesses
   {
     code: '0000',
