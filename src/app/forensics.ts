@@ -418,5 +418,19 @@ export const forensicsList: Array<{ code: string, validate: (team: string, user:
         blur: false
       };
     }
+  },
+  {
+    code: 'hair',
+    validate(team: string, user: any): IClue {
+      const randomClue = getRandomClue(this.code, 2);
+      return {
+        // tslint:disable-next-line:max-line-length
+        clue: 'This seems to be the hair from an animal that was found at the crime scene. The criminal must have a pet. And there is more. ' + randomClue.clue,
+        alarm: false,
+        alarmMessage: null,
+        smash: false,
+        blur: false
+      };
+    }
   }
 ];
