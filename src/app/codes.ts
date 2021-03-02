@@ -377,7 +377,7 @@ export const codes: Array<{ code: string, validate: (team: string, user: any) =>
   {
     code: '3001',
     validate(): IClue {
-      return validateClue(this.code, 1);
+      return validateClue(this.code, 2);
     }
   },
   {
