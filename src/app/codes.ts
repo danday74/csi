@@ -207,6 +207,16 @@ const validateClue = (code: string, level: number): IClue => {
   };
 };
 
+const validateMessage = (message: string): IClue => {
+  return {
+    clue: message,
+    alarm: false,
+    alarmMessage: null,
+    smash: false,
+    blur: false
+  };
+};
+
 export const codes: Array<{ code: string, validate: (team: string, user: any) => IClue }> = [
   // team codes * 3 - alarm if not on red team and not on red computer
   {
@@ -489,6 +499,19 @@ export const codes: Array<{ code: string, validate: (team: string, user: any) =>
         smash: false,
         blur: false
       };
+    }
+  },
+  // unlock message
+  {
+    code: '2950',
+    validate(): IClue {
+      return validateMessage('Video 2 Unlocked - CSI Game Video Kids');
+    }
+  },
+  {
+    code: '9468',
+    validate(): IClue {
+      return validateMessage('Video 3 Unlocked - The Package');
     }
   },
   // guesses

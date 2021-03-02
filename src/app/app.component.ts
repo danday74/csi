@@ -86,7 +86,7 @@ export class AppComponent implements OnInit, AfterViewInit {
   answers = users.map(() => '');
   blur: boolean;
   blurInterval;
-  videos = [
+  videos = localStorage.getItem('videos') ? JSON.parse(localStorage.getItem('videos')) : [
     {
       name: 'CSI Game Introduction & Rules',
       url: 'https://youtube.com/embed/RN3bH8bggFc',
@@ -421,6 +421,12 @@ export class AppComponent implements OnInit, AfterViewInit {
           }
           this.clue = codeResponse.clue;
           logEntry = {code, user: this.user.displayName, team: this.user.team, alarm: false, clue: true, anon: false};
+          if (this.code === '2950') {
+            this.videos[1].locked = false;
+          }
+          if (this.code === '9468') {
+            this.videos[2].locked = false;
+          }
         }
       }
       if (logEntry && (!this.logs.length || this.logs[0].code !== code)) {
@@ -430,6 +436,7 @@ export class AppComponent implements OnInit, AfterViewInit {
       localStorage.setItem('wrong-code-count', this.wrongCodeCount);
       localStorage.setItem('streak', this.streak.toString());
       localStorage.setItem('streak-codes', JSON.stringify(this.streakCodes));
+      localStorage.setItem('videos', JSON.stringify(this.videos));
     }
     this.code = '';
   }
