@@ -380,11 +380,12 @@ export class AppComponent implements OnInit, AfterViewInit {
 
   submitCode(): void {
     if (/^[0-9]{4}$/.test(this.code)) {
+      let logEntry;
       const code = this.code;
       const codeObj = find(codes, {code});
       if (!codeObj) {
         this.clue = 'Invalid code';
-        this.logs.unshift({code, user: this.user.displayName, team: this.user.team, alarm: false, clue: false, anon: false});
+        logEntry = {code, user: this.user.displayName, team: this.user.team, alarm: false, clue: false, anon: false};
         this.wrongCodeCount++;
         this.streak = 0;
         if (this.wrongCodeCount === this.WRONG_CODES_REQUIRED_FOR_ARREST) {
@@ -397,14 +398,14 @@ export class AppComponent implements OnInit, AfterViewInit {
         if (codeResponse.alarm) {
           this.streak = 0;
           this.clue = codeResponse.alarmMessage ? 'YOU ARE UNDER ARREST ' + codeResponse.alarmMessage : 'YOU ARE UNDER ARREST';
-          this.logs.unshift({code, user: this.user.displayName, team: this.user.team, alarm: true, clue: false, anon: false});
+          logEntry = {code, user: this.user.displayName, team: this.user.team, alarm: true, clue: false, anon: false};
           this.playAlarm(codeResponse.alarmMessage);
         } else if (codeResponse.smash) {
           this.streak = 0;
-          this.logs.unshift({code, user: this.user.displayName, team: this.user.team, alarm: false, clue: false, anon: false});
+          logEntry = {code, user: this.user.displayName, team: this.user.team, alarm: false, clue: false, anon: false};
           this.initSmash();
         } else if (codeResponse.blur) {
-          this.logs.unshift({code, user: this.user.displayName, team: this.user.team, alarm: false, clue: false, anon: false});
+          logEntry = {code, user: this.user.displayName, team: this.user.team, alarm: false, clue: false, anon: false};
           localStorage.setItem('blur', new Date().toString());
           this.blurCountDown = this.DEFAULT_BLUR_TIME;
           playSound(soundEffects.powerDown);
@@ -419,8 +420,11 @@ export class AppComponent implements OnInit, AfterViewInit {
             this.streakCodes.push(code);
           }
           this.clue = codeResponse.clue;
-          this.logs.unshift({code, user: this.user.displayName, team: this.user.team, alarm: false, clue: true, anon: false});
+          logEntry = {code, user: this.user.displayName, team: this.user.team, alarm: false, clue: true, anon: false};
         }
+      }
+      if (logEntry && (!this.logs.length || this.logs[0].code !== code)) {
+        this.logs.unshift(logEntry);
       }
       localStorage.setItem('logs', JSON.stringify(this.logs));
       localStorage.setItem('wrong-code-count', this.wrongCodeCount);
