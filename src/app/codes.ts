@@ -675,6 +675,31 @@ export const codes: Array<{ code: string, validate: (team: string, user: any) =>
       return validateBox(this.code);
     }
   },
+  // weapons
+  {
+    code: '2020',
+    validate(): IClue {
+      return validateClue(this.code, 2);
+    }
+  },
+  {
+    code: '1977',
+    validate(): IClue {
+      return validateClue(this.code, 2);
+    }
+  },
+  {
+    code: '5298',
+    validate(): IClue {
+      return validateClue(this.code, 2);
+    }
+  },
+  {
+    code: '1664',
+    validate(): IClue {
+      return validateClue(this.code, 2);
+    }
+  },
   // music
   {
     code: '1376',
