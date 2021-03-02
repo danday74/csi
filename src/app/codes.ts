@@ -675,6 +675,26 @@ export const codes: Array<{ code: string, validate: (team: string, user: any) =>
       return validateBox(this.code);
     }
   },
+  // music
+  {
+    code: '1376',
+    validate(): IClue {
+      return validateClue(this.code, 3);
+    }
+  },
+  {
+    code: '7499',
+    validate(): IClue {
+      const clue = getRandomClue(this.code, 9).clue;
+      return {
+        clue: `Examining the back of the music stand reveals a valuable clue, the net tightens on the criminal. ${clue}. You have also found a key! Ask Lou Tennant for it quoting code ${this.code} and you shall receive (unless someone else beat you to it)`,
+        alarm: false,
+        alarmMessage: null,
+        smash: false,
+        blur: false
+      };
+    }
+  },
   // birthday
   {
     code: '0310',
