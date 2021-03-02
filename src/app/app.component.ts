@@ -54,7 +54,7 @@ export class AppComponent implements OnInit, AfterViewInit {
     }
   };
   wonSurvTrophy = false;
-  WRONG_CODES_REQUIRED_FOR_ARREST = 3;
+  WRONG_CODES_REQUIRED_FOR_ARREST = 5;
   streak = localStorage.getItem('streak') ? parseInt(localStorage.getItem('streak'), 10) : 0;
   streakCodes = localStorage.getItem('streak-codes') ? JSON.parse(localStorage.getItem('streak-codes')) : [];
   watchingIdx = localStorage.getItem('watching-idx') ? parseInt(localStorage.getItem('watching-idx'), 10) : null;
