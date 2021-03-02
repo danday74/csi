@@ -138,6 +138,20 @@ export const forensicsList: Array<{ code: string, validate: (team: string, user:
     }
   },
   {
+    code: 'ruturn',
+    validate(team: string, user: any): IClue {
+      const randomClue = getRandomClue(this.code, 9);
+      return {
+        // tslint:disable-next-line:max-line-length
+        clue: 'The word ruturn is misspelt. A clear indication that the criminal cannot spell, narrowing the suspects. ' + randomClue.clue,
+        alarm: false,
+        alarmMessage: null,
+        smash: false,
+        blur: false
+      };
+    }
+  },
+  {
     code: 'package',
     validate(team: string, user: any): IClue {
       const randomClue = getRandomClue(this.code, 2);
@@ -156,6 +170,88 @@ export const forensicsList: Array<{ code: string, validate: (team: string, user:
       const randomClue = getRandomClue(this.code, 2);
       return {
         clue: 'You inspect the doll in the video. A cheap barbie imitation. The clothes when examined reveal some DNA. This is certain evidence. ' + randomClue.clue,
+        alarm: false,
+        alarmMessage: null,
+        smash: false,
+        blur: false
+      };
+    }
+  },
+  {
+    code: 'car',
+    validate(team: string, user: any): IClue {
+      const randomClue = getRandomClue(this.code, 2);
+      return {
+        // tslint:disable-next-line:max-line-length
+        clue: 'You inspect the car in the video. It needs a clean for sure. The dirt leaves behind lots of tell tale signs. ' + randomClue.clue,
+        alarm: false,
+        alarmMessage: null,
+        smash: false,
+        blur: false
+      };
+    }
+  },
+  {
+    code: 'barbie',
+    validate(team: string, user: any): IClue {
+      const randomClue = getRandomClue(this.code, 2);
+      return {
+        clue: 'Barbie proves to be one of Micky\'s friends. You pay her a visit. She hasn\'t seen Mickey recently but tells you some useful information. ' + randomClue.clue,
+        alarm: false,
+        alarmMessage: null,
+        smash: false,
+        blur: false
+      };
+    }
+  },
+  {
+    code: 'mug',
+    validate(team: string, user: any): IClue {
+      const randomClue = getRandomClue(this.code, 2);
+      return {
+        // tslint:disable-next-line:max-line-length
+        clue: 'The mug is happy to tell you all about Micky\'s dealings but is a bit too much of a thicky to be of any real help. ' + randomClue.clue,
+        alarm: false,
+        alarmMessage: null,
+        smash: false,
+        blur: false
+      };
+    }
+  },
+  {
+    code: 'chauffeur',
+    validate(team: string, user: any): IClue {
+      const randomClue = getRandomClue(this.code, 1);
+      return {
+        // tslint:disable-next-line:max-line-length
+        clue: 'The chauffeur is very loyal to Micky and tells you virtually nothing. ' + randomClue.clue,
+        alarm: false,
+        alarmMessage: null,
+        smash: false,
+        blur: false
+      };
+    }
+  },
+  {
+    code: 'chaeffeur',
+    validate(team: string, user: any): IClue {
+      const randomClue = getRandomClue(this.code, 9);
+      return {
+        // tslint:disable-next-line:max-line-length
+        clue: 'The word chauffeur is misspelt. A clear indication that the criminal cannot spell, narrowing the suspects. ' + randomClue.clue,
+        alarm: false,
+        alarmMessage: null,
+        smash: false,
+        blur: false
+      };
+    }
+  },
+  {
+    code: 'mulberry',
+    validate(team: string, user: any): IClue {
+      const randomClue = getRandomClue(this.code, 9);
+      return {
+        clue: 'You lookup the address on the package and visit it. The owner knows where one of the locker keys is hidden. Ask Lou Tennant for the key quoting "mulberry" and you shall receive. Also you notice a clue at the owners house. ' + randomClue.clue,
         alarm: false,
         alarmMessage: null,
         smash: false,
