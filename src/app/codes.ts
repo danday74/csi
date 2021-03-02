@@ -353,6 +353,30 @@ export const codes: Array<{ code: string, validate: (team: string, user: any) =>
       return validateClue(this.code, 9);
     }
   },
+  {
+    code: '2299', // box 4
+    validate(): IClue {
+      return validateClue(this.code, 2);
+    }
+  },
+  {
+    code: '6437', // box 4
+    validate(): IClue {
+      return validateClue(this.code, 2);
+    }
+  },
+  {
+    code: '4850', // box 4
+    validate(): IClue {
+      return validateClue(this.code, 2);
+    }
+  },
+  {
+    code: '0104', // box 4
+    validate(): IClue {
+      return validateAlarm('for using a red herring code (your analyst could have saved you with their torch)');
+    }
+  },
   // scb
   {
     code: '3221',
@@ -557,7 +581,7 @@ export const codes: Array<{ code: string, validate: (team: string, user: any) =>
       };
     }
   },
-  // unlock message
+  // unlock video
   {
     code: '2950',
     validate(): IClue {
@@ -568,6 +592,87 @@ export const codes: Array<{ code: string, validate: (team: string, user: any) =>
     code: '9468',
     validate(): IClue {
       return validateMessage('Video 3 Unlocked - The Package');
+    }
+  },
+  // starter pack codes
+  {
+    code: '8673',
+    validate(): IClue {
+      return validateClue(this.code, 1);
+    }
+  },
+  {
+    code: '3964',
+    validate(): IClue {
+      return validateClue(this.code, 1);
+    }
+  },
+  {
+    code: '0804',
+    validate(): IClue {
+      return validateClue(this.code, 2);
+    }
+  },
+  {
+    code: '9582',
+    validate(): IClue {
+      return validateClue(this.code, 1);
+    }
+  },
+  {
+    code: '0669',
+    validate(): IClue {
+      return validateClue(this.code, 1);
+    }
+  },
+  {
+    code: '2763',
+    validate(): IClue {
+      return validateClue(this.code, 2);
+    }
+  },
+  {
+    code: '8454',
+    validate(): IClue {
+      return validateClue(this.code, 1);
+    }
+  },
+  {
+    code: '0375',
+    validate(): IClue {
+      return validateClue(this.code, 1);
+    }
+  },
+  {
+    code: '6649',
+    validate(): IClue {
+      return validateClue(this.code, 2);
+    }
+  },
+  // puzzles
+  {
+    code: '8062',
+    validate(): IClue {
+      return validateClue(this.code, 2);
+    }
+  },
+  {
+    code: '4596',
+    validate(): IClue {
+      return validateClue(this.code, 2);
+    }
+  },
+  {
+    code: '2529',
+    validate(): IClue {
+      return validateClue(this.code, 2);
+    }
+  },
+  // explore
+  {
+    code: '9029',
+    validate(): IClue {
+      return validateBox(this.code);
     }
   },
   // guesses
