@@ -404,6 +404,43 @@ export const codes: Array<{ code: string, validate: (team: string, user: any) =>
       return validateClue(this.code, 2);
     }
   },
+  // video 2
+  {
+    code: '1558',
+    validate(): IClue {
+      return validateClue(this.code, 2);
+    }
+  },
+  {
+    code: '5584',
+    validate(): IClue {
+      return validateClue(this.code, 2);
+    }
+  },
+  {
+    code: '7529',
+    validate(): IClue {
+      return validateClue(this.code, 2);
+    }
+  },
+  {
+    code: '5972',
+    validate(): IClue {
+      return validateClue(this.code, 3);
+    }
+  },
+  {
+    code: '2795',
+    validate(): IClue {
+      return validateClue(this.code, 4);
+    }
+  },
+  {
+    code: '9257',
+    validate(): IClue {
+      return validateClue(this.code, 4);
+    }
+  },
   // blue rectangle
   {
     code: '5184',
