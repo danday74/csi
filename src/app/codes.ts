@@ -374,7 +374,7 @@ export const codes: Array<{ code: string, validate: (team: string, user: any) =>
   {
     code: '0104', // box 4
     validate(): IClue {
-      return validateAlarm('for using a red herring code (your analyst could have saved you with their torch)');
+      return validateAlarm('for using a red herring code');
     }
   },
   // scb
