@@ -411,7 +411,7 @@ export const forensicsList: Array<{ code: string, validate: (team: string, user:
     validate(team: string, user: any): IClue {
       return {
         // tslint:disable-next-line:max-line-length
-        clue: 'Where would the music sheet feel at home and what is the song number?',
+        clue: 'Where would the music sheet feel at home? What is the song number?',
         alarm: false,
         alarmMessage: null,
         smash: false,
