@@ -700,6 +700,25 @@ export const codes: Array<{ code: string, validate: (team: string, user: any) =>
       return validateClue(this.code, 2);
     }
   },
+  // greenrock
+  {
+    code: '9643',
+    validate(): IClue {
+      return validateClue(this.code, 3);
+    }
+  },
+  {
+    code: '6734',
+    validate(): IClue {
+      return validateClue(this.code, 3);
+    }
+  },
+  {
+    code: '1221',
+    validate(): IClue {
+      return validateClue(this.code, 3);
+    }
+  },
   // music
   {
     code: '1376',
