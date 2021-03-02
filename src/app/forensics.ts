@@ -258,5 +258,152 @@ export const forensicsList: Array<{ code: string, validate: (team: string, user:
         blur: false
       };
     }
+  },
+  {
+    code: 'Iona Lott',
+    validate(team: string, user: any): IClue {
+      return {
+        // tslint:disable-next-line:max-line-length
+        clue: 'She owns a lot apparently',
+        alarm: false,
+        alarmMessage: null,
+        smash: false,
+        blur: false
+      };
+    }
+  },
+  {
+    code: 'Iva Pencil',
+    validate(team: string, user: any): IClue {
+      const randomClue = getRandomClue(this.code, 1);
+      return {
+        // tslint:disable-next-line:max-line-length
+        clue: 'A very studious hardworking girl. Armed with a pencil. You look at her study notes. ' + randomClue.clue,
+        alarm: false,
+        alarmMessage: null,
+        smash: false,
+        blur: false
+      };
+    }
+  },
+  {
+    code: 'Ma WeeOui',
+    validate(team: string, user: any): IClue {
+      return {
+        // tslint:disable-next-line:max-line-length
+        clue: 'She said someone insulted her but it\'s just water off a ducks back',
+        alarm: false,
+        alarmMessage: null,
+        smash: false,
+        blur: false
+      };
+    }
+  },
+  {
+    code: 'Joe Kerr',
+    validate(team: string, user: any): IClue {
+      return {
+        // tslint:disable-next-line:max-line-length
+        clue: 'Always makes people laugh. Maybe he\'s hiding something. He tells you a joke … Somebody robbed the police department yesterday and stole all the toilets. Sadly, the detectives have nothing to go on.',
+        alarm: false,
+        alarmMessage: null,
+        smash: false,
+        blur: false
+      };
+    }
+  },
+  {
+    code: 'Robin Banks',
+    validate(team: string, user: any): IClue {
+      const randomClue = getRandomClue(this.code, 1);
+      return {
+        // tslint:disable-next-line:max-line-length
+        clue: 'A pleasant and kind chap. He wants to help you and tells you all he knows. Which isn\'t much sadly. ' + randomClue.clue,
+        alarm: false,
+        alarmMessage: null,
+        smash: false,
+        blur: false
+      };
+    }
+  },
+  {
+    code: 'Anna Fender',
+    validate(team: string, user: any): IClue {
+      return {
+        // tslint:disable-next-line:max-line-length
+        clue: 'Infamous for her ability to hack and wipe criminal records. The police say she\'s extremely professional for a first time offender.',
+        alarm: false,
+        alarmMessage: null,
+        smash: false,
+        blur: false
+      };
+    }
+  },
+  {
+    code: 'Mona Lott',
+    validate(team: string, user: any): IClue {
+      const randomClue = getRandomClue(this.code, 2);
+      return {
+        // tslint:disable-next-line:max-line-length
+        clue: 'Friendly. Joyful. Talkative. You just listen. ' + randomClue.clue,
+        alarm: false,
+        alarmMessage: null,
+        smash: false,
+        blur: false
+      };
+    }
+  },
+  {
+    code: 'Takerman',
+    validate(team: string, user: any): IClue {
+      const randomClue = getRandomClue(this.code, 1);
+      return {
+        // tslint:disable-next-line:max-line-length
+        clue: randomClue.clue + ' ... \'nuff said',
+        alarm: false,
+        alarmMessage: null,
+        smash: false,
+        blur: false
+      };
+    }
+  },
+  {
+    code: 'Phil McCavity',
+    validate(team: string, user: any): IClue {
+      return {
+        // tslint:disable-next-line:max-line-length
+        clue: 'Used to be a dentist. Loves dogs.',
+        alarm: false,
+        alarmMessage: null,
+        smash: false,
+        blur: false
+      };
+    }
+  },
+  {
+    code: 'Guard Ian',
+    validate(team: string, user: any): IClue {
+      return {
+        // tslint:disable-next-line:max-line-length
+        clue: 'An extremely handsome officer with a rather large belly.',
+        alarm: false,
+        alarmMessage: null,
+        smash: false,
+        blur: false
+      };
+    }
+  },
+  {
+    code: 'Lou Tennant',
+    validate(team: string, user: any): IClue {
+      return {
+        // tslint:disable-next-line:max-line-length
+        clue: 'A beautiful, lovable, caring officer. She has a real sense of justice.',
+        alarm: false,
+        alarmMessage: null,
+        smash: false,
+        blur: false
+      };
+    }
   }
 ];
