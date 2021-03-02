@@ -25,7 +25,8 @@ const getRandomInt = (min, max) => {
 export class AppComponent implements OnInit, AfterViewInit {
   streakAwardCodes = {
     streak3: '4399',
-    streak7: '2489',
+    streak6: '2489',
+    streak9: '2031',
     streak12: '0073'
   };
   survPrizeCodes = {

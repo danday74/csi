@@ -25,7 +25,7 @@ export const charSounds = {
   'COVID-19': new Audio(`/assets/login-sounds/char/COVID-19.mp3`),
   joker: new Audio(`/assets/login-sounds/char/joker.mp3`),
   narcoleptic: new Audio(`/assets/login-sounds/char/narcoleptic.mp3`),
-  rich: new Audio(`/assets/login-sounds/char/rich.mp3`)
+  rich: new Audio(`/assets/login-sounds/char/rich.mp3`),
 };
 
 export const soundEffects = {
@@ -34,7 +34,8 @@ export const soundEffects = {
   alarm: new Audio('/assets/alarm.mp3'),
   smash: new Audio('/assets/smash.mp3'),
   wrench: new Audio('/assets/wrench.mp3'),
-  fanfare: new Audio('/assets/fanfare.mp3')
+  fanfare: new Audio('/assets/fanfare.mp3'),
+  clap: new Audio('/assets/clap.mp3')
 };
 
 export const playSound = (audio) => {

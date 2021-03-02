@@ -124,5 +124,17 @@ export const forensicsList: Array<{ code: string, validate: (team: string, user:
         blur: false
       };
     }
+  },
+  {
+    code: 'footprint',
+    validate(team: string, user: any): IClue {
+      return {
+        clue: 'You analyse the footprints but it does not help. You follow them. They lead you straight to a locker key. Ask Lou Tennant for the key quoting "footprints" and you shall receive.',
+        alarm: false,
+        alarmMessage: null,
+        smash: false,
+        blur: false
+      };
+    }
   }
 ];

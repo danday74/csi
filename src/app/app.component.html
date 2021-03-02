@@ -9,6 +9,7 @@
 <ng-container *ngIf="user && streakAwardCodes['streak' + streak]">
   <div class="streaker">
     Reward code for streak of {{ streak }} is {{ streakAwardCodes['streak' + streak] }}
+    <span class="can-you-streak" *ngIf="streak !== 12">Can you get a streak of 12?</span>
   </div>
 </ng-container>
 

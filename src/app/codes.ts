@@ -2,6 +2,7 @@ import { users } from './users';
 import { capitalize, filter, find, isEqual, memoize, sample, uniqBy } from 'lodash';
 import * as replaceLast from 'replace-last/index';
 import { IClue } from './interfaces/i-clue';
+import { playSound, soundEffects } from './audios';
 
 const isNumeric = (value): boolean => {
   return /^-?\d+$/.test(value);
@@ -455,6 +456,39 @@ export const codes: Array<{ code: string, validate: (team: string, user: any) =>
     code: '4599',
     validate(team: string, user: any): IClue {
       return validateBlur(user, 'blue');
+    }
+  },
+  // streaks
+  {
+    code: '4399',
+    validate(): IClue {
+      return validateClue(this.code, 1);
+    }
+  },
+  {
+    code: '2489',
+    validate(): IClue {
+      return validateClue(this.code, 2);
+    }
+  },
+  {
+    code: '2031',
+    validate(): IClue {
+      return validateClue(this.code, 3);
+    }
+  },
+  {
+    code: '0073',
+    validate(): IClue {
+      playSound(soundEffects.clap);
+      const clue = getRandomClue(this.code, 9).clue;
+      return {
+        clue: `You are on a winning streak. Your skills have helped prove that ${clue}. There is a trail of footprints leading away from the clue.`,
+        alarm: false,
+        alarmMessage: null,
+        smash: false,
+        blur: false
+      };
     }
   },
   // guesses
