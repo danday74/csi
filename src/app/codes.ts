@@ -754,6 +754,332 @@ export const codes: Array<{ code: string, validate: (team: string, user: any) =>
       };
     }
   },
+  // sian's codes
+  {
+    code: '5977',
+    validate(): IClue {
+      return validateClue(this.code, 1);
+    }
+  },
+  {
+    code: '6979',
+    validate(): IClue {
+      return validateClue(this.code, 1);
+    }
+  },
+  {
+    code: '1931',
+    validate(): IClue {
+      return validateClue(this.code, 1);
+    }
+  },
+  {
+    code: '6880',
+    validate(): IClue {
+      return validateClue(this.code, 1);
+    }
+  },
+  {
+    code: '8447',
+    validate(): IClue {
+      return validateClue(this.code, 1);
+    }
+  },
+  {
+    code: '1361',
+    validate(): IClue {
+      return validateClue(this.code, 2);
+    }
+  },
+  {
+    code: '4911',
+    validate(): IClue {
+      return validateClue(this.code, 2);
+    }
+  },
+  {
+    code: '7931',
+    validate(): IClue {
+      return validateClue(this.code, 2);
+    }
+  },
+  {
+    code: '6084',
+    validate(): IClue {
+      return validateClue(this.code, 2);
+    }
+  },
+  {
+    code: '6521',
+    validate(): IClue {
+      return validateClue(this.code, 2);
+    }
+  },
+  {
+    code: '2216',
+    validate(): IClue {
+      return validateClue(this.code, 2);
+    }
+  },
+  {
+    code: '2636',
+    validate(): IClue {
+      return validateClue(this.code, 2);
+    }
+  },
+  {
+    code: '0276',
+    validate(): IClue {
+      return validateClue(this.code, 2);
+    }
+  },
+  {
+    code: '2837',
+    validate(): IClue {
+      return validateClue(this.code, 2);
+    }
+  },
+  {
+    code: '7650',
+    validate(): IClue {
+      return validateClue(this.code, 2);
+    }
+  },
+  {
+    code: '2951',
+    validate(): IClue {
+      return validateClue(this.code, 3);
+    }
+  },
+  {
+    code: '5158',
+    validate(): IClue {
+      return validateClue(this.code, 3);
+    }
+  },
+  {
+    code: '7226',
+    validate(): IClue {
+      return validateClue(this.code, 3);
+    }
+  },
+  {
+    code: '8759',
+    validate(): IClue {
+      return validateClue(this.code, 4);
+    }
+  },
+  {
+    code: '5464',
+    validate(): IClue {
+      return validateClue(this.code, 4);
+    }
+  },
+  {
+    code: '4999',
+    validate(): IClue {
+      return validateClue(this.code, 4);
+    }
+  },
+  {
+    code: '9969',
+    validate(): IClue {
+      return validateClue(this.code, 9);
+    }
+  },
+  {
+    code: '0531',
+    validate(): IClue {
+      return validateClue(this.code, 9);
+    }
+  },
+  {
+    code: '3197',
+    validate(): IClue {
+      return validateClue(this.code, 9);
+    }
+  },
+  {
+    code: '3869',
+    validate(): IClue {
+      return validateAlarm('for using a red herring code');
+    }
+  },
+  {
+    code: '6095',
+    validate(): IClue {
+      return validateAlarm('for using a red herring code');
+    }
+  },
+  {
+    code: '8311',
+    validate(): IClue {
+      return validateAlarm('for using a red herring code');
+    }
+  },
+  // dan's codes
+  {
+    code: '4977',
+    validate(): IClue {
+      return validateClue(this.code, 1);
+    }
+  },
+  {
+    code: '5979',
+    validate(): IClue {
+      return validateClue(this.code, 1);
+    }
+  },
+  {
+    code: '0931',
+    validate(): IClue {
+      return validateClue(this.code, 1);
+    }
+  },
+  {
+    code: '5880',
+    validate(): IClue {
+      return validateClue(this.code, 1);
+    }
+  },
+  {
+    code: '7447',
+    validate(): IClue {
+      return validateClue(this.code, 1);
+    }
+  },
+  {
+    code: '0361',
+    validate(): IClue {
+      return validateClue(this.code, 2);
+    }
+  },
+  {
+    code: '3911',
+    validate(): IClue {
+      return validateClue(this.code, 2);
+    }
+  },
+  {
+    code: '6931',
+    validate(): IClue {
+      return validateClue(this.code, 2);
+    }
+  },
+  {
+    code: '5084',
+    validate(): IClue {
+      return validateClue(this.code, 2);
+    }
+  },
+  {
+    code: '5521',
+    validate(): IClue {
+      return validateClue(this.code, 2);
+    }
+  },
+  {
+    code: '1216',
+    validate(): IClue {
+      return validateClue(this.code, 2);
+    }
+  },
+  {
+    code: '1636',
+    validate(): IClue {
+      return validateClue(this.code, 2);
+    }
+  },
+  {
+    code: '9276',
+    validate(): IClue {
+      return validateClue(this.code, 2);
+    }
+  },
+  {
+    code: '1837',
+    validate(): IClue {
+      return validateClue(this.code, 2);
+    }
+  },
+  {
+    code: '6650',
+    validate(): IClue {
+      return validateClue(this.code, 2);
+    }
+  },
+  {
+    code: '1951',
+    validate(): IClue {
+      return validateClue(this.code, 3);
+    }
+  },
+  {
+    code: '4158',
+    validate(): IClue {
+      return validateClue(this.code, 3);
+    }
+  },
+  {
+    code: '6226',
+    validate(): IClue {
+      return validateClue(this.code, 3);
+    }
+  },
+  {
+    code: '7759',
+    validate(): IClue {
+      return validateClue(this.code, 4);
+    }
+  },
+  {
+    code: '4464',
+    validate(): IClue {
+      return validateClue(this.code, 4);
+    }
+  },
+  {
+    code: '3999',
+    validate(): IClue {
+      return validateClue(this.code, 4);
+    }
+  },
+  {
+    code: '8969',
+    validate(): IClue {
+      return validateClue(this.code, 9);
+    }
+  },
+  {
+    code: '9531',
+    validate(): IClue {
+      return validateClue(this.code, 9);
+    }
+  },
+  {
+    code: '2197',
+    validate(): IClue {
+      return validateClue(this.code, 9);
+    }
+  },
+  {
+    code: '2869',
+    validate(): IClue {
+      return validateAlarm('for using a red herring code');
+    }
+  },
+  {
+    code: '5095',
+    validate(): IClue {
+      return validateAlarm('for using a red herring code');
+    }
+  },
+  {
+    code: '7311',
+    validate(): IClue {
+      return validateAlarm('for using a red herring code');
+    }
+  },
   // guesses
   {
     code: '0000',
