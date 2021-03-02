@@ -741,7 +741,7 @@ export const codes: Array<{ code: string, validate: (team: string, user: any) =>
   },
   // birthday
   {
-    code: '0310',
+    code: '1003',
     validate(): IClue {
       playSound(soundEffects.blower);
       const clue = getRandomClue(this.code, 9).clue;
