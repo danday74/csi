@@ -136,5 +136,31 @@ export const forensicsList: Array<{ code: string, validate: (team: string, user:
         blur: false
       };
     }
+  },
+  {
+    code: 'package',
+    validate(team: string, user: any): IClue {
+      const randomClue = getRandomClue(this.code, 2);
+      return {
+        clue: 'You recover the trampled package from Tesco\'s bin and examine it. It is helpful. ' + randomClue.clue,
+        alarm: false,
+        alarmMessage: null,
+        smash: false,
+        blur: false
+      };
+    }
+  },
+  {
+    code: 'doll',
+    validate(team: string, user: any): IClue {
+      const randomClue = getRandomClue(this.code, 2);
+      return {
+        clue: 'You inspect the doll in the video. A cheap barbie imitation. The clothes when examined reveal some DNA. This is certain evidence. ' + randomClue.clue,
+        alarm: false,
+        alarmMessage: null,
+        smash: false,
+        blur: false
+      };
+    }
   }
 ];
