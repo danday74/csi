@@ -675,6 +675,21 @@ export const codes: Array<{ code: string, validate: (team: string, user: any) =>
       return validateBox(this.code);
     }
   },
+  // birthday
+  {
+    code: '0310',
+    validate(): IClue {
+      playSound(soundEffects.blower);
+      const clue = getRandomClue(this.code, 9).clue;
+      return {
+        clue: `Aww you remembered Guard Ian\'s birthday. He gives you a nice surprise. ${clue}`,
+        alarm: false,
+        alarmMessage: null,
+        smash: false,
+        blur: false
+      };
+    }
+  },
   // guesses
   {
     code: '0000',

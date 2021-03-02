@@ -35,7 +35,8 @@ export const soundEffects = {
   smash: new Audio('/assets/smash.mp3'),
   wrench: new Audio('/assets/wrench.mp3'),
   fanfare: new Audio('/assets/fanfare.mp3'),
-  clap: new Audio('/assets/clap.mp3')
+  clap: new Audio('/assets/clap.mp3'),
+  blower: new Audio('/assets/blower.mp3')
 };
 
 export const playSound = (audio) => {
