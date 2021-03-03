@@ -484,6 +484,25 @@ export const codes: Array<{ code: string, validate: (team: string, user: any) =>
       return validateClue(this.code, 3);
     }
   },
+  // video 4
+  {
+    code: '4111',
+    validate(): IClue {
+      return validateClue(this.code, 2);
+    }
+  },
+  {
+    code: '5098',
+    validate(): IClue {
+      return validateClue(this.code, 3);
+    }
+  },
+  {
+    code: '2415',
+    validate(): IClue {
+      return validateClue(this.code, 9);
+    }
+  },
   // blue rectangle
   {
     code: '5184',
