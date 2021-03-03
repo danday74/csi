@@ -434,6 +434,33 @@ export const forensicsList: Array<{ code: string, validate: (team: string, user:
     }
   },
   {
+    code: 'giraffe',
+    validate(team: string, user: any): IClue {
+      return {
+        // tslint:disable-next-line:max-line-length
+        clue: 'There is a giraffe in the museum. The criminal must have long legs. Seriously! The fact that there is a giraffe in the museum really does not help your case at all.',
+        alarm: false,
+        alarmMessage: null,
+        smash: false,
+        blur: false
+      };
+    }
+  },
+  {
+    code: 'dinosaur',
+    validate(team: string, user: any): IClue {
+      const randomClue = getRandomClue(this.code, 1);
+      return {
+        // tslint:disable-next-line:max-line-length
+        clue: 'I\'m not sure what a dinosaur has to do with this case. But I feel sorry for you. Have a clue. ' + randomClue.clue,
+        alarm: false,
+        alarmMessage: null,
+        smash: false,
+        blur: false
+      };
+    }
+  },
+  {
     code: 'cctv',
     validate(team: string, user: any): IClue {
       return {
