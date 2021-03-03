@@ -485,5 +485,102 @@ export const forensicsList: Array<{ code: string, validate: (team: string, user:
         blur: false
       };
     }
+  },
+  {
+    code: 'biscuit',
+    validate(team: string, user: any): IClue {
+      return {
+        // tslint:disable-next-line:max-line-length
+        clue: 'The masked mysterious villain eating biscuits makes you feel hungry. You remember that Lou Tennant put some biscuits in one of the lockers. Ask Lou Tennant for the key quoting "biscuits" and you shall receive. Note that this is a shared locker which other teams can use and the biscuits should stay in the locker. However, you can help yourself to one or two or three. Just don\'t ruin your dinner, if you have not eaten it yet! There may be an additional prize in the locker if you are the first team to access it.',
+        alarm: false,
+        alarmMessage: null,
+        smash: false,
+        blur: false
+      };
+    }
+  },
+  {
+    code: 'nunchuck',
+    validate(team: string, user: any): IClue {
+      const randomClue = getRandomClue(this.code, 2);
+      return {
+        // tslint:disable-next-line:max-line-length
+        clue: 'A weapon is always a useful clue when staking out a criminal. ' + randomClue.clue,
+        alarm: false,
+        alarmMessage: null,
+        smash: false,
+        blur: false
+      };
+    }
+  },
+  {
+    code: 'hat',
+    validate(team: string, user: any): IClue {
+      const randomClue = getRandomClue(this.code, 2);
+      return {
+        // tslint:disable-next-line:max-line-length
+        clue: 'Part of the villain\'s cunning disguise which is clearly evident in the CCTV footage. You analyse it thoroughly. ' + randomClue.clue,
+        alarm: false,
+        alarmMessage: null,
+        smash: false,
+        blur: false
+      };
+    }
+  },
+  {
+    code: 'mask',
+    validate(team: string, user: any): IClue {
+      const randomClue = getRandomClue(this.code, 2);
+      return {
+        // tslint:disable-next-line:max-line-length
+        clue: 'Part of the villain\'s cunning disguise which is clearly evident in the CCTV footage. You analyse it thoroughly. ' + randomClue.clue,
+        alarm: false,
+        alarmMessage: null,
+        smash: false,
+        blur: false
+      };
+    }
+  },
+  {
+    code: 'glove',
+    validate(team: string, user: any): IClue {
+      const randomClue = getRandomClue(this.code, 1);
+      return {
+        // tslint:disable-next-line:max-line-length
+        clue: 'Part of the villain\'s cunning disguise which is clearly evident in the CCTV footage. You analyse it thoroughly. ' + randomClue.clue,
+        alarm: false,
+        alarmMessage: null,
+        smash: false,
+        blur: false
+      };
+    }
+  },
+  {
+    code: 'sock',
+    validate(team: string, user: any): IClue {
+      const randomClue = getRandomClue(this.code, 3);
+      return {
+        // tslint:disable-next-line:max-line-length
+        clue: 'Part of the villain\'s cunning disguise. You notice that the felon is actually wearing socks on their hands which is clearly evident in the CCTV footage. Be careful if you ever need to shake hands with this masked bandit, could be cheesy. This clue will really help to narrow the suspects since this is really unique behaviour. ' + randomClue.clue,
+        alarm: false,
+        alarmMessage: null,
+        smash: false,
+        blur: false
+      };
+    }
+  },
+  {
+    code: 'light',
+    validate(team: string, user: any): IClue {
+      const randomClue = getRandomClue(this.code, 2);
+      return {
+        // tslint:disable-next-line:max-line-length
+        clue: 'The villain in the CCTV footage is using a powerful flashlight. Checking out local shops which sell this flashlight will help narrow the suspects. ' + randomClue.clue,
+        alarm: false,
+        alarmMessage: null,
+        smash: false,
+        blur: false
+      };
+    }
   }
 ];
