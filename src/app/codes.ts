@@ -217,6 +217,25 @@ const validateMessage = (message: string): IClue => {
   };
 };
 
+const validateInterrogatorCode = (user: any, code: string, codeHolderTeam: string): IClue => {
+  let alarmMessage = null;
+  if (user.career !== 'interrogator') {
+    alarmMessage = 'for espionage by using a code that only interrogators can use';
+  } else if (user.team === codeHolderTeam) {
+    alarmMessage = 'for trying to interrogate your own team';
+  }
+
+  const alarm = !!alarmMessage;
+  const clue = getRandomClue(code, 2).clue;
+  return {
+    clue,
+    alarm,
+    alarmMessage,
+    smash: false,
+    blur: false
+  };
+};
+
 export const codes: Array<{ code: string, validate: (team: string, user: any) => IClue }> = [
   // team codes * 3 - alarm if not on red team and not on red computer
   {
@@ -778,6 +797,61 @@ export const codes: Array<{ code: string, validate: (team: string, user: any) =>
     code: '4884',
     validate(): IClue {
       return validateClue(this.code, 2);
+    }
+  },
+  // interrogator codes
+  {
+    code: '0717', // red interrogator
+    validate(team: string, user: any): IClue {
+      return validateInterrogatorCode(user, this.code, 'red');
+    }
+  },
+  {
+    code: '0817',
+    validate(team: string, user: any): IClue {
+      return validateInterrogatorCode(user, this.code, 'red');
+    }
+  },
+  {
+    code: '1818',
+    validate(team: string, user: any): IClue {
+      return validateInterrogatorCode(user, this.code, 'red');
+    }
+  },
+  {
+    code: '1817', // green interrogator
+    validate(team: string, user: any): IClue {
+      return validateInterrogatorCode(user, this.code, 'green');
+    }
+  },
+  {
+    code: '0538',
+    validate(team: string, user: any): IClue {
+      return validateInterrogatorCode(user, this.code, 'green');
+    }
+  },
+  {
+    code: '0771',
+    validate(team: string, user: any): IClue {
+      return validateInterrogatorCode(user, this.code, 'green');
+    }
+  },
+  {
+    code: '9518', // blue interrogator
+    validate(team: string, user: any): IClue {
+      return validateInterrogatorCode(user, this.code, 'blue');
+    }
+  },
+  {
+    code: '9818',
+    validate(team: string, user: any): IClue {
+      return validateInterrogatorCode(user, this.code, 'blue');
+    }
+  },
+  {
+    code: '9538',
+    validate(team: string, user: any): IClue {
+      return validateInterrogatorCode(user, this.code, 'blue');
     }
   },
   // sian's codes
