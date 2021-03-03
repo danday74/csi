@@ -432,5 +432,31 @@ export const forensicsList: Array<{ code: string, validate: (team: string, user:
         blur: false
       };
     }
+  },
+  {
+    code: 'cctv',
+    validate(team: string, user: any): IClue {
+      return {
+        // tslint:disable-next-line:max-line-length
+        clue: 'You notice the CCTV cameras at the museum. You wonder if they were on when the crime was committed. The museum informs you they were and provides you with CCTV footage. Video unlocked.',
+        alarm: false,
+        alarmMessage: null,
+        smash: false,
+        blur: false
+      };
+    }
+  },
+  {
+    code: 'camera',
+    validate(team: string, user: any): IClue {
+      return {
+        // tslint:disable-next-line:max-line-length
+        clue: 'You notice the CCTV cameras at the museum. You wonder if they were on when the crime was committed. The museum informs you they were and provides you with CCTV footage. Video unlocked.',
+        alarm: false,
+        alarmMessage: null,
+        smash: false,
+        blur: false
+      };
+    }
   }
 ];

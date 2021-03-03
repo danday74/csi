@@ -754,6 +754,13 @@ export const codes: Array<{ code: string, validate: (team: string, user: any) =>
       };
     }
   },
+  // museum leaflet
+  {
+    code: '4884',
+    validate(): IClue {
+      return validateClue(this.code, 2);
+    }
+  },
   // sian's codes
   {
     code: '5977',

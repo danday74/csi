@@ -101,6 +101,11 @@ export class AppComponent implements OnInit, AfterViewInit {
       name: 'The Package',
       url: 'https://youtube.com/embed/Uv6i5ItakfY',
       locked: true
+    },
+    {
+      name: 'CSI Game CCTV',
+      url: 'https://youtube.com/embed/iVEv1v67nT4',
+      locked: true
     }
   ];
   loginForm = new FormGroup({
@@ -457,9 +462,13 @@ export class AppComponent implements OnInit, AfterViewInit {
           this.playAlarm(forensicsResponse.alarmMessage);
         } else {
           this.forensicsClue = forensicsResponse.clue;
+          if (forensics.toLowerCase().includes('cctv') || forensics.toLowerCase().includes('camera')) {
+            this.videos[3].locked = false;
+          }
         }
       }
     }
+    localStorage.setItem('videos', JSON.stringify(this.videos));
   }
 
   makeAnonymous(idx: number): void {
