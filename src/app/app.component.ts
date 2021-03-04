@@ -113,7 +113,7 @@ export class AppComponent implements OnInit, AfterViewInit {
     password: new FormControl('', Validators.required)
   });
 
-  private exploreLocations = ['inside the Elstead bus shelter (near Hookley Lane)', 'the bench outside the Elstead Spar (near Stacey\'s Farm Road)', 'the big sandbank at Woodside Farm river meadow'];
+  private exploreLocations = ['inside the Elstead bus shelter (near Hookley Lane)', 'the bench on the Elstead green', 'the big sandbank at Woodside Farm river meadow'];
 
   private html = $('html');
 
