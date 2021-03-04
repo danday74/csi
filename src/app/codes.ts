@@ -407,6 +407,24 @@ export const codes: Array<{ code: string, validate: (team: string, user: any) =>
       return validateAlarm('for using a red herring code');
     }
   },
+  {
+    code: '9255', // box 2, 10, 14
+    validate(): IClue {
+      return validateClue(this.code, 9);
+    }
+  },
+  {
+    code: '1543', // box 4
+    validate(): IClue {
+      return validateClue(this.code, 9);
+    }
+  },
+  {
+    code: '9032', // box 4
+    validate(): IClue {
+      return validateClue(this.code, 9);
+    }
+  },
   // scb
   {
     code: '3221',
@@ -561,6 +579,24 @@ export const codes: Array<{ code: string, validate: (team: string, user: any) =>
   },
   // sabotage codes
   {
+    code: '4979',
+    validate(team: string, user: any): IClue {
+      return validateSmash(user, 'red');
+    }
+  },
+  {
+    code: '4528',
+    validate(team: string, user: any): IClue {
+      return validateSmash(user, 'green');
+    }
+  },
+  {
+    code: '4012',
+    validate(team: string, user: any): IClue {
+      return validateSmash(user, 'blue');
+    }
+  },
+  {
     code: '6833',
     validate(team: string, user: any): IClue {
       return validateSmash(user, 'red');
@@ -579,6 +615,24 @@ export const codes: Array<{ code: string, validate: (team: string, user: any) =>
     }
   },
   // interference codes
+  {
+    code: '5743',
+    validate(team: string, user: any): IClue {
+      return validateBlur(user, 'red');
+    }
+  },
+  {
+    code: '8534',
+    validate(team: string, user: any): IClue {
+      return validateBlur(user, 'green');
+    }
+  },
+  {
+    code: '2377',
+    validate(team: string, user: any): IClue {
+      return validateBlur(user, 'blue');
+    }
+  },
   {
     code: '8404',
     validate(team: string, user: any): IClue {
