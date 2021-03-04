@@ -577,6 +577,199 @@ export const codes: Array<{ code: string, validate: (team: string, user: any) =>
       return validateBox(this.code);
     }
   },
+  // code mixup
+  {
+    code: '5994',
+    validate(): IClue {
+      return validateClue(this.code, 1);
+    }
+  },
+  {
+    code: '9268',
+    validate(): IClue {
+      return validateClue(this.code, 1);
+    }
+  },
+  {
+    code: '9783',
+    validate(): IClue {
+      return validateClue(this.code, 1);
+    }
+  },
+  {
+    code: '0433',
+    validate(): IClue {
+      return validateClue(this.code, 1);
+    }
+  },
+  {
+    code: '2647',
+    validate(): IClue {
+      return validateClue(this.code, 1);
+    }
+  },
+  {
+    code: '8496',
+    validate(): IClue {
+      return validateClue(this.code, 1);
+    }
+  },
+  {
+    code: '2856',
+    validate(): IClue {
+      return validateClue(this.code, 1);
+    }
+  },
+  {
+    code: '6458',
+    validate(): IClue {
+      return validateClue(this.code, 1);
+    }
+  },
+  {
+    code: '0745',
+    validate(): IClue {
+      return validateClue(this.code, 1);
+    }
+  },
+  {
+    code: '3790',
+    validate(): IClue {
+      return validateClue(this.code, 1);
+    }
+  },
+  {
+    code: '9654',
+    validate(): IClue {
+      return validateClue(this.code, 2);
+    }
+  },
+  {
+    code: '3796',
+    validate(): IClue {
+      return validateClue(this.code, 2);
+    }
+  },
+  {
+    code: '3675',
+    validate(): IClue {
+      return validateClue(this.code, 2);
+    }
+  },
+  {
+    code: '3689',
+    validate(): IClue {
+      return validateClue(this.code, 2);
+    }
+  },
+  {
+    code: '9864',
+    validate(): IClue {
+      return validateClue(this.code, 2);
+    }
+  },
+  {
+    code: '4895',
+    validate(): IClue {
+      return validateClue(this.code, 2);
+    }
+  },
+  {
+    code: '3677',
+    validate(): IClue {
+      return validateClue(this.code, 2);
+    }
+  },
+  {
+    code: '9052',
+    validate(): IClue {
+      return validateClue(this.code, 2);
+    }
+  },
+  {
+    code: '5629',
+    validate(): IClue {
+      return validateClue(this.code, 2);
+    }
+  },
+  {
+    code: '4689',
+    validate(): IClue {
+      return validateClue(this.code, 2);
+    }
+  },
+  {
+    code: '9644',
+    validate(): IClue {
+      return validateClue(this.code, 3);
+    }
+  },
+  {
+    code: '2357',
+    validate(): IClue {
+      return validateClue(this.code, 3);
+    }
+  },
+  {
+    code: '8695',
+    validate(): IClue {
+      return validateClue(this.code, 3);
+    }
+  },
+  {
+    code: '4673',
+    validate(): IClue {
+      return validateClue(this.code, 9);
+    }
+  },
+  {
+    code: '0134',
+    validate(): IClue {
+      return validateAlarm('for getting mixed up');
+    }
+  },
+  {
+    code: '9646',
+    validate(): IClue {
+      return validateAlarm('for getting mixed up');
+    }
+  },
+  {
+    code: '3408',
+    validate(): IClue {
+      return validateAlarm('for getting mixed up');
+    }
+  },
+  {
+    code: '8794',
+    validate(): IClue {
+      return {
+        clue: null,
+        alarm: false,
+        alarmMessage: null,
+        smash: true,
+        blur: false
+      };
+    }
+  },
+  {
+    code: '4789',
+    validate(): IClue {
+      return {
+        clue: null,
+        alarm: false,
+        alarmMessage: null,
+        smash: false,
+        blur: true
+      };
+    }
+  },
+  {
+    code: '6320',
+    validate(): IClue {
+      return validateBox(this.code);
+    }
+  },
   // sabotage codes
   {
     code: '4979',
