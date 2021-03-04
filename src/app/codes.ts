@@ -217,6 +217,17 @@ const validateMessage = (message: string): IClue => {
   };
 };
 
+const validateMessageAndClue = (message: string, code: string, level: number): IClue => {
+  const clue = getRandomClue(code, level).clue;
+  return {
+    clue: message + ' ' + clue,
+    alarm: false,
+    alarmMessage: null,
+    smash: false,
+    blur: false
+  };
+};
+
 const validateInterrogatorCode = (user: any, code: string, codeHolderTeam: string): IClue => {
   let alarmMessage = null;
   if (user.career !== 'interrogator') {
@@ -852,6 +863,43 @@ export const codes: Array<{ code: string, validate: (team: string, user: any) =>
     code: '9538',
     validate(team: string, user: any): IClue {
       return validateInterrogatorCode(user, this.code, 'blue');
+    }
+  },
+  // woods mission codes
+  {
+    code: '7339',
+    validate(): IClue {
+      return validateMessageAndClue('This is a woods mission code. There are 6 of these codes but you only need 4. Give 4 of them to Lou Tenant for a prize.', this.code, 2);
+    }
+  },
+  {
+    code: '9513',
+    validate(): IClue {
+      return validateMessageAndClue('This is a woods mission code. There are 6 of these codes but you only need 4. Give 4 of them to Lou Tenant for a prize.', this.code, 2);
+    }
+  },
+  {
+    code: '9292',
+    validate(): IClue {
+      return validateMessageAndClue('This is a woods mission code. There are 6 of these codes but you only need 4. Give 4 of them to Lou Tenant for a prize.', this.code, 2);
+    }
+  },
+  {
+    code: '0888',
+    validate(): IClue {
+      return validateMessageAndClue('This is a woods mission code. There are 6 of these codes but you only need 4. Give 4 of them to Lou Tenant for a prize.', this.code, 2);
+    }
+  },
+  {
+    code: '2550',
+    validate(): IClue {
+      return validateMessageAndClue('This is a woods mission code. There are 6 of these codes but you only need 4. Give 4 of them to Lou Tenant for a prize.', this.code, 2);
+    }
+  },
+  {
+    code: '6990',
+    validate(): IClue {
+      return validateMessageAndClue('This is a woods mission code. There are 6 of these codes but you only need 4. Give 4 of them to Lou Tenant for a prize.', this.code, 2);
     }
   },
   // sian's codes
