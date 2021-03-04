@@ -58,6 +58,7 @@ export class AppComponent implements OnInit, AfterViewInit {
   streak = localStorage.getItem('streak') ? parseInt(localStorage.getItem('streak'), 10) : 0;
   streakCodes = localStorage.getItem('streak-codes') ? JSON.parse(localStorage.getItem('streak-codes')) : [];
   watchingIdx = localStorage.getItem('watching-idx') ? parseInt(localStorage.getItem('watching-idx'), 10) : null;
+  maxStreak = localStorage.getItem('max-streak') ? parseInt(localStorage.getItem('max-streak'), 10) : 0;
   survChallenges;
   surveillance = localStorage.getItem('surveillance') ? JSON.parse(localStorage.getItem('surveillance')) : false;
   DEFAULT_SMASH_TIME = 180;
@@ -440,6 +441,10 @@ export class AppComponent implements OnInit, AfterViewInit {
       localStorage.setItem('logs', JSON.stringify(this.logs));
       localStorage.setItem('wrong-code-count', this.wrongCodeCount);
       localStorage.setItem('streak', this.streak.toString());
+      if (this.streak > this.maxStreak) {
+        this.maxStreak = this.streak;
+        localStorage.setItem('max-streak', this.maxStreak.toString());
+      }
       localStorage.setItem('streak-codes', JSON.stringify(this.streakCodes));
       localStorage.setItem('videos', JSON.stringify(this.videos));
     }
