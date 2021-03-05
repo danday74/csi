@@ -207,16 +207,6 @@ const validateClue = (code: string, level: number): IClue => {
   };
 };
 
-const validateMessage = (message: string): IClue => {
-  return {
-    clue: message,
-    alarm: false,
-    alarmMessage: null,
-    smash: false,
-    blur: false
-  };
-};
-
 const validateMessageAndClue = (message: string, code: string, level: number): IClue => {
   const clue = getRandomClue(code, level).clue;
   return {
