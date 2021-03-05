@@ -207,6 +207,16 @@ const validateClue = (code: string, level: number): IClue => {
   };
 };
 
+const validateMessage = (message: string): IClue => {
+  return {
+    clue: message,
+    alarm: false,
+    alarmMessage: null,
+    smash: false,
+    blur: false
+  };
+};
+
 const validateMessageAndClue = (message: string, code: string, level: number): IClue => {
   const clue = getRandomClue(code, level).clue;
   return {
@@ -952,6 +962,208 @@ export const codes: Array<{ code: string, validate: (team: string, user: any) =>
   },
   {
     code: '6649',
+    validate(): IClue {
+      return validateClue(this.code, 2);
+    }
+  },
+  // invisible
+  // inv-01
+  {
+    code: '4832',
+    validate(): IClue {
+      return validateMessage('SCB-v7c-iv7a-iii2g-ii4d');
+    }
+  },
+  {
+    code: '2392',
+    validate(): IClue {
+      return validateMessage('Well done for breaking the code. You will find a high level clue at map reference O25. Once you find it, leave it there for other teams to find. Thanks :)');
+    }
+  },
+  {
+    code: '4398', // hide at map reference O25 (under door mat)
+    validate(): IClue {
+      return validateClue(this.code, 3);
+    }
+  },
+  // inv-02
+  {
+    code: '4831',
+    validate(): IClue {
+      return validateMessage('SCB-iii6i-ii8b-v7h-ii1h');
+    }
+  },
+  {
+    code: '2797',
+    validate(): IClue {
+      return validateMessage('Well done for breaking the code. You will find a high level clue at map reference J10. Once you find it, leave it there for other teams to find. Thanks :)');
+    }
+  },
+  {
+    code: '3484', // hide at map reference J10 (under kitchen table)
+    validate(): IClue {
+      return validateClue(this.code, 3);
+    }
+  },
+  // inv-03
+  {
+    code: '9503',
+    validate(): IClue {
+      return validateMessage('SCB-ii4d-v9h-ii1h-ii1g');
+    }
+  },
+  {
+    code: '2173',
+    validate(): IClue {
+      return validateMessage('Well done for breaking the code. You will find a high level clue at map reference A08. Once you find it, leave it there for other teams to find. Thanks :)');
+    }
+  },
+  {
+    code: '8653', // hide at map reference A08 (outside kitchen window)
+    validate(): IClue {
+      return validateClue(this.code, 3);
+    }
+  },
+  // inv-04
+  {
+    code: '3268',
+    validate(): IClue {
+      return validateMessage('SCB-iv7a-v7d-ii8h-iii7a');
+    }
+  },
+  {
+    code: '3886',
+    validate(): IClue {
+      return validateMessage('Well done for breaking the code. You will find a high level clue at map reference B14. Once you find it, leave it there for other teams to find. Thanks :)');
+    }
+  },
+  {
+    code: '3277', // hide at map reference B14 (corner of kitchen)
+    validate(): IClue {
+      return validateClue(this.code, 3);
+    }
+  },
+  // inv-05
+  {
+    code: '8989',
+    validate(): IClue {
+      return validateMessage('SCB-ii8h-ii7g-ii6g-ii8f');
+    }
+  },
+  {
+    code: '8458',
+    validate(): IClue {
+      return validateMessage('Well done for breaking the code. You will find a high level clue at map reference J17. Once you find it, leave it there for other teams to find. Thanks :)');
+    }
+  },
+  {
+    code: '0593', // hide at map reference J17 (between heater tanks)
+    validate(): IClue {
+      return validateClue(this.code, 3);
+    }
+  },
+  // inv-06
+  {
+    code: '7456',
+    validate(): IClue {
+      return validateMessage('SCB-iv7i-iv7h-iv7g-ii8f');
+    }
+  },
+  {
+    code: '8538',
+    validate(): IClue {
+      return validateMessage('Well done for breaking the code. You will find a high level clue at map reference I22. Once you find it, leave it there for other teams to find. Thanks :)');
+    }
+  },
+  {
+    code: '9012', // hide at map reference I22 (toilet side of tall thing in boys loo)
+    validate(): IClue {
+      return validateClue(this.code, 3);
+    }
+  },
+  // inv-07
+  {
+    code: '9090',
+    validate(): IClue {
+      return validateMessage('SCB-v7h-v3h-iii9g-iii5a');
+    }
+  },
+  {
+    code: '9805',
+    validate(): IClue {
+      return validateMessage('Well done for breaking the code. You will find a high level clue at map reference B29. Once you find it, leave it there for other teams to find. Thanks :)');
+    }
+  },
+  {
+    code: '9411', // hide at map reference B29 (sofa seat)
+    validate(): IClue {
+      return validateClue(this.code, 3);
+    }
+  },
+  // inv-08
+  {
+    code: '9500',
+    validate(): IClue {
+      return validateMessage('SCB-v1d-v8g-iv9b-ii8b');
+    }
+  },
+  {
+    code: '3527',
+    validate(): IClue {
+      return validateMessage('Well done for breaking the code. You will find a high level clue at map reference H33. Once you find it, leave it there for other teams to find. Thanks :)');
+    }
+  },
+  {
+    code: '0428', // hide at map reference H33 (sofa seat)
+    validate(): IClue {
+      return validateClue(this.code, 3);
+    }
+  },
+  // inv-09 to inv-16
+  {
+    code: '4785',
+    validate(): IClue {
+      return validateClue(this.code, 2);
+    }
+  },
+  {
+    code: '8743',
+    validate(): IClue {
+      return validateClue(this.code, 2);
+    }
+  },
+  {
+    code: '8543',
+    validate(): IClue {
+      return validateClue(this.code, 2);
+    }
+  },
+  {
+    code: '2354',
+    validate(): IClue {
+      return validateClue(this.code, 2);
+    }
+  },
+  {
+    code: '0694',
+    validate(): IClue {
+      return validateClue(this.code, 2);
+    }
+  },
+  {
+    code: '4967',
+    validate(): IClue {
+      return validateClue(this.code, 2);
+    }
+  },
+  {
+    code: '2505',
+    validate(): IClue {
+      return validateClue(this.code, 2);
+    }
+  },
+  {
+    code: '2405',
     validate(): IClue {
       return validateClue(this.code, 2);
     }
