@@ -582,5 +582,19 @@ export const forensicsList: Array<{ code: string, validate: (team: string, user:
         blur: false
       };
     }
+  },
+  {
+    code: 'phone',
+    validate(team: string, user: any): IClue {
+      const randomClue = getRandomClue(this.code, 3);
+      return {
+        // tslint:disable-next-line:max-line-length
+        clue: 'You tap/bug the phone that Guard Ian was using. You overhear his conversations. This reveals useful information. ' + randomClue.clue,
+        alarm: false,
+        alarmMessage: null,
+        smash: false,
+        blur: false
+      };
+    }
   }
 ];
