@@ -770,6 +770,13 @@ export const codes: Array<{ code: string, validate: (team: string, user: any) =>
       return validateBox(this.code);
     }
   },
+  // man of the matches
+  {
+    code: '8754',
+    validate(): IClue {
+      return validateBox(this.code);
+    }
+  },
   // sabotage codes
   {
     code: '4979',
@@ -880,14 +887,28 @@ export const codes: Array<{ code: string, validate: (team: string, user: any) =>
   // unlock video
   {
     code: '2950',
-    validate(): IClue {
-      return validateMessage('Video 2 Unlocked - CSI Game Video Kids');
+    validate(team: string, user: any): IClue {
+      const alarm = user.career !== 'analyst';
+      return {
+        clue: 'Video 2 Unlocked - CSI Game Video Kids',
+        alarm,
+        alarmMessage: 'for espionage because they used an analyst only code',
+        smash: false,
+        blur: false
+      };
     }
   },
   {
     code: '9468',
-    validate(): IClue {
-      return validateMessage('Video 3 Unlocked - The Package');
+    validate(team: string, user: any): IClue {
+      const alarm = user.career !== 'analyst';
+      return {
+        clue: 'Video 3 Unlocked - The Package',
+        alarm,
+        alarmMessage: 'for espionage because they used an analyst only code',
+        smash: false,
+        blur: false
+      };
     }
   },
   // starter pack codes
