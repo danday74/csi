@@ -1218,6 +1218,20 @@ export const codes: Array<{ code: string, validate: (team: string, user: any) =>
       return validateClue(this.code, 2);
     }
   },
+  // training room
+  {
+    code: '1120',
+    validate(): IClue {
+      return validateClue(this.code, 2);
+    }
+  },
+  // on me
+  {
+    code: '0777',
+    validate(): IClue {
+      return validateClue(this.code, 2);
+    }
+  },
   // puzzles
   {
     code: '8062',
