@@ -1168,6 +1168,56 @@ export const codes: Array<{ code: string, validate: (team: string, user: any) =>
       return validateClue(this.code, 2);
     }
   },
+  // inv 17+
+  {
+    code: '1210',
+    validate(): IClue {
+      return validateClue(this.code, 2);
+    }
+  },
+  {
+    code: '7333',
+    validate(): IClue {
+      return validateClue(this.code, 2);
+    }
+  },
+  {
+    code: '7844',
+    validate(): IClue {
+      return validateClue(this.code, 2);
+    }
+  },
+  {
+    code: '7228',
+    validate(): IClue {
+      return validateClue(this.code, 2);
+    }
+  },
+  {
+    code: '7907',
+    validate(): IClue {
+      return validateClue(this.code, 2);
+    }
+  },
+  {
+    code: '7004',
+    validate(): IClue {
+      return validateClue(this.code, 2);
+    }
+  },
+  {
+    code: '7114',
+    validate(): IClue {
+      return validateClue(this.code, 2);
+    }
+  },
+  // inside rhino
+  {
+    code: '0082',
+    validate(): IClue {
+      return validateClue(this.code, 2);
+    }
+  },
   // puzzles
   {
     code: '8062',

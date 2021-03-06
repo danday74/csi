@@ -596,5 +596,314 @@ export const forensicsList: Array<{ code: string, validate: (team: string, user:
         blur: false
       };
     }
+  },
+  // samples
+  {
+    code: 'binoculars',
+    validate(team: string, user: any): IClue {
+      const randomClue = getRandomClue(this.code, 2);
+      return {
+        // tslint:disable-next-line:max-line-length
+        clue: 'You use the binoculars to spy on your suspects. This provides useful information. ' + randomClue.clue,
+        alarm: false,
+        alarmMessage: null,
+        smash: false,
+        blur: false
+      };
+    }
+  },
+  {
+    code: 'toilet roll',
+    validate(team: string, user: any): IClue {
+      const randomClue = getRandomClue(this.code, 1);
+      return {
+        // tslint:disable-next-line:max-line-length
+        clue: 'The criminal uses toilet paper. This really narrows down your list of suspects. ' + randomClue.clue,
+        alarm: false,
+        alarmMessage: null,
+        smash: false,
+        blur: false
+      };
+    }
+  },
+  {
+    code: 'toothpaste',
+    validate(team: string, user: any): IClue {
+      const randomClue = getRandomClue(this.code, 1);
+      return {
+        // tslint:disable-next-line:max-line-length
+        clue: 'The criminal cleans their teeth sometimes. A very unusual trait. ' + randomClue.clue,
+        alarm: false,
+        alarmMessage: null,
+        smash: false,
+        blur: false
+      };
+    }
+  },
+  {
+    code: 'candle',
+    validate(team: string, user: any): IClue {
+      const randomClue = getRandomClue(this.code, 1);
+      return {
+        // tslint:disable-next-line:max-line-length
+        clue: 'With you ornate skills of perception, you finally uncover the candle! How did you find it? ' + randomClue.clue,
+        alarm: false,
+        alarmMessage: null,
+        smash: false,
+        blur: false
+      };
+    }
+  },
+  {
+    code: 'rhino',
+    validate(team: string, user: any): IClue {
+      const randomClue = getRandomClue(this.code, 1);
+      return {
+        // tslint:disable-next-line:max-line-length
+        clue: 'Its too small to charge thankfully! You notice it has a lid. ' + randomClue.clue,
+        alarm: false,
+        alarmMessage: null,
+        smash: false,
+        blur: false
+      };
+    }
+  },
+  {
+    code: 'printer',
+    validate(team: string, user: any): IClue {
+      const randomClue = getRandomClue(this.code, 3);
+      return {
+        // tslint:disable-next-line:max-line-length
+        clue: randomClue.clue,
+        alarm: false,
+        alarmMessage: null,
+        smash: false,
+        blur: false
+      };
+    }
+  },
+  {
+    code: 'guitar',
+    validate(team: string, user: any): IClue {
+      const randomClue = getRandomClue(this.code, 2);
+      return {
+        // tslint:disable-next-line:max-line-length
+        clue: randomClue.clue,
+        alarm: false,
+        alarmMessage: null,
+        smash: false,
+        blur: false
+      };
+    }
+  },
+  {
+    code: 'kettle',
+    validate(team: string, user: any): IClue {
+      const randomClue = getRandomClue(this.code, 2);
+      return {
+        // tslint:disable-next-line:max-line-length
+        clue: randomClue.clue,
+        alarm: false,
+        alarmMessage: null,
+        smash: false,
+        blur: false
+      };
+    }
+  },
+  {
+    code: 'trainer',
+    validate(team: string, user: any): IClue {
+      const randomClue = getRandomClue(this.code, 2);
+      return {
+        // tslint:disable-next-line:max-line-length
+        clue: randomClue.clue,
+        alarm: false,
+        alarmMessage: null,
+        smash: false,
+        blur: false
+      };
+    }
+  },
+  {
+    code: 'dictionary',
+    validate(team: string, user: any): IClue {
+      const randomClue = getRandomClue(this.code, 2);
+      return {
+        // tslint:disable-next-line:max-line-length
+        clue: randomClue.clue,
+        alarm: false,
+        alarmMessage: null,
+        smash: false,
+        blur: false
+      };
+    }
+  },
+  {
+    code: 'feather',
+    validate(team: string, user: any): IClue {
+      const randomClue = getRandomClue(this.code, 2);
+      return {
+        // tslint:disable-next-line:max-line-length
+        clue: randomClue.clue,
+        alarm: false,
+        alarmMessage: null,
+        smash: false,
+        blur: false
+      };
+    }
+  },
+  {
+    code: 'onion',
+    validate(team: string, user: any): IClue {
+      const randomClue = getRandomClue(this.code, 2);
+      return {
+        // tslint:disable-next-line:max-line-length
+        clue: randomClue.clue,
+        alarm: false,
+        alarmMessage: null,
+        smash: false,
+        blur: false
+      };
+    }
+  },
+  {
+    code: 'clothes peg',
+    validate(team: string, user: any): IClue {
+      const randomClue = getRandomClue(this.code, 2);
+      return {
+        // tslint:disable-next-line:max-line-length
+        clue: randomClue.clue,
+        alarm: false,
+        alarmMessage: null,
+        smash: false,
+        blur: false
+      };
+    }
+  },
+  {
+    code: 'shell',
+    validate(team: string, user: any): IClue {
+      const randomClue = getRandomClue(this.code, 2);
+      return {
+        // tslint:disable-next-line:max-line-length
+        clue: randomClue.clue,
+        alarm: false,
+        alarmMessage: null,
+        smash: false,
+        blur: false
+      };
+    }
+  },
+  {
+    code: 'match',
+    validate(team: string, user: any): IClue {
+      const randomClue = getRandomClue(this.code, 2);
+      return {
+        // tslint:disable-next-line:max-line-length
+        clue: randomClue.clue,
+        alarm: false,
+        alarmMessage: null,
+        smash: false,
+        blur: false
+      };
+    }
+  },
+  {
+    code: 'battery',
+    validate(team: string, user: any): IClue {
+      const randomClue = getRandomClue(this.code, 2);
+      return {
+        // tslint:disable-next-line:max-line-length
+        clue: randomClue.clue,
+        alarm: false,
+        alarmMessage: null,
+        smash: false,
+        blur: false
+      };
+    }
+  },
+  {
+    code: 'hair',
+    validate(team: string, user: any): IClue {
+      const randomClue = getRandomClue(this.code, 2);
+      return {
+        // tslint:disable-next-line:max-line-length
+        clue: randomClue.clue,
+        alarm: false,
+        alarmMessage: null,
+        smash: false,
+        blur: false
+      };
+    }
+  },
+  {
+    code: 'sand',
+    validate(team: string, user: any): IClue {
+      const randomClue = getRandomClue(this.code, 1);
+      return {
+        // tslint:disable-next-line:max-line-length
+        clue: randomClue.clue,
+        alarm: false,
+        alarmMessage: null,
+        smash: false,
+        blur: false
+      };
+    }
+  },
+  {
+    code: 'plaster',
+    validate(team: string, user: any): IClue {
+      const randomClue = getRandomClue(this.code, 1);
+      return {
+        // tslint:disable-next-line:max-line-length
+        clue: randomClue.clue,
+        alarm: false,
+        alarmMessage: null,
+        smash: false,
+        blur: false
+      };
+    }
+  },
+  {
+    code: 'coin',
+    validate(team: string, user: any): IClue {
+      const randomClue = getRandomClue(this.code, 1);
+      return {
+        // tslint:disable-next-line:max-line-length
+        clue: randomClue.clue,
+        alarm: false,
+        alarmMessage: null,
+        smash: false,
+        blur: false
+      };
+    }
+  },
+  {
+    code: 'ruler',
+    validate(team: string, user: any): IClue {
+      const randomClue = getRandomClue(this.code, 1);
+      return {
+        // tslint:disable-next-line:max-line-length
+        clue: randomClue.clue,
+        alarm: false,
+        alarmMessage: null,
+        smash: false,
+        blur: false
+      };
+    }
+  },
+  {
+    code: 'comb',
+    validate(team: string, user: any): IClue {
+      const randomClue = getRandomClue(this.code, 1);
+      return {
+        // tslint:disable-next-line:max-line-length
+        clue: randomClue.clue,
+        alarm: false,
+        alarmMessage: null,
+        smash: false,
+        blur: false
+      };
+    }
   }
 ];
