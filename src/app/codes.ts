@@ -1244,6 +1244,18 @@ export const codes: Array<{ code: string, validate: (team: string, user: any) =>
       return validateBox(this.code);
     }
   },
+  {
+    code: '9031',
+    validate(): IClue {
+      return validateClue(this.code, 2);
+    }
+  },
+  {
+    code: '9033',
+    validate(): IClue {
+      return validateClue(this.code, 2);
+    }
+  },
   // weapons
   {
     code: '2020',
