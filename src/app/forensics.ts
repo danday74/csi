@@ -823,20 +823,6 @@ export const forensicsList: Array<{ code: string, validate: (team: string, user:
     }
   },
   {
-    code: 'hair',
-    validate(team: string, user: any): IClue {
-      const randomClue = getRandomClue(this.code, 2);
-      return {
-        // tslint:disable-next-line:max-line-length
-        clue: randomClue.clue,
-        alarm: false,
-        alarmMessage: null,
-        smash: false,
-        blur: false
-      };
-    }
-  },
-  {
     code: 'sand',
     validate(team: string, user: any): IClue {
       const randomClue = getRandomClue(this.code, 1);
